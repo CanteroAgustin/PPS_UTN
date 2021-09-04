@@ -30,7 +30,7 @@ export default function SignupScreen({ navigation }) {
         await auth.createUserWithEmailAndPassword(email, password);
       }
     } catch (error) {
-      setSignupError(error.message);
+      setSignupError(error);
     }
   };
 

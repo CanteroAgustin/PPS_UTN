@@ -31,7 +31,7 @@ export default function LoginScreen({ navigation }) {
         await auth.signInWithEmailAndPassword(email, password);
       }
     } catch (error) {
-      setLoginError(error.message);
+      setLoginError(error);
     }
   };
 
@@ -55,6 +55,7 @@ export default function LoginScreen({ navigation }) {
         autoFocus={true}
         value={email}
         onChangeText={text => setEmail(text)}
+        validateNames={['minNumber:1', 'maxNumber:255', 'matchRegexp:^[0-9]$']}
       />
       <InputField
         inputStyle={{
