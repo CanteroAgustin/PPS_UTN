@@ -8,11 +8,14 @@ const Button = ({
   titleSize = 14,
   onPress,
   width = '100%',
-  containerStyle
+  containerStyle,
+  disabled
 }) => {
+  { console.log('disabled>' + disabled) }
   return (
     <Pressable
       onPress={onPress}
+      disabled={disabled}
       style={args => {
         if (args.pressed) {
           return [
@@ -40,7 +43,7 @@ const Button = ({
       <Text style={[styles.text, { color: titleColor, fontSize: titleSize }]}>
         {title}
       </Text>
-    </Pressable>
+    </Pressable >
   );
 };
 
