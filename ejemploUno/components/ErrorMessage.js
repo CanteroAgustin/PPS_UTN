@@ -25,6 +25,10 @@ const ErrorMessage = ({ error, visible }) => {
       mensaje = authErrors.authUserNotFound;
       break;
     }
+    case 'auth/email-already-in-use': {
+      mensaje = authErrors.authEmailAlreadyInUse;
+      break;
+    }
   }
   return <Text style={styles.errorText}>⚠️ {mensaje}</Text>;
 };

@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -14,10 +14,6 @@ export default function LoginScreen({ navigation }) {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState('eye');
   const [loginError, setLoginError] = useState('');
-
-  // useEffect(() => {
-  //   Formik.resetForm();
-  // });
 
   const handlePasswordVisibility = () => {
     if (rightIcon === 'eye') {
