@@ -1,7 +1,18 @@
+import { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import Routes from './navigation';
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync()
+  .then(result => console.log(`SplashScreen.preventAutoHideAsync() succeeded: ${result}`))
+  .catch(console.warn);
 
 export default function App() {
+  useEffect(() => {
+    setTimeout(async () => {
+      await SplashScreen.hideAsync();
+    }, 2000);
+  }, [])
   return Routes();
 }
 
