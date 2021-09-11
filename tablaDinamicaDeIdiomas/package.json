@@ -15,6 +15,7 @@
     "expo-status-bar": "~1.0.4",
     "firebase": "8.2.3",
     "formik": "^2.2.9",
+    "native-base": "^3.1.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-lifecycles-compat": "^3.0.4",
@@ -22,8 +23,12 @@
     "react-native-gesture-handler": "~1.10.2",
     "react-native-reanimated": "~2.2.0",
     "react-native-web": "~0.13.12",
+    "styled-components": "^5.3.1",
+    "styled-system": "^5.1.5",
     "validate-form-in-expo-style": "^1.0.9",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "react-native-svg": "12.1.1",
+    "react-native-safe-area-context": "3.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

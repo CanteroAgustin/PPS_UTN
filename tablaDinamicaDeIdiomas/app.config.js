@@ -9,8 +9,8 @@ export default {
     icon: './assets/icon.png',
     splash: {
       image: './assets/splash.png',
-      resizeMode: 'contain',
-      backgroundColor: '#e8eaf6'
+      resizeMode: 'cover',
+      backgroundColor: '#fff'
     },
     updates: {
       fallbackToCacheTimeout: 0
@@ -22,7 +22,7 @@ export default {
     android: {
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
-        backgroundColor: '#FFFFFF'
+        backgroundColor: '#ff6d3b'
       },
       package: "com.agustincantero.tablaDinamicaDeIdiomas",
       versionCode: 1

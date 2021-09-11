@@ -11,7 +11,6 @@ const Button = ({
   containerStyle,
   disabled
 }) => {
-  { console.log('disabled>' + disabled) }
   return (
     <Pressable
       onPress={onPress}
