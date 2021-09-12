@@ -6,6 +6,7 @@ import Firebase from '../config/firebase';
 import { AuthenticatedUserContext } from './AuthenticatedUserProvider';
 import AuthStack from './AuthStack';
 import HomeStack from './HomeStack';
+import SplashScreen from '../screens/SplashScreen';
 
 const auth = Firebase.auth();
 
