@@ -1,12 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
-import { Button, InputField, ErrorMessage } from '../components';
-import Firebase from '../config/firebase';
 import { Formik } from 'formik';
-import { loginValidationSchema } from '../schemas/loginSchema'
+import React, { useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { Button, ErrorMessage, InputField } from '../components';
+import Firebase from '../config/firebase';
+import { loginValidationSchema } from '../schemas/loginSchema';
 
 const auth = Firebase.auth();
 
@@ -14,6 +12,7 @@ export default function LoginScreen({ navigation }) {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState('eye');
   const [loginError, setLoginError] = useState('');
+  const [isLoading, setIsLoading] = useState('');
 
   const handlePasswordVisibility = () => {
     if (rightIcon === 'eye') {
@@ -29,13 +28,25 @@ export default function LoginScreen({ navigation }) {
     <View style={styles.container}>
       <StatusBar style='dark-content' />
       <Text style={styles.title}>Login</Text>
+      {(isLoading) ?
+        <ActivityIndicator size='large' color="#00ff00" /> : null}
       <Formik
         validationSchema={loginValidationSchema}
         initialValues={{ email: '', password: '' }}
         onSubmit={(values, { resetForm }) => {
           if (values.email !== '' && values.password !== '') {
-            auth.signInWithEmailAndPassword(values.email, values.password).catch(error => setLoginError(error));
-            resetForm();
+            setIsLoading(true);
+            auth.signInWithEmailAndPassword(values.email, values.password)
+              .then(() => {
+                setTimeout(function () {
+                  setIsLoading(false);
+                  resetForm();
+                }, 3000)
+              }).catch(error => {
+                resetForm();
+                setIsLoading(false);
+                setLoginError(error)
+              });
           }
         }}>
         {(props) => (
@@ -56,8 +67,7 @@ export default function LoginScreen({ navigation }) {
               autoFocus={true}
               onChangeText={props.handleChange('email')}
               onBlur={props.handleBlur('email')}
-              value={props.values.email}
-            />
+              value={props.values.email} />
             <InputField
               inputStyle={{
                 fontSize: 14
@@ -76,15 +86,12 @@ export default function LoginScreen({ navigation }) {
               handlePasswordVisibility={handlePasswordVisibility}
               onChangeText={props.handleChange('password')}
               onBlur={props.handleBlur('password')}
-              value={props.values.password}
-            />
+              value={props.values.password} />
             {loginError ? <ErrorMessage error={loginError} visible={true} /> : null}
             {props.errors.email &&
-              <Text style={styles.errorMsg}>{props.errors.email}</Text>
-            }
+              <Text style={styles.errorMsg}>{props.errors.email}</Text>}
             {props.errors.password &&
-              <Text style={styles.errorMsg}>{props.errors.password}</Text>
-            }
+              <Text style={styles.errorMsg}>{props.errors.password}</Text>}
             <Button
               onPress={props.handleSubmit}
               backgroundColor='#757ce8'
@@ -94,17 +101,16 @@ export default function LoginScreen({ navigation }) {
               containerStyle={{
                 marginBottom: 24
               }}
-              disabled={!props.isValid}
-            />
+              disabled={!props.isValid} />
             <Button
               onPress={() => navigation.navigate('Signup')}
               title='Registrarme'
               backgroundColor='#ff7961'
-              titleSize={20}
-            />
+              titleSize={20} />
           </View>
         )}
       </Formik>
+
     </View>
   );
 }

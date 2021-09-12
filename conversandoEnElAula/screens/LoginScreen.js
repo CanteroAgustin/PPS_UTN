@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
 import { Button, InputField, ErrorMessage } from '../components';
 import Firebase from '../config/firebase';
@@ -14,6 +14,7 @@ export default function LoginScreen({ navigation }) {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState('eye');
   const [loginError, setLoginError] = useState('');
+  const [isLoading, setIsLoading] = useState('');
 
   const handlePasswordVisibility = () => {
     if (rightIcon === 'eye') {
@@ -29,13 +30,24 @@ export default function LoginScreen({ navigation }) {
     <View style={styles.container}>
       <StatusBar style='dark-content' />
       <Text style={styles.title}>Login</Text>
+      {(isLoading) ?
+        <ActivityIndicator size='large' color="#00ff00" /> : null}
       <Formik
         validationSchema={loginValidationSchema}
         initialValues={{ email: '', password: '' }}
         onSubmit={(values, { resetForm }) => {
           if (values.email !== '' && values.password !== '') {
-            auth.signInWithEmailAndPassword(values.email, values.password).catch(error => setLoginError(error));
-            resetForm();
+            setIsLoading(true);
+            auth.signInWithEmailAndPassword(values.email, values.password).then(() => {
+              setTimeout(() => {
+                setIsLoading(false);
+                resetForm();
+              }, 3000)
+            }).catch(error => {
+              resetForm();
+              setIsLoading(false);
+              setLoginError(error)
+            });
           }
         }}>
         {(props) => (

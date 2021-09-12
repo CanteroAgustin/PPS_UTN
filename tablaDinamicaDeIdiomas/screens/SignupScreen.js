@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Button, InputField, ErrorMessage } from '../components';
 import Firebase from '../config/firebase';
 import { Formik } from 'formik';
@@ -13,6 +13,7 @@ export default function SignupScreen({ navigation }) {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState('eye');
   const [signupError, setSignupError] = useState('');
+  const [isLoading, setIsLoading] = useState('');
 
   const handlePasswordVisibility = () => {
     if (rightIcon === 'eye') {
@@ -28,13 +29,26 @@ export default function SignupScreen({ navigation }) {
     <View style={styles.container}>
       <StatusBar style='dark-content' />
       <Text style={styles.title}>Crear una cuenta</Text>
+      {(isLoading) ?
+        <ActivityIndicator size='large' color="#00ff00" /> : null}
       <Formik
         validationSchema={signupValidationSchema}
         initialValues={{ email: '', password: '' }}
         onSubmit={(values, { resetForm }) => {
           if (values.email !== '' && values.password !== '') {
-            auth.createUserWithEmailAndPassword(values.email, values.password).catch(error => setSignupError(error));
-            resetForm();
+            setIsLoading(true);
+            auth.createUserWithEmailAndPassword(values.email, values.password)
+              .then(() => {
+                setTimeout(() => {
+                  setIsLoading(false);
+                  resetForm();
+                }, 3000)
+              })
+              .catch(error => {
+                resetForm();
+                setIsLoading(false);
+                setSignupError(error);
+              });
           }
         }}>
         {(props) => (
