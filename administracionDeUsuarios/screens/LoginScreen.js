@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { Formik } from 'formik';
 import React, { useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import * as Progress from 'react-native-progress';
 import { Button, ErrorMessage, InputField } from '../components';
 import Firebase from '../config/firebase';
 import { loginValidationSchema } from '../schemas/loginSchema';
@@ -12,7 +13,7 @@ export default function LoginScreen({ navigation }) {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState('eye');
   const [loginError, setLoginError] = useState('');
-  const [isLoading, setIsLoading] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handlePasswordVisibility = () => {
     if (rightIcon === 'eye') {
@@ -28,8 +29,17 @@ export default function LoginScreen({ navigation }) {
     <View style={styles.container}>
       <StatusBar style='dark-content' />
       <Text style={styles.title}>Login</Text>
+      {/* {(isLoading) ?
+        <ActivityIndicator size='large' color="#bc2b78" style={styles.activityIndicator} /> : null} */}
       {(isLoading) ?
-        <ActivityIndicator size='large' color="#00ff00" /> : null}
+        <Progress.Pie size={60} indeterminate={true} style={styles.spinner} color='#17a2b8' /> : null}
+      {/* <Spinner
+        size='large'
+        visible={isLoading}
+        textContent={'Loading...'}
+        textStyle={styles.spinnerTextStyle}
+        animation='slide'
+      /> */}
       <Formik
         validationSchema={loginValidationSchema}
         initialValues={{ email: '', password: '' }}
@@ -39,12 +49,12 @@ export default function LoginScreen({ navigation }) {
             auth.signInWithEmailAndPassword(values.email, values.password)
               .then(() => {
                 setTimeout(function () {
-                  setIsLoading(false);
+                  //setIsLoading(false);
                   resetForm();
-                }, 3000)
+                }, 5000)
               }).catch(error => {
                 resetForm();
-                setIsLoading(false);
+                //setIsLoading(false);
                 setLoginError(error)
               });
           }
@@ -60,7 +70,7 @@ export default function LoginScreen({ navigation }) {
                 marginBottom: 20
               }}
               leftIcon='email'
-              placeholder='Enter email'
+              placeholder='Correo electronico'
               autoCapitalize='none'
               keyboardType='email-address'
               textContentType='emailAddress'
@@ -77,7 +87,7 @@ export default function LoginScreen({ navigation }) {
                 marginBottom: 20
               }}
               leftIcon='lock'
-              placeholder='Enter password'
+              placeholder='Contraseña'
               autoCapitalize='none'
               autoCorrect={false}
               secureTextEntry={passwordVisibility}
@@ -94,24 +104,28 @@ export default function LoginScreen({ navigation }) {
               <Text style={styles.errorMsg}>{props.errors.password}</Text>}
             <Button
               onPress={props.handleSubmit}
-              backgroundColor='#757ce8'
-              title='Login'
+              backgroundColor='#17a2b8'
+              title='Ingresar'
               tileColor='#fff'
               titleSize={20}
               containerStyle={{
                 marginBottom: 24
               }}
               disabled={!props.isValid} />
-            <Button
-              onPress={() => navigation.navigate('Signup')}
-              title='Registrarme'
-              backgroundColor='#ff7961'
-              titleSize={20} />
+            <View style={styles.inline}>
+              <Text style={styles.textButton}>No tengo una cuenta, </Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Signup')}
+              >
+                <Text style={styles.textButtonLink}>Registrarme.</Text>
+              </TouchableOpacity>
+            </View>
+
           </View>
         )}
-      </Formik>
+      </Formik >
 
-    </View>
+    </View >
   );
 }
 
@@ -125,7 +139,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: '600',
-    color: '#fff',
+    color: '#17a2b8',
     alignSelf: 'center',
     paddingBottom: 24
   },
@@ -134,5 +148,32 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 10,
     fontWeight: '600'
+  },
+  button: {
+    alignItems: "center",
+  },
+  textButton: {
+    color: 'black',
+    fontSize: 18
+  },
+  textButtonLink: {
+    color: "#0000FF",
+    fontSize: 18,
+  },
+  inline: {
+    flexDirection: 'row'
+  },
+  activityIndicator: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 80
+  },
+  spinnerTextStyle: {
+    color: '#FFF',
+  },
+  spinner: {
+    alignItems: 'center',
+    padding: 5
   }
 });

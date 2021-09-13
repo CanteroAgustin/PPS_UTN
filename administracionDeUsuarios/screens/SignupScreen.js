@@ -30,7 +30,7 @@ export default function SignupScreen({ navigation }) {
       <StatusBar style='dark-content' />
       <Text style={styles.title}>Crear una cuenta</Text>
       {(isLoading) ?
-        <ActivityIndicator size='large' color="#00ff00" /> : null}
+        <ActivityIndicator size='large' color="#bc2b78" style={styles.activityIndicator} /> : null}
       <Formik
         validationSchema={signupValidationSchema}
         initialValues={{ email: '', password: '' }}
@@ -62,7 +62,7 @@ export default function SignupScreen({ navigation }) {
                 marginBottom: 20
               }}
               leftIcon='email'
-              placeholder='Enter email'
+              placeholder='Correo electronico'
               autoCapitalize='none'
               keyboardType='email-address'
               textContentType='emailAddress'
@@ -80,7 +80,7 @@ export default function SignupScreen({ navigation }) {
                 marginBottom: 20
               }}
               leftIcon='lock'
-              placeholder='Enter password'
+              placeholder='Contraseña'
               autoCapitalize='none'
               autoCorrect={false}
               secureTextEntry={passwordVisibility}
@@ -100,8 +100,8 @@ export default function SignupScreen({ navigation }) {
             }
             <Button
               onPress={props.handleSubmit}
-              backgroundColor='#ff7961'
-              title='Signup'
+              backgroundColor='#17a2b8'
+              title='Registrarme'
               tileColor='#fff'
               titleSize={20}
               containerStyle={{
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: '600',
-    color: '#fff',
+    color: '#17a2b8',
     alignSelf: 'center',
     paddingBottom: 24
   },
@@ -148,5 +148,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 10,
     fontWeight: '600'
+  },
+  activityIndicator: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 80
   }
 });

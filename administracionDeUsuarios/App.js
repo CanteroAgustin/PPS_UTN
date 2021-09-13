@@ -8,6 +8,11 @@ SplashScreen.preventAutoHideAsync()
   .catch(console.warn);
 
 export default function App() {
+  useEffect(() => {
+    setTimeout(async () => {
+      await SplashScreen.hideAsync();
+    }, 2000);
+  }, [])
   return Routes();
 }
 
