@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   base: {
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 42,
+    minHeight: 68,
     borderRadius: 4,
     paddingHorizontal: 12
   }

@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator, Image } from 'react-native';
 import { Button, InputField, ErrorMessage } from '../components';
 import Firebase from '../config/firebase';
 import { Formik } from 'formik';
@@ -28,7 +28,10 @@ export default function SignupScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style='dark-content' />
-      <Text style={styles.title}>Crear una cuenta</Text>
+      <Image
+        style={styles.loginImg}
+        source={require('../assets/register.png')}
+      />
       {(isLoading) ?
         <ActivityIndicator size='large' color="#00ff00" /> : null}
       <Formik
@@ -58,7 +61,7 @@ export default function SignupScreen({ navigation }) {
                 fontSize: 14
               }}
               containerStyle={{
-                backgroundColor: '#fff',
+                backgroundColor: '#f0e7c5',
                 marginBottom: 20
               }}
               leftIcon='email'
@@ -73,10 +76,10 @@ export default function SignupScreen({ navigation }) {
             />
             <InputField
               inputStyle={{
-                fontSize: 14
+                fontSize: 14,
               }}
               containerStyle={{
-                backgroundColor: '#fff',
+                backgroundColor: '#f0e7c5',
                 marginBottom: 20
               }}
               leftIcon='lock'
@@ -148,5 +151,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 10,
     fontWeight: '600'
+  },
+  loginImg: {
+    height: 122,
+    margin: 10,
+    width: 100,
+    alignSelf: 'center'
   }
 });

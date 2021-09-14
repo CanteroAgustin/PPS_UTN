@@ -6,6 +6,7 @@ import { Button, InputField, ErrorMessage } from '../components';
 import Firebase from '../config/firebase';
 import { Formik } from 'formik';
 import { signupValidationSchema } from '../schemas/signupSchema'
+import * as Progress from 'react-native-progress';
 
 const auth = Firebase.auth();
 
@@ -30,7 +31,7 @@ export default function SignupScreen({ navigation }) {
       <StatusBar style='dark-content' />
       <Text style={styles.title}>Crear una cuenta</Text>
       {(isLoading) ?
-        <ActivityIndicator size='large' color="#bc2b78" style={styles.activityIndicator} /> : null}
+        <Progress.Pie size={60} indeterminate={true} style={styles.spinner} color='#17a2b8' /> : null}
       <Formik
         validationSchema={signupValidationSchema}
         initialValues={{ email: '', password: '' }}
@@ -149,10 +150,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontWeight: '600'
   },
-  activityIndicator: {
-    flex: 1,
-    justifyContent: 'center',
+  spinner: {
     alignItems: 'center',
-    height: 80
+    padding: 5
   }
 });

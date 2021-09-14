@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View, Image } from 'react-native';
 
 import { Button, InputField, ErrorMessage } from '../components';
 import Firebase from '../config/firebase';
@@ -28,8 +28,11 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <Image
+        style={styles.loginImg}
+        source={require('../assets/login.png')}
+      />
       <StatusBar style='dark-content' />
-      <Text style={styles.title}>Login</Text>
       {(isLoading) ?
         <ActivityIndicator size='large' color="#00ff00" /> : null}
       <Formik
@@ -57,7 +60,7 @@ export default function LoginScreen({ navigation }) {
                 fontSize: 14
               }}
               containerStyle={{
-                backgroundColor: '#fff',
+                backgroundColor: '#f0e7c5',
                 marginBottom: 20
               }}
               leftIcon='email'
@@ -75,7 +78,7 @@ export default function LoginScreen({ navigation }) {
                 fontSize: 14
               }}
               containerStyle={{
-                backgroundColor: '#fff',
+                backgroundColor: '#f0e7c5',
                 marginBottom: 20
               }}
               leftIcon='lock'
@@ -109,7 +112,12 @@ export default function LoginScreen({ navigation }) {
               disabled={!props.isValid}
             />
             <Button
-              onPress={() => navigation.navigate('Signup')}
+              onPress={() => {
+                setTimeout(() => {
+                  props.resetForm();
+                }, 1000)
+                navigation.navigate('Signup');
+              }}
               title='Registrarme'
               backgroundColor='#ff7961'
               titleSize={20}
@@ -140,5 +148,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 10,
     fontWeight: '600'
+  },
+  loginImg: {
+    height: 120,
+    margin: 20,
+    width: 120,
+    alignSelf: 'center'
   }
 });

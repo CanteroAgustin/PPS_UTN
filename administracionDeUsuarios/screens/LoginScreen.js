@@ -49,12 +49,12 @@ export default function LoginScreen({ navigation }) {
             auth.signInWithEmailAndPassword(values.email, values.password)
               .then(() => {
                 setTimeout(function () {
-                  //setIsLoading(false);
+                  setIsLoading(false);
                   resetForm();
                 }, 5000)
               }).catch(error => {
                 resetForm();
-                //setIsLoading(false);
+                setIsLoading(false);
                 setLoginError(error)
               });
           }
@@ -115,7 +115,12 @@ export default function LoginScreen({ navigation }) {
             <View style={styles.inline}>
               <Text style={styles.textButton}>No tengo una cuenta, </Text>
               <TouchableOpacity
-                onPress={() => navigation.navigate('Signup')}
+                onPress={() => {
+                  setTimeout(() => {
+                    props.resetForm();
+                  }, 1000)
+                  navigation.navigate('Signup');
+                }}
               >
                 <Text style={styles.textButtonLink}>Registrarme.</Text>
               </TouchableOpacity>

@@ -97,7 +97,12 @@ export default function LoginScreen({ navigation }) {
               disabled={!props.isValid}
             />
             <Button
-              onPress={() => navigation.navigate('Signup')}
+              onPress={() => {
+                setTimeout(() => {
+                  props.resetForm();
+                }, 1000)
+                navigation.navigate('Signup');
+              }}
               title='Registrarme'
               backgroundColor='#ff7961'
               titleSize={20}

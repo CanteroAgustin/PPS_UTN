@@ -60,7 +60,7 @@ export default function SplashScreen({ navigation }) {
   }, [moveAnim, fadeAnim, fadeAnimText, moveLeftAnim, movebottomTextAnim]);
 
   setTimeout(() => {
-    navigation.navigate('Login');
+    navigation.replace('Login');
   }, 5000)
   return (
     <SafeAreaView style={styles.container}>
