@@ -1,15 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { useState } from 'react';
+import { Formik, useFormikContext } from 'formik';
+import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
-
-import { Button, InputField, ErrorMessage, IconButton } from '../components';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ErrorMessage, IconButton, InputField } from '../components';
 import Firebase from '../config/firebase';
-import { Formik } from 'formik';
-import { loginValidationSchema } from '../schemas/loginSchema'
+import { loginValidationSchema } from '../schemas/loginSchema';
+
 
 const auth = Firebase.auth();
-
+const { validateForm } = useFormikContext;
 export default function LoginScreen({ navigation }) {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState('eye');
@@ -29,7 +29,6 @@ export default function LoginScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style='dark-content' />
-      <Text style={styles.title}>Login</Text>
       {(isLoading) ?
         <ActivityIndicator size='large' color="#00ff00" /> : null}
       <Formik
@@ -52,6 +51,17 @@ export default function LoginScreen({ navigation }) {
         }}>
         {(props) => (
           <View>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>Ingreso a la app</Text>
+              <IconButton
+                onPress={props.handleSubmit}
+                color='#FFF'
+                backgroundColor='#1c8155'
+                size={40}
+                name='arrowright'
+                disabled={!props.isValid}
+              />
+            </View>
             <InputField
               inputStyle={{
                 fontSize: 14
@@ -61,7 +71,7 @@ export default function LoginScreen({ navigation }) {
                 marginBottom: 20
               }}
               leftIcon='email'
-              placeholder='Enter email'
+              placeholder='Correo electronico'
               autoCapitalize='none'
               keyboardType='email-address'
               textContentType='emailAddress'
@@ -79,7 +89,7 @@ export default function LoginScreen({ navigation }) {
                 marginBottom: 20
               }}
               leftIcon='lock'
-              placeholder='Enter password'
+              placeholder='Contraseña'
               autoCapitalize='none'
               autoCorrect={false}
               secureTextEntry={passwordVisibility}
@@ -97,25 +107,18 @@ export default function LoginScreen({ navigation }) {
             {props.errors.password &&
               <Text style={styles.errorMsg}>{props.errors.password}</Text>
             }
-            <IconButton
-              onPress={props.handleSubmit}
-              color='#FFF'
-              backgroundColor='#34eb43'
-              size={80}
-              name='arrowright'
-              disabled={!props.isValid}
-            />
-            <Button
+
+            <TouchableOpacity
+              style={styles.button}
               onPress={() => {
                 setTimeout(() => {
                   props.resetForm();
                 }, 1000)
                 navigation.navigate('Signup');
               }}
-              title='Registrarme'
-              backgroundColor='#ff7961'
-              titleSize={20}
-            />
+            >
+              <Text style={styles.textButton}>Registrarme.</Text>
+            </TouchableOpacity>
           </View>
         )}
       </Formik>
@@ -126,21 +129,34 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e8eaf6',
+    backgroundColor: '#FFEE9C',
     paddingTop: 50,
     paddingHorizontal: 12
+  },
+  titleContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    padding: 50,
+    justifyContent: 'space-between'
   },
   title: {
     fontSize: 24,
     fontWeight: '600',
     color: '#fff',
     alignSelf: 'center',
-    paddingBottom: 24
+    paddingBottom: 24,
   },
   errorMsg: {
     color: '#fdca40',
     fontSize: 20,
     marginBottom: 10,
     fontWeight: '600'
-  }
+  },
+  button: {
+    alignItems: "center",
+  },
+  textButton: {
+    color: "#0000FF",
+    fontSize: 18
+  },
 });

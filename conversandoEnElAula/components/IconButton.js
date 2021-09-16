@@ -28,10 +28,11 @@ const IconButton = ({ color, size, onPress, name, disabled, backgroundColor = 't
 
 const styles = StyleSheet.create({
   base: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 4,
-    marginBottom: 24
+    alignSelf: 'center',
+    borderRadius: 100,
+    marginBottom: 24,
+    width: 60,
+    alignItems: 'center'
   }
 });
 

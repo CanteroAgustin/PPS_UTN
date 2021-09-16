@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Pressable, Text } from 'react-native';
-import { Icon } from 'react-native-elements'
 
 const Button = ({
   title,

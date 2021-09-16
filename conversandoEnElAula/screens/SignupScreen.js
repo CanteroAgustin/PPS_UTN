@@ -1,11 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { Button, InputField, ErrorMessage } from '../components';
-import Firebase from '../config/firebase';
 import { Formik } from 'formik';
-import { signupValidationSchema } from '../schemas/signupSchema'
+import React, { useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ErrorMessage, IconButton, InputField } from '../components';
+import Firebase from '../config/firebase';
+import { signupValidationSchema } from '../schemas/signupSchema';
 
 const auth = Firebase.auth();
 
@@ -28,7 +27,6 @@ export default function SignupScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style='dark-content' />
-      <Text style={styles.title}>Crear una cuenta</Text>
       {(isLoading) ?
         <ActivityIndicator size='large' color="#00ff00" /> : null}
       <Formik
@@ -53,6 +51,17 @@ export default function SignupScreen({ navigation }) {
         }}>
         {(props) => (
           <View>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>Crear una cuenta</Text>
+              <IconButton
+                onPress={props.handleSubmit}
+                color='#FFF'
+                backgroundColor='#1c8155'
+                size={40}
+                name='arrowright'
+                disabled={!props.isValid}
+              />
+            </View>
             <InputField
               inputStyle={{
                 fontSize: 14
@@ -62,7 +71,7 @@ export default function SignupScreen({ navigation }) {
                 marginBottom: 20
               }}
               leftIcon='email'
-              placeholder='Enter email'
+              placeholder='Correo electronico'
               autoCapitalize='none'
               keyboardType='email-address'
               textContentType='emailAddress'
@@ -80,7 +89,7 @@ export default function SignupScreen({ navigation }) {
                 marginBottom: 20
               }}
               leftIcon='lock'
-              placeholder='Enter password'
+              placeholder='Contraseña'
               autoCapitalize='none'
               autoCorrect={false}
               secureTextEntry={passwordVisibility}
@@ -98,17 +107,6 @@ export default function SignupScreen({ navigation }) {
             {props.errors.password &&
               <Text style={styles.errorMsg}>{props.errors.password}</Text>
             }
-            <Button
-              onPress={props.handleSubmit}
-              backgroundColor='#ff7961'
-              title='Signup'
-              tileColor='#fff'
-              titleSize={20}
-              containerStyle={{
-                marginBottom: 24
-              }}
-              disabled={!props.isValid}
-            />
             <TouchableOpacity
               style={styles.button}
               onPress={() => navigation.navigate('Login')}
@@ -125,7 +123,7 @@ export default function SignupScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e8eaf6',
+    backgroundColor: '#FFEE9C',
     paddingTop: 50,
     paddingHorizontal: 12
   },
@@ -148,5 +146,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 10,
     fontWeight: '600'
-  }
+  },
+  titleContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    padding: 50,
+    justifyContent: 'space-between'
+  },
 });
