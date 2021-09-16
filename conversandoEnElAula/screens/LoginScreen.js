@@ -3,7 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
-import { Button, InputField, ErrorMessage } from '../components';
+import { Button, InputField, ErrorMessage, IconButton } from '../components';
 import Firebase from '../config/firebase';
 import { Formik } from 'formik';
 import { loginValidationSchema } from '../schemas/loginSchema'
@@ -97,15 +97,12 @@ export default function LoginScreen({ navigation }) {
             {props.errors.password &&
               <Text style={styles.errorMsg}>{props.errors.password}</Text>
             }
-            <Button
+            <IconButton
               onPress={props.handleSubmit}
-              backgroundColor='#757ce8'
-              title='Login'
-              tileColor='#fff'
-              titleSize={20}
-              containerStyle={{
-                marginBottom: 24
-              }}
+              color='#FFF'
+              backgroundColor='#34eb43'
+              size={80}
+              name='arrowright'
               disabled={!props.isValid}
             />
             <Button

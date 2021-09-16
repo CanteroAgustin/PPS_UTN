@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
-const IconButton = ({ color, size, onPress, name }) => {
+const IconButton = ({ color, size, onPress, name, disabled, backgroundColor = 'transparent' }) => {
   return (
     <Pressable
       style={args => {
@@ -11,14 +11,15 @@ const IconButton = ({ color, size, onPress, name }) => {
             styles.base,
             {
               opacity: 0.5,
-              backgroundColor: 'transparent'
+              backgroundColor
             }
           ];
         }
 
-        return [styles.base, { opacity: 1, backgroundColor: 'transparent' }];
+        return [styles.base, { opacity: 1, backgroundColor }];
       }}
       onPress={onPress}
+      disabled={disabled}
     >
       <AntDesign name={name} size={size} color={color} />
     </Pressable>
@@ -28,7 +29,9 @@ const IconButton = ({ color, size, onPress, name }) => {
 const styles = StyleSheet.create({
   base: {
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderRadius: 4,
+    marginBottom: 24
   }
 });
 
