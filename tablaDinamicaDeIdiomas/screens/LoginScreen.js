@@ -1,11 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 
 import { Button, InputField, ErrorMessage } from '../components';
 import Firebase from '../config/firebase';
-import { Formik } from 'formik';
+import { Formik, useFormikContext } from 'formik';
 import { loginValidationSchema } from '../schemas/loginSchema'
 
 const auth = Firebase.auth();
@@ -15,6 +14,11 @@ export default function LoginScreen({ navigation }) {
   const [rightIcon, setRightIcon] = useState('eye');
   const [loginError, setLoginError] = useState('');
   const [isLoading, setIsLoading] = useState('');
+  const { validateForm } = useFormikContext;
+
+  useEffect(() => {
+    validateForm;
+  }, [])
 
   const handlePasswordVisibility = () => {
     if (rightIcon === 'eye') {
@@ -61,7 +65,7 @@ export default function LoginScreen({ navigation }) {
                 marginBottom: 20
               }}
               leftIcon='email'
-              placeholder='Enter email'
+              placeholder='Correo electronico'
               autoCapitalize='none'
               keyboardType='email-address'
               textContentType='emailAddress'
@@ -79,7 +83,7 @@ export default function LoginScreen({ navigation }) {
                 marginBottom: 20
               }}
               leftIcon='lock'
-              placeholder='Enter password'
+              placeholder='Contraseña'
               autoCapitalize='none'
               autoCorrect={false}
               secureTextEntry={passwordVisibility}
@@ -91,10 +95,10 @@ export default function LoginScreen({ navigation }) {
               value={props.values.password}
             />
             {loginError ? <ErrorMessage error={loginError} visible={true} /> : null}
-            {props.errors.email &&
+            {props.errors.email && props.dirty && props.touched.email &&
               <Text style={styles.errorMsg}>{props.errors.email}</Text>
             }
-            {props.errors.password &&
+            {props.errors.password && props.dirty && props.touched.password &&
               <Text style={styles.errorMsg}>{props.errors.password}</Text>
             }
             <Button

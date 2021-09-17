@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { Formik } from 'formik';
-import React, { useState } from 'react';
+import { Formik, useFormikContext } from 'formik';
+import React, { useState, React } from 'react';
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ErrorMessage, IconButton, InputField } from '../components';
 import Firebase from '../config/firebase';
@@ -13,6 +13,11 @@ export default function SignupScreen({ navigation }) {
   const [rightIcon, setRightIcon] = useState('eye');
   const [signupError, setSignupError] = useState('');
   const [isLoading, setIsLoading] = useState('');
+  const { validateForm } = useFormikContext;
+
+  useEffect(() => {
+    validateForm;
+  }, [])
 
   const handlePasswordVisibility = () => {
     if (rightIcon === 'eye') {
@@ -101,15 +106,20 @@ export default function SignupScreen({ navigation }) {
               handlePasswordVisibility={handlePasswordVisibility}
             />
             {signupError ? <ErrorMessage error={signupError} visible={true} /> : null}
-            {props.errors.email &&
+            {props.errors.email && props.dirty && props.touched.email &&
               <Text style={styles.errorMsg}>{props.errors.email}</Text>
             }
-            {props.errors.password &&
+            {props.errors.password && props.dirty && props.touched.password &&
               <Text style={styles.errorMsg}>{props.errors.password}</Text>
             }
             <TouchableOpacity
               style={styles.button}
-              onPress={() => navigation.navigate('Login')}
+              onPress={() => {
+                setTimeout(() => {
+                  props.resetForm();
+                }, 1000)
+                navigation.navigate('Login');
+              }}
             >
               <Text style={styles.textButton}>Ya tengo una cuenta.</Text>
             </TouchableOpacity>

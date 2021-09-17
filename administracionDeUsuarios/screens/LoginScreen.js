@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { Formik } from 'formik';
-import React, { useState } from 'react';
+import { Formik, useFormikContext } from 'formik';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as Progress from 'react-native-progress';
 import { Button, ErrorMessage, InputField } from '../components';
@@ -14,6 +14,11 @@ export default function LoginScreen({ navigation }) {
   const [rightIcon, setRightIcon] = useState('eye');
   const [loginError, setLoginError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { validateForm } = useFormikContext;
+
+  useEffect(() => {
+    validateForm;
+  }, [])
 
   const handlePasswordVisibility = () => {
     if (rightIcon === 'eye') {
@@ -98,9 +103,9 @@ export default function LoginScreen({ navigation }) {
               onBlur={props.handleBlur('password')}
               value={props.values.password} />
             {loginError ? <ErrorMessage error={loginError} visible={true} /> : null}
-            {props.errors.email &&
+            {props.errors.email && props.dirty && props.touched.email &&
               <Text style={styles.errorMsg}>{props.errors.email}</Text>}
-            {props.errors.password &&
+            {props.errors.password && props.dirty && props.touched.password &&
               <Text style={styles.errorMsg}>{props.errors.password}</Text>}
             <Button
               onPress={props.handleSubmit}

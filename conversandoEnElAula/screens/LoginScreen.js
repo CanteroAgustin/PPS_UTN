@@ -15,6 +15,11 @@ export default function LoginScreen({ navigation }) {
   const [rightIcon, setRightIcon] = useState('eye');
   const [loginError, setLoginError] = useState('');
   const [isLoading, setIsLoading] = useState('');
+  const { validateForm } = useFormikContext;
+
+  useEffect(() => {
+    validateForm;
+  }, [])
 
   const handlePasswordVisibility = () => {
     if (rightIcon === 'eye') {
@@ -101,10 +106,10 @@ export default function LoginScreen({ navigation }) {
               value={props.values.password}
             />
             {loginError ? <ErrorMessage error={loginError} visible={true} /> : null}
-            {props.errors.email &&
+            {props.errors.email && props.dirty && props.touched.email &&
               <Text style={styles.errorMsg}>{props.errors.email}</Text>
             }
-            {props.errors.password &&
+            {props.errors.password && props.dirty && props.touched.password &&
               <Text style={styles.errorMsg}>{props.errors.password}</Text>
             }
 
