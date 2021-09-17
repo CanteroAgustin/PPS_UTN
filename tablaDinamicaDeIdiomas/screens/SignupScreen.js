@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { Button, InputField, ErrorMessage } from '../components';
+import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator, Image } from 'react-native';
+import { Button, InputField, ErrorMessage, IconButton } from '../components';
 import Firebase from '../config/firebase';
 import { Formik, useFormikContext } from 'formik';
 import { signupValidationSchema } from '../schemas/signupSchema'
@@ -33,7 +33,6 @@ export default function SignupScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style='dark-content' />
-      <Text style={styles.title}>Crear una cuenta</Text>
       {(isLoading) ?
         <ActivityIndicator size='large' color="#00ff00" /> : null}
       <Formik
@@ -58,6 +57,28 @@ export default function SignupScreen({ navigation }) {
         }}>
         {(props) => (
           <View>
+            <View style={styles.signupContainer}>
+              <Text style={styles.textSignup}>
+                Ingresar
+              </Text>
+              <IconButton
+                onPress={() => {
+                  setTimeout(() => {
+                    props.resetForm();
+                  }, 1000)
+                  navigation.navigate('Login');
+                }}
+                color='#000000'
+                backgroundColor='#1c8155'
+                size={40}
+                name='arrowright'
+                disabled={false}
+              />
+            </View>
+            <Image
+              style={styles.loginImg}
+              source={require('../assets/adaptive-icon.png')}
+            />
             <InputField
               inputStyle={{
                 fontSize: 14
@@ -67,7 +88,7 @@ export default function SignupScreen({ navigation }) {
                 marginBottom: 20
               }}
               leftIcon='email'
-              placeholder='Enter email'
+              placeholder='Correo electronico'
               autoCapitalize='none'
               keyboardType='email-address'
               textContentType='emailAddress'
@@ -85,7 +106,7 @@ export default function SignupScreen({ navigation }) {
                 marginBottom: 20
               }}
               leftIcon='lock'
-              placeholder='Enter password'
+              placeholder='Contraseña'
               autoCapitalize='none'
               autoCorrect={false}
               secureTextEntry={passwordVisibility}
@@ -105,8 +126,8 @@ export default function SignupScreen({ navigation }) {
             }
             <Button
               onPress={props.handleSubmit}
-              backgroundColor='#ff7961'
-              title='Signup'
+              backgroundColor='#ffca18'
+              title='registrarme'
               tileColor='#fff'
               titleSize={20}
               containerStyle={{
@@ -114,17 +135,6 @@ export default function SignupScreen({ navigation }) {
               }}
               disabled={!props.isValid}
             />
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                setTimeout(() => {
-                  props.resetForm();
-                }, 1000)
-                navigation.navigate('Login');
-              }}
-            >
-              <Text style={styles.textButton}>Ya tengo una cuenta.</Text>
-            </TouchableOpacity>
           </View>
         )}
       </Formik>
@@ -135,7 +145,7 @@ export default function SignupScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e8eaf6',
+    backgroundColor: '#d6fbff',
     paddingTop: 50,
     paddingHorizontal: 12
   },
@@ -158,5 +168,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 10,
     fontWeight: '600'
-  }
+  },
+  signupContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  textSignup: {
+    alignSelf: 'center',
+    color: '#000000',
+    fontSize: 20,
+    padding: 10
+  },
+  loginImg: {
+    height: 160,
+    width: 160,
+    alignSelf: 'center'
+  },
 });

@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 
-import { Button, InputField, ErrorMessage } from '../components';
+import { Button, InputField, ErrorMessage, IconButton } from '../components';
 import Firebase from '../config/firebase';
 import { Formik, useFormikContext } from 'formik';
 import { loginValidationSchema } from '../schemas/loginSchema'
+import { size } from 'styled-system';
 
 const auth = Firebase.auth();
 
@@ -33,7 +34,6 @@ export default function LoginScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style='dark-content' />
-      <Text style={styles.title}>Login</Text>
       {(isLoading) ?
         <ActivityIndicator size='large' color="#00ff00" /> : null}
       <Formik
@@ -56,6 +56,28 @@ export default function LoginScreen({ navigation }) {
         }}>
         {(props) => (
           <View>
+            <View style={styles.signupContainer}>
+              <Text style={styles.textSignup}>
+                Registrarme
+              </Text>
+              <IconButton
+                onPress={() => {
+                  setTimeout(() => {
+                    props.resetForm();
+                  }, 1000)
+                  navigation.navigate('Signup');
+                }}
+                color='#000000'
+                backgroundColor='#1c8155'
+                size={40}
+                name='arrowright'
+                disabled={false}
+              />
+            </View>
+            <Image
+              style={styles.loginImg}
+              source={require('../assets/adaptive-icon.png')}
+            />
             <InputField
               inputStyle={{
                 fontSize: 14
@@ -103,8 +125,8 @@ export default function LoginScreen({ navigation }) {
             }
             <Button
               onPress={props.handleSubmit}
-              backgroundColor='#757ce8'
-              title='Login'
+              backgroundColor='#ffca18'
+              title='Ingresar'
               tileColor='#fff'
               titleSize={20}
               containerStyle={{
@@ -112,28 +134,18 @@ export default function LoginScreen({ navigation }) {
               }}
               disabled={!props.isValid}
             />
-            <Button
-              onPress={() => {
-                setTimeout(() => {
-                  props.resetForm();
-                }, 1000)
-                navigation.navigate('Signup');
-              }}
-              title='Registrarme'
-              backgroundColor='#ff7961'
-              titleSize={20}
-            />
           </View>
-        )}
-      </Formik>
-    </View>
+        )
+        }
+      </Formik >
+    </View >
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e8eaf6',
+    backgroundColor: '#d6fbff',
     paddingTop: 50,
     paddingHorizontal: 12
   },
@@ -149,5 +161,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 10,
     fontWeight: '600'
+  },
+  loginImg: {
+    height: 160,
+    width: 160,
+    alignSelf: 'center'
+  },
+  signupContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  textSignup: {
+    alignSelf: 'center',
+    color: '#000000',
+    fontSize: 20,
+    padding: 10
   }
 });

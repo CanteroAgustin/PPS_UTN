@@ -29,6 +29,10 @@ const ErrorMessage = ({ error, visible }) => {
       mensaje = authErrors.authEmailAlreadyInUse;
       break;
     }
+    case 'auth/weak-password': {
+      mensaje = authErrors.authWeakPassword;
+      break;
+    }
   }
   return <Text style={styles.errorText}>⚠️ {mensaje}</Text>;
 };

@@ -7,6 +7,6 @@ export const loginValidationSchema = yup.object().shape({
     .required('⚠️ El email es requerido'),
   password: yup
     .string()
-    .min(4, ({ min }) => `⚠️ El password debe tener al menos ${min} caracteres`)
+    .min(6, ({ min }) => `⚠️ El password debe tener al menos ${min} caracteres`)
     .required('⚠️ El password es requerido'),
 })
