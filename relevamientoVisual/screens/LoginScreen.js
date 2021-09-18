@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { Button, InputField, ErrorMessage } from '../components';
 import Firebase from '../config/firebase';
 import { Formik, useFormikContext } from 'formik';
 import { loginValidationSchema } from '../schemas/loginSchema'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const auth = Firebase.auth();
 
@@ -34,8 +35,11 @@ export default function LoginScreen({ navigation }) {
     <View style={styles.container}>
       <StatusBar style='dark-content' />
       <Text style={styles.title}>Login</Text>
-      {(isLoading) ?
-        <ActivityIndicator size='large' color="#00ff00" /> : null}
+      <Spinner
+        visible={isLoading}
+        textContent={'Cargando...'}
+        textStyle={styles.spinnerTextStyle}
+      />
       <Formik
         validationSchema={loginValidationSchema}
         initialValues={{ email: '', password: '' }}
@@ -48,9 +52,11 @@ export default function LoginScreen({ navigation }) {
                 resetForm();
               }, 3000)
             }).catch(error => {
-              resetForm();
-              setIsLoading(false);
-              setLoginError(error)
+              setTimeout(() => {
+                resetForm();
+                setIsLoading(false);
+                setLoginError(error)
+              }, 3000)
             });
           }
         }}>
@@ -114,10 +120,9 @@ export default function LoginScreen({ navigation }) {
             />
             <Button
               onPress={() => {
-                setTimeout(() => {
-                  props.resetForm();
-                }, 1000)
+                props.resetForm();
                 navigation.navigate('Signup');
+                setLoginError('');
               }}
               title='Registrarme'
               backgroundColor='#ff7961'
@@ -149,5 +154,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 10,
     fontWeight: '600'
+  }, spinnerTextStyle: {
+    color: '#FFF',
   }
 });

@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState, React } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Button, InputField, ErrorMessage } from '../components';
 import Firebase from '../config/firebase';
 import { Formik, useFormikContext } from 'formik';
 import { signupValidationSchema } from '../schemas/signupSchema'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const auth = Firebase.auth();
 
@@ -33,8 +34,14 @@ export default function SignupScreen({ navigation }) {
     <View style={styles.container}>
       <StatusBar style='dark-content' />
       <Text style={styles.title}>Crear una cuenta</Text>
-      {(isLoading) ?
-        <ActivityIndicator size='large' color="#00ff00" /> : null}
+      <Spinner
+        //visibility of Overlay Loading Spinner
+        visible={isLoading}
+        //Text with the Spinner
+        textContent={'Cargando...'}
+        //Text style of the Spinner Text
+        textStyle={styles.spinnerTextStyle}
+      />
       <Formik
         validationSchema={signupValidationSchema}
         initialValues={{ email: '', password: '' }}
@@ -116,10 +123,9 @@ export default function SignupScreen({ navigation }) {
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
-                setTimeout(() => {
-                  props.resetForm();
-                }, 1000)
+                props.resetForm();
                 navigation.navigate('Login');
+                setSignupError('');
               }}
             >
               <Text style={styles.textButton}>Ya tengo una cuenta.</Text>
@@ -157,5 +163,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 10,
     fontWeight: '600'
+  },
+  spinnerTextStyle: {
+    color: '#FFF',
   }
 });

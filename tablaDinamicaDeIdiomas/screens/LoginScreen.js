@@ -62,9 +62,8 @@ export default function LoginScreen({ navigation }) {
               </Text>
               <IconButton
                 onPress={() => {
-                  setTimeout(() => {
-                    props.resetForm();
-                  }, 1000)
+                  props.resetForm();
+                  setLoginError('');
                   navigation.navigate('Signup');
                 }}
                 color='#000000'

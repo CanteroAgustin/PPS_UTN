@@ -1,20 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
 import { Formik, useFormikContext } from 'formik';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Spinner from 'react-native-loading-spinner-overlay';
 import { ErrorMessage, IconButton, InputField } from '../components';
 import Firebase from '../config/firebase';
 import { loginValidationSchema } from '../schemas/loginSchema';
 
-
 const auth = Firebase.auth();
-const { validateForm } = useFormikContext;
+
 export default function LoginScreen({ navigation }) {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState('eye');
   const [loginError, setLoginError] = useState('');
-  const [isLoading, setIsLoading] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { validateForm } = useFormikContext;
 
   useEffect(() => {
@@ -34,8 +34,11 @@ export default function LoginScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style='dark-content' />
-      {(isLoading) ?
-        <ActivityIndicator size='large' color="#00ff00" /> : null}
+      <Spinner
+        visible={isLoading}
+        textContent={'Cargando...'}
+        textStyle={styles.spinnerTextStyle}
+      />
       <Formik
         validationSchema={loginValidationSchema}
         initialValues={{ email: '', password: '' }}
@@ -48,9 +51,11 @@ export default function LoginScreen({ navigation }) {
                 resetForm();
               }, 3000)
             }).catch(error => {
-              resetForm();
-              setIsLoading(false);
-              setLoginError(error)
+              setTimeout(() => {
+                resetForm();
+                setIsLoading(false);
+                setLoginError(error)
+              }, 3000)
             });
           }
         }}>
@@ -116,10 +121,9 @@ export default function LoginScreen({ navigation }) {
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
-                setTimeout(() => {
-                  props.resetForm();
-                }, 1000)
+                props.resetForm();
                 navigation.navigate('Signup');
+                setLoginError('');
               }}
             >
               <Text style={styles.textButton}>Registrarme.</Text>
@@ -163,5 +167,7 @@ const styles = StyleSheet.create({
   textButton: {
     color: "#0000FF",
     fontSize: 18
-  },
+  }, spinnerTextStyle: {
+    color: '#1c8155',
+  }
 });

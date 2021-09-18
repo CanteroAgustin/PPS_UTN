@@ -121,9 +121,8 @@ export default function LoginScreen({ navigation }) {
               <Text style={styles.textButton}>No tengo una cuenta, </Text>
               <TouchableOpacity
                 onPress={() => {
-                  setTimeout(() => {
-                    props.resetForm();
-                  }, 1000)
+                  props.resetForm();
+                  setLoginError('');
                   navigation.navigate('Signup');
                 }}
               >

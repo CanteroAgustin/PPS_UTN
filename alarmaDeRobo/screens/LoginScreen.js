@@ -38,7 +38,7 @@ export default function LoginScreen({ navigation }) {
       />
       <StatusBar style='dark-content' />
       {(isLoading) ?
-        <ActivityIndicator size='large' color="#00ff00" /> : null}
+        <ActivityIndicator size='large' color="#0004ff" /> : null}
       <Formik
         validationSchema={loginValidationSchema}
         initialValues={{ email: '', password: '' }}
@@ -51,9 +51,11 @@ export default function LoginScreen({ navigation }) {
                 resetForm();
               }, 3000)
             }).catch(error => {
-              resetForm();
-              setIsLoading(false);
-              setLoginError(error)
+              setTimeout(() => {
+                resetForm();
+                setIsLoading(false);
+                setLoginError(error);
+              }, 3000)
             });
           }
         }}>
@@ -117,10 +119,9 @@ export default function LoginScreen({ navigation }) {
             />
             <Button
               onPress={() => {
-                setTimeout(() => {
-                  props.resetForm();
-                }, 1000)
+                props.resetForm();
                 navigation.navigate('Signup');
+                setLoginError('');
               }}
               title='Registrarme'
               backgroundColor='#ff7961'

@@ -37,6 +37,10 @@ const ErrorMessage = ({ error, visible }) => {
       mensaje = authErrors.authWeakPassword;
       break;
     }
+    case 'auth/too-many-requests': {
+      mensaje = authErrors.authTooManyRequests;
+      break;
+    }
   }
   return <Text style={styles.errorText}>⚠️ {mensaje}</Text>;
 };

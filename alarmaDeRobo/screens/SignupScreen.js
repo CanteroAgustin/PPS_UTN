@@ -37,7 +37,7 @@ export default function SignupScreen({ navigation }) {
         source={require('../assets/register.png')}
       />
       {(isLoading) ?
-        <ActivityIndicator size='large' color="#00ff00" /> : null}
+        <ActivityIndicator size='large' color="#0004ff" /> : null}
       <Formik
         validationSchema={signupValidationSchema}
         initialValues={{ email: '', password: '' }}
@@ -52,9 +52,11 @@ export default function SignupScreen({ navigation }) {
                 }, 3000)
               })
               .catch(error => {
-                resetForm();
-                setIsLoading(false);
-                setSignupError(error);
+                setTimeout(() => {
+                  resetForm();
+                  setIsLoading(false);
+                  setSignupError(error);
+                }, 3000)
               });
           }
         }}>
@@ -119,10 +121,9 @@ export default function SignupScreen({ navigation }) {
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
-                setTimeout(() => {
-                  props.resetForm();
-                }, 1000)
+                props.resetForm();
                 navigation.navigate('Login');
+                setSignupError('');
               }}
             >
               <Text style={styles.textButton}>Ya tengo una cuenta.</Text>

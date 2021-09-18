@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState, React } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Button, InputField, ErrorMessage } from '../components';
 import Firebase from '../config/firebase';
@@ -117,10 +117,9 @@ export default function SignupScreen({ navigation }) {
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
-                setTimeout(() => {
-                  props.resetForm();
-                }, 1000)
+                props.resetForm();
                 navigation.navigate('Login');
+                setSignupError('');
               }}
             >
               <Text style={styles.textButton}>Ya tengo una cuenta.</Text>

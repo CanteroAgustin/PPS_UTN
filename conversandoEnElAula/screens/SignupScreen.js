@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { Formik, useFormikContext } from 'formik';
-import React, { useState, React } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ErrorMessage, IconButton, InputField } from '../components';
 import Firebase from '../config/firebase';
 import { signupValidationSchema } from '../schemas/signupSchema';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const auth = Firebase.auth();
 
@@ -12,7 +13,7 @@ export default function SignupScreen({ navigation }) {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState('eye');
   const [signupError, setSignupError] = useState('');
-  const [isLoading, setIsLoading] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { validateForm } = useFormikContext;
 
   useEffect(() => {
@@ -32,8 +33,11 @@ export default function SignupScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style='dark-content' />
-      {(isLoading) ?
-        <ActivityIndicator size='large' color="#00ff00" /> : null}
+      <Spinner
+        visible={isLoading}
+        textContent={'Cargando...'}
+        textStyle={styles.spinnerTextStyle}
+      />
       <Formik
         validationSchema={signupValidationSchema}
         initialValues={{ email: '', password: '' }}
@@ -48,9 +52,11 @@ export default function SignupScreen({ navigation }) {
                 }, 3000)
               })
               .catch(error => {
-                resetForm();
-                setIsLoading(false);
-                setSignupError(error);
+                setTimeout(() => {
+                  resetForm();
+                  setIsLoading(false);
+                  setSignupError(error);
+                }, 3000)
               });
           }
         }}>
@@ -115,10 +121,9 @@ export default function SignupScreen({ navigation }) {
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
-                setTimeout(() => {
-                  props.resetForm();
-                }, 1000)
+                props.resetForm();
                 navigation.navigate('Login');
+                setSignupError('');
               }}
             >
               <Text style={styles.textButton}>Ya tengo una cuenta.</Text>
@@ -162,5 +167,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 50,
     justifyContent: 'space-between'
-  },
+  }, spinnerTextStyle: {
+    color: '#1c8155',
+  }
 });
