@@ -33,7 +33,7 @@ export default function LoginScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style='dark-content' />
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Ingreso</Text>
       {/* {(isLoading) ?
         <ActivityIndicator size='large' color="#bc2b78" style={styles.activityIndicator} /> : null} */}
       {(isLoading) ?
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     paddingBottom: 24
   },
   errorMsg: {
-    color: '#fdca40',
+    color: '#dc3545',
     fontSize: 20,
     marginBottom: 10,
     fontWeight: '600'

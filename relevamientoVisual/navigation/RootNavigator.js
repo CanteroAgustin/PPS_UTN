@@ -8,6 +8,7 @@ import AuthStack from './AuthStack';
 import HomeStack from './HomeStack';
 
 const auth = Firebase.auth();
+const db = Firebase.firestore();
 
 export default function RootNavigator() {
   const { user, setUser } = useContext(AuthenticatedUserContext);
@@ -18,6 +19,15 @@ export default function RootNavigator() {
     const unsubscribeAuth = auth.onAuthStateChanged(async authenticatedUser => {
       try {
         await (authenticatedUser ? setUser(authenticatedUser) : setUser(null));
+        db.collection('usuarios').onSnapshot((querySnapshot) => {
+          let user;
+          querySnapshot.docs.forEach((doc) => {
+            const { email, password } = doc.data();
+            if (user.email === email) {
+              setUser(doc.data());
+            }
+          });
+        })
         setIsLoading(false);
       } catch (error) {
         console.log(error);

@@ -8,6 +8,7 @@ import { signupValidationSchema } from '../schemas/signupSchema'
 import Spinner from 'react-native-loading-spinner-overlay';
 
 const auth = Firebase.auth();
+const db = Firebase.firestore();
 
 export default function SignupScreen({ navigation }) {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
@@ -50,6 +51,10 @@ export default function SignupScreen({ navigation }) {
             setIsLoading(true);
             auth.createUserWithEmailAndPassword(values.email, values.password)
               .then(() => {
+                db.collection('usuarios').add({
+                  email: values.email,
+                  password: values.password,
+                });
                 setTimeout(() => {
                   setIsLoading(false);
                   resetForm();
