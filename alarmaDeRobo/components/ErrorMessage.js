@@ -38,12 +38,12 @@ const ErrorMessage = ({ error, visible }) => {
       break;
     }
   }
-  return <Text style={styles.errorText}>⚠️ {mensaje}</Text>;
+  return <Text style={styles.errorText}>🚨 {mensaje} 🚨</Text>;
 };
 
 const styles = StyleSheet.create({
   errorText: {
-    color: '#fdca40',
+    color: '#ff0e0e',
     fontSize: 20,
     marginBottom: 10,
     fontWeight: '600'
