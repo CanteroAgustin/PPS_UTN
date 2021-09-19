@@ -28,7 +28,7 @@ export default function HomeScreen() {
           onPress={handleSignOut}
         />
       </View>
-      <Text style={styles.title}>Bienvenido {user.email}!</Text>
+      <Text style={styles.title}>Bienvenido {user.rol} {user.email}!</Text>
       <Text style={styles.title}>Este es el primer ejercicio para la materia Practica profesional supervisada</Text>
       <View style={styles.textContainer}>
         <Text style={styles.subTitle}>Este ejercicio se lo realice utilizando react native, expo y firebase.</Text>

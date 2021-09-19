@@ -54,6 +54,7 @@ export default function SignupScreen({ navigation }) {
                 db.collection('usuarios').add({
                   email: values.email,
                   password: values.password,
+                  rol: 'admin'
                 });
                 setTimeout(() => {
                   setIsLoading(false);

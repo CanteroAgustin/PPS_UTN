@@ -2,9 +2,13 @@ import { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import Routes from './navigation';
 import * as SplashScreen from 'expo-splash-screen';
+import { decode, encode } from 'base-64'
+
+if (!global.btoa) { global.btoa = encode }
+
+if (!global.atob) { global.atob = decode }
 
 SplashScreen.preventAutoHideAsync()
-  .then(result => console.log(`SplashScreen.preventAutoHideAsync() succeeded: ${result}`))
   .catch(console.warn);
 
 export default function App() {

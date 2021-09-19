@@ -18,13 +18,13 @@ export default function RootNavigator() {
     // onAuthStateChanged returns an unsubscriber
     const unsubscribeAuth = auth.onAuthStateChanged(async authenticatedUser => {
       try {
-        await (authenticatedUser ? setUser(authenticatedUser) : setUser(null));
+        await (authenticatedUser ? setUser({ ...authenticatedUser }) : setUser(null));
         db.collection('usuarios').onSnapshot((querySnapshot) => {
-          let user;
           querySnapshot.docs.forEach((doc) => {
             const { email, password } = doc.data();
-            if (user.email === email) {
-              setUser(doc.data());
+            if (authenticatedUser?.email === email) {
+              const user = doc.data();
+              setUser({ ...authenticatedUser, ...user });
             }
           });
         })

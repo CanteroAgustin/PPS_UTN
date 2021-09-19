@@ -38,7 +38,7 @@ export default function LoginScreen({ navigation }) {
       <Spinner
         visible={isLoading}
         textContent={'Cargando...'}
-        textStyle={styles.spinnerTextStyle}
+        textStyle={StyleSheet.flatten(styles.spinnerTextStyle)}
       />
       <Formik
         validationSchema={loginValidationSchema}
@@ -121,8 +121,8 @@ export default function LoginScreen({ navigation }) {
             <Button
               onPress={() => {
                 props.resetForm();
-                navigation.navigate('Signup');
                 setLoginError('');
+                navigation.navigate('Signup');
               }}
               title='Registrarme'
               backgroundColor='#ff7961'
@@ -154,7 +154,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 10,
     fontWeight: '600'
-  }, spinnerTextStyle: {
-    color: '#FFF',
+  },
+  spinnerTextStyle: {
+    color: '#fff',
   }
 });
