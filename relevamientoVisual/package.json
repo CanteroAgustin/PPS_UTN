@@ -30,7 +30,8 @@
     "react-native-svg": "^12.1.1",
     "react-native-web": "^0.17.1",
     "validate-form-in-expo-style": "^1.0.9",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "expo-camera": "~11.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

@@ -1,15 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
-import { IconButton } from '../components';
+import { Button, IconButton } from '../components';
 import Firebase from '../config/firebase';
-import { AuthenticatedUserContext } from '../navigation/AuthenticatedUserProvider';
+import BotonCosas from '../components/BotonCosas';
 
 const auth = Firebase.auth();
 
-export default function HomeScreen() {
-  const { user } = useContext(AuthenticatedUserContext);
+export default function HomeScreen({ navigation }) {
   const handleSignOut = async () => {
     try {
       await auth.signOut();
@@ -17,6 +15,7 @@ export default function HomeScreen() {
       console.log(error);
     }
   };
+
   return (
     <View style={styles.container}>
       <StatusBar style='dark-content' />
@@ -28,57 +27,84 @@ export default function HomeScreen() {
           onPress={handleSignOut}
         />
       </View>
-      <Text style={styles.title}>Bienvenido {user.rol} {user.email}!</Text>
-      <Text style={styles.title}>Este es el primer ejercicio para la materia Practica profesional supervisada</Text>
-      <View style={styles.textContainer}>
-        <Text style={styles.subTitle}>Este ejercicio se lo realice utilizando react native, expo y firebase.</Text>
-        <Text style={styles.subTitle}>Con este ejercicio se practico: extructura de projecto react, ruteo en react native, componentes basicos de react native, coneccion con firebase, configuracion de variables de entorno, estilos basicos, compilacion, entorno de desarrollo y generacion de apk.</Text>
+      <Text style={styles.title}>¿Que te gustaria fotografiar?</Text>
+      <View style={styles.imgContainer}>
+        <BotonCosas
+          imgSrc={require('../assets/cosalinda.jpg')} disable={false}
+          onPress={() => {
+            navigation.navigate('Camara', { tipo: 'linda' });
+          }}
+        />
+        <BotonCosas
+          imgSrc={require('../assets/cosafearesized.jpg')} disable={false}
+          onPress={() => {
+            navigation.navigate('Camara', { tipo: 'fea' });
+          }}
+        />
       </View>
-      <Text style={styles.text}>Tu UID es: {user.uid} </Text>
-      <Text style={styles.textBottom}>*(Si queres deslogearte, presiona el icono arriba a la derecha.)</Text>
+      <View style={styles.menu}>
+        <Button
+          onPress={() => {
+          }}
+          title='Votar fotos'
+          backgroundColor='#fff'
+          titleSize={40}
+          titleColor='#2979ff'
+          containerStyle={{
+            borderColor: '#000000',
+            borderWidth: 1,
+            borderRadius: 5,
+            marginTop: 4,
+            backgroundColor: '#fff',
+            height: 100
+          }}
+        />
+        <Button
+          onPress={() => {
+          }}
+          title='Ver estadisticas'
+          backgroundColor='#fff'
+          titleSize={40}
+          titleColor='#2979ff'
+          containerStyle={{
+            fontWeight: 'bold',
+            borderColor: '#000000',
+            borderWidth: 1,
+            borderRadius: 5,
+            marginTop: 4,
+            with: 100,
+            backgroundColor: '#fff',
+            height: 100
+          }}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  title: {
+    fontSize: 24,
+    alignSelf: 'center',
+    color: '#2979ff',
+    paddingBottom: 30,
+    fontWeight: 'bold'
+  },
   container: {
     flex: 1,
     backgroundColor: '#e8eaf6',
     paddingTop: 50,
-    paddingHorizontal: 12
   },
   row: {
     padding: 20,
     alignItems: 'flex-end',
     marginBottom: 24
   },
-  title: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: '#000',
-    paddingBottom: 20
+  imgContainer: {
+    flexDirection: 'row'
   },
-  subTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#000',
-  },
-  text: {
-    fontSize: 16,
-    fontWeight: 'normal',
-    color: '#000'
-  },
-  textBottom: {
-    marginTop: 250,
-    fontSize: 12,
-    fontWeight: 'normal',
-    color: 'gray',
-    marginBottom: 0
-  },
-  textContainer: {
-    borderWidth: 1,
-    borderStyle: 'dashed',
-    padding: 5,
-    marginBottom: 20
+  menu: {
+    marginLeft: 2,
+    marginRight: 2
   }
 });
