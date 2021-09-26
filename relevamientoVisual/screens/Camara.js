@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, Image, Modal } from 'react-native';
 import { Camera, Constants } from 'expo-camera';
-import { Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import Firebase from '../config/firebase';
 import { AuthenticatedUserContext } from '../navigation/AuthenticatedUserProvider';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const Camara = ({ route, navigation }) => {
   const { tipo } = route.params;
@@ -14,6 +15,8 @@ const Camara = ({ route, navigation }) => {
   const [open, setOpen] = useState(null);
   const storage = Firebase.storage();
   const { user } = useContext(AuthenticatedUserContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const db = Firebase.firestore();
 
   useEffect(() => {
     (async () => {
@@ -30,18 +33,32 @@ const Camara = ({ route, navigation }) => {
   }
   const takePicture = async () => {
     if (camRef) {
+      setIsLoading(true);
       const data = await camRef.current.takePictureAsync();
+      setIsLoading(false);
       setFoto(data.uri);
       setOpen(true);
     }
   }
   const savePicture = async () => {
     const img = await fetch(foto);
-    const path = 'images/' + tipo + '/' + user.email + '-' + formatDate(new Date());
+    const now = formatDate(new Date());
+    const path = 'images/' + tipo + '/' + user.email + '-' + now;
     const blob = await img.blob();
     const storageRef = storage.ref();
     const spaceRef = storageRef.child(path);
+    setIsLoading(true);
     spaceRef.put(blob).then(function (snapshot) {
+      snapshot.ref.getDownloadURL().then(url => {
+        db.collection('imagenes' + tipo).add({
+          user: user.uid,
+          url,
+          fecha: now,
+          likes: 0,
+          id: user.uid + now
+        });
+      });
+      setIsLoading(false);
       navigation.replace('Home');
     });
   }
@@ -61,6 +78,11 @@ const Camara = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Spinner
+        visible={isLoading}
+        textContent={'Cargando...'}
+        textStyle={StyleSheet.flatten(styles.spinnerTextStyle)}
+      />
       <Camera style={styles.camera} type={type} ref={camRef}>
         <TouchableOpacity
           style={styles.button}

@@ -61,8 +61,9 @@ export default function HomeScreen({ navigation }) {
         />
         <Button
           onPress={() => {
+            navigation.navigate('Galeria')
           }}
-          title='Ver estadisticas'
+          title='Galeria'
           backgroundColor='#fff'
           titleSize={40}
           titleColor='#2979ff'
