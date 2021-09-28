@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import GaleriaCosasLindas from '../screens/GaleriaCosasLindas';
 import GaleriaCosasFeas from '../screens/GaleriaCosasFeas';
-import { Image, Text, View } from 'react-native';
+import { Image, View } from 'react-native';
 
 export default function Galeria() {
 
@@ -10,6 +10,7 @@ export default function Galeria() {
 
   return (
     <Tab.Navigator screenOptions={{
+      headerShown: false,
       tabBarShowLabel: false,
       tabBarStyle:
       {
@@ -31,7 +32,6 @@ export default function Galeria() {
         tabBarIcon: ({ focused }) => (
           < View style={{ position: 'absolute' }}>
             <Image style={{ width: 45, height: 40 }} source={require('../assets/cosaLindaCaraIcon.png')} />
-            {/* <FontAwesome5 name='home' size={20} color={focused ? 'red' : 'gray'}></FontAwesome5> */}
           </View>
         )
       }}></Tab.Screen >
@@ -39,7 +39,6 @@ export default function Galeria() {
         tabBarIcon: ({ focused }) => (
           < View style={{ position: 'absolute' }}>
             <Image style={{ width: 40, height: 45 }} source={require('../assets/cosaFeaCaraIcon.png')} />
-            {/* <FontAwesome5 name='home' size={20} color={focused ? 'red' : 'gray'}></FontAwesome5> */}
           </View>
         )
       }}></Tab.Screen>

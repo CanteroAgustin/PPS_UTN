@@ -57,9 +57,9 @@ const Camara = ({ route, navigation }) => {
           likes: 0,
           id: user.uid + now
         });
+        setIsLoading(false);
+        navigation.replace('Home');
       });
-      setIsLoading(false);
-      navigation.replace('Home');
     });
   }
 
