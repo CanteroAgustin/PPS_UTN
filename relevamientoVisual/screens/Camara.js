@@ -111,8 +111,8 @@ const Camara = ({ route, navigation }) => {
             <View style={styles.imgContainer}>
               <View style={styles.header}>
                 <Image style={styles.headerImg} source={require('../assets/emo3.jpg')} />
-                <Text style={styles.titulo}>Wow, excelente toma.</Text>
-                <Text style={styles.subtitulo}>¿Que te gustaria hacer?</Text>
+                <Text style={styles.titulo}>Guau, excelente toma.</Text>
+                <Text style={styles.subtitulo}>¿Que te gustaría hacer?</Text>
               </View>
               <Image style={styles.photo} source={{ uri: foto }} />
               <View style={styles.btnContainer}>

@@ -27,7 +27,7 @@ export default function HomeScreen({ navigation }) {
           onPress={handleSignOut}
         />
       </View>
-      <Text style={styles.title}>¿Que te gustaria fotografiar?</Text>
+      <Text style={styles.title}>¿Que te gustaría fotografiar?</Text>
       <View style={styles.imgContainer}>
         <BotonCosas
           imgSrc={require('../assets/cosalinda.jpg')} disable={false}
@@ -66,7 +66,7 @@ export default function HomeScreen({ navigation }) {
           onPress={() => {
             navigation.navigate('Charts')
           }}
-          title='Graficos'
+          title='Gráficos'
           backgroundColor='#fff'
           titleSize={40}
           titleColor='#2979ff'
