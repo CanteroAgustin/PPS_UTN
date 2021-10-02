@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Animated, StatusBar, View, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import Firebase from '../config/firebase';
 import { AntDesign } from '@expo/vector-icons';
+import { AuthenticatedUserContext } from '../navigation/AuthenticatedUserProvider';
 
 export default function GaleriaCosasFeas() {
 
   const db = Firebase.firestore();
   const [fotosFeas, setFotosFeas] = useState();
   const { width, height } = Dimensions.get('screen');
-  const iconName = 'hearto';
+  const { user, setUser } = useContext(AuthenticatedUserContext);
   const handleLike = (idImg) => {
-    setIconName('heart');
     db.collection("usuarios")
       .where("email", "==", user.email)
       .get()
       .then(function (querySnapshot) {
-        user.imgLiked = idImg;
+        user.imgFeaLiked = idImg;
         setUser({ ...user });
         querySnapshot.forEach((doc) => {
-          doc.ref.update({ imgLiked: user.imgLiked });
+          doc.ref.update({ imgFeaLiked: user.imgFeaLiked });
         });
       });
     db.collection("imagenesfea")
@@ -54,9 +54,14 @@ export default function GaleriaCosasFeas() {
         renderItem={({ item }) => {
           return (
             <View style={{ width, height: height - 90 }}>
-              <TouchableOpacity style={{ zIndex: 99999, position: 'absolute', top: 20, left: 350 }} onPress={() => { handleLike(item.id) }}>
-                <AntDesign name={iconName} size={40} color="red" />
-              </TouchableOpacity>
+              {(user.imgFeaLiked && user.imgFeaLiked === item.id) &&
+                <TouchableOpacity style={{ zIndex: 99999, position: 'absolute', top: 20, left: 350 }} onPress={() => { handleLike(item.id) }}>
+                  <AntDesign name={'heart'} size={40} color="red" />
+                </TouchableOpacity>}
+              {(!user.imgFeaLiked) &&
+                <TouchableOpacity style={{ zIndex: 99999, position: 'absolute', top: 20, left: 350 }} onPress={() => { handleLike(item.id) }}>
+                  <AntDesign name={'hearto'} size={40} color="red" />
+                </TouchableOpacity>}
               <Image
                 source={{ uri: item.url }}
                 style={{ flex: 1, resizeMode: 'cover' }}

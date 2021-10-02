@@ -23,6 +23,9 @@ const Camara = ({ route, navigation }) => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === 'granted');
     })();
+    return () => {
+      setIsLoading(false);
+    };
   }, []);
 
   if (hasPermission === null) {
@@ -57,7 +60,6 @@ const Camara = ({ route, navigation }) => {
           likes: 0,
           id: user.uid + now
         });
-        setIsLoading(false);
         navigation.replace('Home');
       });
     });

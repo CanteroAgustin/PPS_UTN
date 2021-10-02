@@ -45,22 +45,6 @@ export default function HomeScreen({ navigation }) {
       <View style={styles.menu}>
         <Button
           onPress={() => {
-          }}
-          title='Votar fotos'
-          backgroundColor='#fff'
-          titleSize={40}
-          titleColor='#2979ff'
-          containerStyle={{
-            borderColor: '#000000',
-            borderWidth: 1,
-            borderRadius: 5,
-            marginTop: 4,
-            backgroundColor: '#fff',
-            height: 100
-          }}
-        />
-        <Button
-          onPress={() => {
             navigation.navigate('Galeria')
           }}
           title='Galeria'
@@ -74,6 +58,23 @@ export default function HomeScreen({ navigation }) {
             borderRadius: 5,
             marginTop: 4,
             with: 100,
+            backgroundColor: '#fff',
+            height: 100
+          }}
+        />
+        <Button
+          onPress={() => {
+            navigation.navigate('Charts')
+          }}
+          title='Graficos'
+          backgroundColor='#fff'
+          titleSize={40}
+          titleColor='#2979ff'
+          containerStyle={{
+            borderColor: '#000000',
+            borderWidth: 1,
+            borderRadius: 5,
+            marginTop: 4,
             backgroundColor: '#fff',
             height: 100
           }}

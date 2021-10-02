@@ -10,17 +10,15 @@ export default function GaleriaCosasLindas() {
   const [fotosLindas, setFotosLindas] = useState();
   const { width, height } = Dimensions.get('screen');
   const { user, setUser } = useContext(AuthenticatedUserContext);
-  const [iconName, setIconName] = useState('hearto');
   const handleLike = (idImg) => {
-    setIconName('heart');
     db.collection("usuarios")
       .where("email", "==", user.email)
       .get()
       .then(function (querySnapshot) {
-        user.imgLiked = idImg;
+        user.imgLindaLiked = idImg;
         setUser({ ...user });
         querySnapshot.forEach((doc) => {
-          doc.ref.update({ imgLiked: user.imgLiked });
+          doc.ref.update({ imgLindaLiked: user.imgLindaLiked });
         });
       });
     db.collection("imageneslinda")
@@ -57,9 +55,13 @@ export default function GaleriaCosasLindas() {
         renderItem={({ item }) => {
           return (
             <View style={{ width, height: height - 90 }}>
-              {(!user.imgLiked || user.imgLiked === item.id) &&
+              {(user.imgLindaLiked && user.imgLindaLiked === item.id) &&
                 <TouchableOpacity style={{ zIndex: 99999, position: 'absolute', top: 20, left: 350 }} onPress={() => { handleLike(item.id) }}>
-                  <AntDesign name={iconName} size={40} color="red" />
+                  <AntDesign name={'heart'} size={40} color="red" />
+                </TouchableOpacity>}
+              {(!user.imgLindaLiked) &&
+                <TouchableOpacity style={{ zIndex: 99999, position: 'absolute', top: 20, left: 350 }} onPress={() => { handleLike(item.id) }}>
+                  <AntDesign name={'hearto'} size={40} color="red" />
                 </TouchableOpacity>}
               <Image
                 source={{ uri: item.url }}
