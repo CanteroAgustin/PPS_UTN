@@ -28,7 +28,7 @@ const Charts = () => {
   return (
     <View style={{ paddingTop: 50 }}>
       {cosasFeas && <CosasFeasChart imagenes={cosasFeas} />}
-      {/* {cosasLindas && <CosasLindasChart imagenes={cosasLindas} />} */}
+      {cosasLindas && <CosasLindasChart imagenes={cosasLindas} />}
     </View>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Animated, StatusBar, View, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { Animated, StatusBar, View, Image, StyleSheet, Dimensions, TouchableOpacity, ImageBackground } from 'react-native';
 import Firebase from '../config/firebase';
 import { AntDesign } from '@expo/vector-icons';
 import { AuthenticatedUserContext } from '../navigation/AuthenticatedUserProvider';
@@ -40,13 +40,16 @@ export default function GaleriaCosasFeas() {
       await querySnapshot.docs.forEach((doc) => {
         datos.push(doc.data());
       });
-      setFotosFeas(datos);
+      if (datos.length > 0) {
+        setFotosFeas(datos);
+      }
     })
   }, [])
 
   return (
     <View style={styles.container}>
       <StatusBar hidden />
+      {!fotosFeas && <ImageBackground style={{ width: 390, height: 800, marginTop: 50 }} source={require('../assets/nohayfotofea.jpg')} resizeMode="cover" />}
       <Animated.FlatList
         data={fotosFeas}
         pagingEnabled
@@ -55,7 +58,7 @@ export default function GaleriaCosasFeas() {
           return (
             <View style={{ width, height: height - 90 }}>
               {(user.imgFeaLiked && user.imgFeaLiked === item.id) &&
-                <TouchableOpacity style={{ zIndex: 99999, position: 'absolute', top: 20, left: 350 }} onPress={() => { handleLike(item.id) }}>
+                <TouchableOpacity style={{ zIndex: 99999, position: 'absolute', top: 20, left: 350 }}>
                   <AntDesign name={'heart'} size={40} color="red" />
                 </TouchableOpacity>}
               {(!user.imgFeaLiked) &&

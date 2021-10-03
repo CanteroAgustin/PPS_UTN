@@ -1,100 +1,84 @@
-import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Image, StyleSheet, Text, View, Modal, TouchableOpacity, Dimensions } from 'react-native';
 import { PieChart } from 'react-native-svg-charts'
+import GraficoVacio from '../components/GraficoVacio';
 
 const CosasFeasChart = ({ imagenes }) => {
-  const [pieData, setPieData] = useState([]);
-  const [imgSrc, setImgSrc] = useState(null);
-  const colours = ['purple', 'green', 'blue', 'purple'];
+
   useEffect(() => {
-    imagenes.sort(function (a, b) {
-      return a.likes - b.likes;
-    });
-    let count = 0;
-
-    const data = [];
-    const urls = [];
-
-    while (count < 3) {
-      const arc = count === 2 ? { outerRadius: '110%', cornerRadius: 5, } : {};
-      count++;
-
-      urls.push(imagenes[count].url);
-
-      data.push(
-        {
-          key: count,
-          value: imagenes[count].likes,
-          svg: { fill: colours[count] },
-          arc
-        }
-      )
-    }
-    count = 0;
-    setPieData(data);
-    setImgSrc(urls);
+    console.log(imagenes.length === 0)
   }, [])
+  const [open, setOpen] = useState(null);
+  const [foto, setFoto] = useState({});
+  const { width, height } = Dimensions.get('screen');
+  const randomColor = () => ('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000000').slice(0, 7);
+
+  const actualizar = (foto) => {
+    setOpen(true);
+    setFoto(foto);
+  }
+  const pieDatas = imagenes
+    .filter((value) => value.likes > 0)
+    .map((value, index) => ({
+      value: value.likes,
+      svg: {
+        onPress: () => actualizar(value),
+        fill: randomColor(),
+      },
+
+      key: value.id,
+    }))
 
   return (
-    <>
-      <Text style={styles.title}>Las fotos de las cosas feas más votadas!!!</Text>
+    <View style={{ height: height / 2.25 }}>
+      <Text style={styles.title}>Estas son las cosas feas más votadas!!!</Text>
+      {(imagenes.length === 0) && <GraficoVacio />}
       <View style={styles.container}>
 
         <PieChart
           style={{ height: 250, width: 250 }}
           outerRadius={'70%'}
           innerRadius={10}
-          data={pieData}
+          data={pieDatas}
         />
-        <View style={styles.itemsContainer}>
-          <View style={styles.itemContainer}>
-            <View style={{ borderRadius: 50, margin: 5, width: 50, height: 50, backgroundColor: colours[1] }}>
-            </View>
-            {imgSrc && <Image
-              style={styles.photo}
-              source={{ uri: imgSrc[0] }}
-            />}
-          </View>
-          <View style={styles.itemContainer}>
-            <View style={{ borderRadius: 50, margin: 5, width: 50, height: 50, backgroundColor: colours[2] }}>
-            </View>
-            {imgSrc && <Image
-              style={styles.photo}
-              source={{ uri: imgSrc[1] }}
-            />}
-          </View>
-          <View style={styles.itemContainer}>
-            <View style={{ borderRadius: 50, margin: 5, width: 50, height: 50, backgroundColor: colours[3] }}>
-            </View>
-            {imgSrc && <Image
-              style={styles.photo}
-              source={{ uri: imgSrc[2] }}
-            />}
+      </View >
+      <Modal
+        animationType='slide'
+        transparent={false}
+        visible={open}
+      >
+        <View >
+          <Image style={styles.photo} source={{ uri: foto.url }} />
+          <TouchableOpacity onPress={() => setOpen(false)} style={styles.btnCancel}>
+            <Text style={styles.btnText}>X</Text>
+          </TouchableOpacity>
+          <View style={styles.textContainer}>
+            <Text style={styles.textStyle}>Autor: {foto.user}</Text>
+            <Text style={styles.textStyle}>Fecha de cracion: {foto.fecha}</Text>
           </View>
         </View>
-      </View >
-    </>
+      </Modal>
+    </View>
   )
 }
 
 export default CosasFeasChart;
-
+const { width, height } = Dimensions.get('screen');
 const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     fontSize: 28,
     color: 'blue',
     fontWeight: 'bold',
-    paddingTop: 5,
+    padding: 5,
     paddingBottom: 10
   },
   container: {
-    flexDirection: 'row'
+    alignItems: 'center'
   },
   photo: {
-    width: 75,
-    height: 75,
-    margin: 5
+    width,
+    height
   },
   itemsContainer: {
     alignItems: 'center',
@@ -104,5 +88,36 @@ const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  textStyle: {
+    padding: 5,
+    fontSize: 16,
+    color: 'blue',
+    fontWeight: 'bold'
+  },
+  btnCancel: {
+    position: 'absolute',
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    backgroundColor: 'red',
+    borderRadius: 5,
+    top: 5,
+    right: 5
+  },
+  btnText: {
+    color: 'white',
+    fontSize: 36,
+  },
+  textContainer: {
+    flexDirection: 'column',
+    position: 'absolute',
+    bottom: 110,
+    backgroundColor: 'white',
+    opacity: 0.6,
+    borderRadius: 10,
+    alignSelf: 'center',
   }
 });

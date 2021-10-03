@@ -1,65 +1,64 @@
 import React, { useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
 import { Dimensions, Text, View } from 'react-native';
-import {
-  BarChart, StackedBarChart
-} from "react-native-chart-kit";
+import { BarChart, Grid } from 'react-native-svg-charts'
+import GraficoVacio from './GraficoVacio';
 
-const CosasLindasChart = (props) => {
+const CosasLindasChart = ({ imagenes }) => {
 
-  const [labels, setLabels] = useState([]);
-  const [dataSet, setDataSet] = useState([]);
-  const { width } = Dimensions.get('screen');
+  const [data, setData] = useState([]);
+  const [imgSrc, setImgSrc] = useState(null);
+  const fill = 'rgb(134, 65, 244)';
+  const { width, height } = Dimensions.get('screen');
+
   useEffect(() => {
-    if (props.imagenes) {
-      setLabels(props.imagenes.map(img => (img.url)));
-      setDataSet(props.imagenes.map(img => (img.likes)));
+    if (imagenes) {
+      imagenes.sort(function (a, b) {
+        return a.likes - b.likes;
+      });
+      let count = 0;
+
+      const dataTemp = [];
+      const urls = [];
+
+      while (count < 3) {
+        count++;
+
+        if (imagenes[count]) {
+          urls.push(imagenes[count].url);
+          dataTemp.push(imagenes[count].likes);
+          console.log(imagenes[count]);
+        }
+      }
+      count = 0;
+      setData(dataTemp);
+      setImgSrc(urls);
     }
+
   }, [])
 
-  const dataBar = {
-    labels: labels,
-    datasets: [
-      {
-        data: dataSet || []
-      }
-    ]
-  };
-
-  const data = {
-    labels: labels,
-    data: [
-      dataSet
-    ],
-    barColors: ["#dfe4ea", "#ced6e0", "#a4b0be"]
-  };
-
   return (
-
-    <View>
-      <StackedBarChart
-        data={data}
-        width={width}
-        height={220}
-        chartConfig={chartConfig}
-        segments={3}
-      />
-      {/* <BarChart
-        data={dataBar}
-        width={Dimensions.get("window").width}
-        height={220}
-        chartConfig={chartConfig}
-        segments={3}
-      /> */}
+    <View style={{ height: height / 2.25 }}>
+      <Text style={styles.title}>Estas son las cosas lindas más votadas!!!</Text>
+      {(imagenes.length === 0) && <GraficoVacio />}
+      <View>
+        <BarChart style={{ height: 200 }} data={data} svg={{ fill }} contentInset={{ top: 30, bottom: 30 }}>
+          <Grid />
+        </BarChart>
+      </View>
     </View>
   )
 }
 
 export default CosasLindasChart;
 
-const chartConfig = {
-  backgroundGradientFrom: "#1E2923",
-  backgroundGradientTo: "#08130D",
-  color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-  useShadowColorFromDataset: false, // optional
-  decimalPlaces: 0,
-};
+const styles = StyleSheet.create({
+  title: {
+    textAlign: 'center',
+    fontSize: 28,
+    color: 'blue',
+    fontWeight: 'bold',
+    padding: 5,
+    paddingBottom: 10
+  }
+});

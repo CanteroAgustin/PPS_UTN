@@ -54,7 +54,7 @@ const Camara = ({ route, navigation }) => {
     spaceRef.put(blob).then(function (snapshot) {
       snapshot.ref.getDownloadURL().then(url => {
         db.collection('imagenes' + tipo).add({
-          user: user.uid,
+          user: user.email,
           url,
           fecha: now,
           likes: 0,

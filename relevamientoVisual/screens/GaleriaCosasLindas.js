@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Animated, StatusBar, View, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
+import { Animated, StatusBar, View, Image, StyleSheet, Dimensions, TouchableOpacity, ImageBackground } from 'react-native';
 import Firebase from '../config/firebase';
 import { AuthenticatedUserContext } from '../navigation/AuthenticatedUserProvider';
 import { AntDesign } from '@expo/vector-icons';
@@ -41,13 +41,16 @@ export default function GaleriaCosasLindas() {
       await querySnapshot.docs.forEach((doc) => {
         datos.push(doc.data());
       });
-      setFotosLindas(datos);
+      if (datos.length > 0) {
+        setFotosLindas(datos);
+      }
     })
   }, [])
 
   return (
     <View style={styles.container}>
       <StatusBar hidden />
+      {!fotosLindas && <ImageBackground style={{ width, height: 800, marginTop: 50 }} source={require('../assets/nofoto.jpg')} resizeMode="cover" />}
       <Animated.FlatList
         data={fotosLindas}
         pagingEnabled
@@ -56,7 +59,7 @@ export default function GaleriaCosasLindas() {
           return (
             <View style={{ width, height: height - 90 }}>
               {(user.imgLindaLiked && user.imgLindaLiked === item.id) &&
-                <TouchableOpacity style={{ zIndex: 99999, position: 'absolute', top: 20, left: 350 }} onPress={() => { handleLike(item.id) }}>
+                <TouchableOpacity style={{ zIndex: 99999, position: 'absolute', top: 20, left: 350 }}>
                   <AntDesign name={'heart'} size={40} color="red" />
                 </TouchableOpacity>}
               {(!user.imgLindaLiked) &&
