@@ -5,9 +5,6 @@ import GraficoVacio from '../components/GraficoVacio';
 
 const CosasFeasChart = ({ imagenes }) => {
 
-  useEffect(() => {
-    console.log(imagenes.length === 0)
-  }, [])
   const [open, setOpen] = useState(null);
   const [foto, setFoto] = useState({});
   const { width, height } = Dimensions.get('screen');
