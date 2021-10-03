@@ -114,7 +114,7 @@ export default function LoginScreen({ navigation }) {
               tileColor='#fff'
               titleSize={20}
               containerStyle={{
-                marginBottom: 24
+                marginBottom: 10
               }}
               disabled={!props.isValid}
             />
@@ -127,6 +127,84 @@ export default function LoginScreen({ navigation }) {
               title='Registrarme'
               backgroundColor='#ff7961'
               titleSize={20}
+              containerStyle={{
+                marginBottom: 10,
+              }}
+            />
+            <Button
+              onPress={() => {
+                props.setFieldValue('email', 'admin@admin.com');
+                props.setFieldValue('password', '111111')
+              }}
+              title='Mock Admin'
+              backgroundColor='gray'
+              titleSize={20}
+              containerStyle={{
+                marginBottom: 1,
+                borderRadius: 20,
+                borderWidth: 1,
+                borderColor: 'gray'
+              }}
+            />
+            <Button
+              onPress={() => {
+                props.setFieldValue('email', 'invitado@invitado.com');
+                props.setFieldValue('password', '222222')
+              }}
+              title='Mock Invitado'
+              backgroundColor='gray'
+              titleSize={20}
+              containerStyle={{
+                marginBottom: 1,
+                borderRadius: 50,
+                borderWidth: 1,
+                borderColor: 'gray'
+              }}
+            />
+            <Button
+              onPress={() => {
+                props.setFieldValue('email', 'usuario@usuario.com');
+                props.setFieldValue('password', '333333')
+              }}
+              title='Mock Usuario'
+              backgroundColor='gray'
+              titleSize={20}
+              containerStyle={{
+                marginBottom: 1,
+                borderRadius: 20,
+                borderWidth: 1,
+                borderColor: 'gray'
+              }}
+            />
+            <Button
+              onPress={() => {
+                props.setFieldValue('email', 'anonimo@anonimo.com');
+                props.setFieldValue('password', '444444')
+              }}
+              title='Mock Anonimo'
+              backgroundColor='gray'
+              titleSize={20}
+              containerStyle={{
+                marginBottom: 1,
+                borderRadius: 20,
+                borderWidth: 1,
+                borderColor: 'gray'
+              }}
+            />
+            <Button
+              onPress={() => {
+                props.setFieldValue('email', 'tester@tester.com');
+                props.setFieldValue('password', '555555')
+              }}
+              title='Mock Tester'
+              backgroundColor='gray'
+              titleSize={20}
+              containerStyle={{
+                marginBottom: 1,
+                borderRadius: 20,
+                borderWidth: 1,
+                borderColor: 'gray'
+              }}
             />
           </View>
         )}
