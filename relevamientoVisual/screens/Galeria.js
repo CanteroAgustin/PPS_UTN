@@ -11,15 +11,16 @@ export default function Galeria() {
   return (
     <Tab.Navigator screenOptions={{
       headerShown: false,
-      tabBarShowLabel: false,
       tabBarStyle:
       {
         backgroundColor: 'white',
         position: 'absolute',
-        bottom: 35,
         marginhorizontal: 35,
         height: 60,
-        borderRadius: 10,
+        // borderTopStartRadius: 10,
+        // borderTopEndRadius: 10,
+        borderRadius: 5,
+        bottom: 2,
         shadowColor: '#000',
         shadowOpacity: 0.06,
         shadowOffset: {
@@ -29,14 +30,14 @@ export default function Galeria() {
       }
     }}>
       <Tab.Screen name='Cosas Lindas' component={GaleriaCosasLindas} options={{
-        tabBarIcon: ({ focused }) => (
+        tabBarIcon: () => (
           < View style={{ position: 'absolute' }}>
             <Image style={{ width: 45, height: 40 }} source={require('../assets/cosaLindaCaraIcon.png')} />
           </View>
         )
       }}></Tab.Screen >
       <Tab.Screen name='Cosas Feas' component={GaleriaCosasFeas} options={{
-        tabBarIcon: ({ focused }) => (
+        tabBarIcon: () => (
           < View style={{ position: 'absolute' }}>
             <Image style={{ width: 40, height: 45 }} source={require('../assets/cosaFeaCaraIcon.png')} />
           </View>

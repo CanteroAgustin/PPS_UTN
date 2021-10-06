@@ -79,7 +79,7 @@ export default function SignupScreen({ navigation }) {
                 marginBottom: 20
               }}
               leftIcon='email'
-              placeholder='Enter email'
+              placeholder='Correo electronico'
               autoCapitalize='none'
               keyboardType='email-address'
               textContentType='emailAddress'
@@ -97,7 +97,7 @@ export default function SignupScreen({ navigation }) {
                 marginBottom: 20
               }}
               leftIcon='lock'
-              placeholder='Enter password'
+              placeholder='Contraseña'
               autoCapitalize='none'
               autoCorrect={false}
               secureTextEntry={passwordVisibility}
@@ -118,7 +118,7 @@ export default function SignupScreen({ navigation }) {
             <Button
               onPress={props.handleSubmit}
               backgroundColor='#ff7961'
-              title='Signup'
+              title='Registrarme'
               tileColor='#fff'
               titleSize={20}
               containerStyle={{

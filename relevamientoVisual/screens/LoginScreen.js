@@ -34,7 +34,7 @@ export default function LoginScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style='dark-content' />
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Ingreso a la app</Text>
       <Spinner
         visible={isLoading}
         textContent={'Cargando...'}
@@ -110,7 +110,7 @@ export default function LoginScreen({ navigation }) {
             <Button
               onPress={props.handleSubmit}
               backgroundColor='#757ce8'
-              title='Login'
+              title='Ingreso'
               tileColor='#fff'
               titleSize={20}
               containerStyle={{

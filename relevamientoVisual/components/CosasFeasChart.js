@@ -51,7 +51,8 @@ const CosasFeasChart = ({ imagenes }) => {
           </TouchableOpacity>
           <View style={styles.textContainer}>
             <Text style={styles.textStyle}>Autor: {foto.user}</Text>
-            <Text style={styles.textStyle}>Fecha de cracion: {foto.fecha}</Text>
+            <Text style={styles.textStyle}>Fecha de creación: {foto.fecha}</Text>
+            <Text style={styles.textStyle}>Likes: {foto.likes}</Text>
           </View>
         </View>
       </Modal>
