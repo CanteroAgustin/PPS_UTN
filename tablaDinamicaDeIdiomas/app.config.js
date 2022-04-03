@@ -5,7 +5,6 @@ export default {
     name: 'tablaDinamicaDeIdiomas',
     slug: 'tablaDinamicaDeIdiomas',
     version: '1.0.0',
-    orientation: 'unknow',
     icon: './assets/icon.png',
     splash: {
       image: './assets/splash.png',
