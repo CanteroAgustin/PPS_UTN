@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native';
+import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 
 const CardGame = ({
   imgUrl,
@@ -11,11 +11,15 @@ const CardGame = ({
   borderBottomLeftRadius,
   borderTopRightRadius,
   borderBottomRightRadius,
+  onPress,
 }) => {
   return (
     <View style={[cardStyle, { borderTopLeftRadius, borderBottomLeftRadius, borderBottomRightRadius, borderTopRightRadius }]}>
-      <Image source={imgUrl} style={imgStyle} />
-      <Text style={textStyle}>{text}</Text>
+      <TouchableOpacity onPress={onPress}>
+        <Image source={imgUrl} style={imgStyle} />
+        <Text style={textStyle}>{text}</Text>
+      </TouchableOpacity>
+
     </View >
   );
 };
