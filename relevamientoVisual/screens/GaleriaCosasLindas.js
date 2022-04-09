@@ -72,11 +72,11 @@ export default function GaleriaCosasLindas() {
           return (
             <View style={{ width, height: height - 90 }}>
               {(item.users && item.users.includes(user.email)) &&
-                <TouchableOpacity style={{ zIndex: 99999, position: 'absolute', top: 20, left: 350 }} onPress={() => { handleDisLike(item.id) }}>
+                <TouchableOpacity style={{ zIndex: 99999, position: 'absolute', top: 20, left: 330 }} onPress={() => { handleDisLike(item.id) }}>
                   <AntDesign name={'heart'} size={40} color="red" />
                 </TouchableOpacity>}
               {(!item.users || !item.users.includes(user.email)) &&
-                <TouchableOpacity style={{ zIndex: 99999, position: 'absolute', top: 20, left: 350 }} onPress={() => { handleLike(item.id) }}>
+                <TouchableOpacity style={{ zIndex: 99999, position: 'absolute', top: 20, left: 330 }} onPress={() => { handleLike(item.id) }}>
                   <AntDesign name={'hearto'} size={40} color="red" />
                 </TouchableOpacity>}
               <Image

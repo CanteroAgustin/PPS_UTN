@@ -85,7 +85,7 @@ const Camara = ({ route, navigation }) => {
         textContent={'Cargando...'}
         textStyle={StyleSheet.flatten(styles.spinnerTextStyle)}
       />
-      <Camera style={styles.camera} type={type} ref={camRef}>
+      <Camera style={styles.camera} type={type} ref={camRef} ratio='16:9'>
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   button: {
     position: 'absolute',
     left: 20,
-    backgroundColor: 'yellow',
+    backgroundColor: 'white',
     width: 80,
     justifyContent: 'center',
     alignItems: 'center',
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
   btnPhoto: {
     position: 'absolute',
     right: 20,
-    backgroundColor: 'yellow',
+    backgroundColor: 'white',
     width: 80,
     justifyContent: 'center',
     alignItems: 'center',
