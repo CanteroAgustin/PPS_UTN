@@ -14,7 +14,7 @@ const ErrorMessage = ({ error, visible }) => {
   switch (error.code) {
     case 'auth/invalid-email': {
       mensaje = authErrors.authInvalidEmail;
-      console.log(mensaje);
+      console.log("Mensaje de error: ", mensaje);
       break;
     }
     case 'auth/wrong-password': {
