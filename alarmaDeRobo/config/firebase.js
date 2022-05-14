@@ -1,5 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firebase-firestore'
+import 'firebase/storage';
 import Constants from 'expo-constants';
 
 // Initialize Firebase
@@ -9,7 +11,8 @@ const firebaseConfig = {
   projectId: Constants.manifest.extra.projectId,
   storageBucket: Constants.manifest.extra.storageBucket,
   messagingSenderId: Constants.manifest.extra.messagingSenderId,
-  appId: Constants.manifest.extra.appId
+  appId: Constants.manifest.extra.appId,
+  databaseUrl: Constants.manifest.extra.databaseUrl
 };
 
 let Firebase;

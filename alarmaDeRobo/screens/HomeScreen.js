@@ -1,17 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { StyleSheet, View, TouchableOpacity, Image, Text } from 'react-native';
 
-import { IconButton } from '../components';
+import { IconButton, InputField } from '../components';
 import Firebase from '../config/firebase';
 import { Gyroscope } from 'expo-sensors';
 import { Audio } from 'expo-av';
+import { Camera } from 'expo-camera';
+import { AuthenticatedUserContext } from '../navigation/AuthenticatedUserProvider';
 
 const auth = Firebase.auth();
+const db = Firebase.firestore();
 
 export default function HomeScreen() {
 
+  const { user } = useContext(AuthenticatedUserContext);
+  const [hasPermission, setHasPermission] = useState(null);
+  const [pass, setPass] = useState("");
+  const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
+  const [type, setType] = useState(Camera.Constants.Type.back);
   const [alert, setAlert] = useState(false);
+  const [passInput, setPassInput] = useState(false);
   let sirenImg = alert ? require('../assets/1.gif') : require('../assets/sirenOff.png');
   const [data, setData] = useState({
     x: 0,
@@ -28,6 +37,12 @@ export default function HomeScreen() {
     }
   };
 
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
   const _subscribe = () => {
     setSubscription(
       Gyroscope.addListener(gyroscopeData => {
@@ -45,6 +60,14 @@ export default function HomeScreen() {
           console.log("up ", gyroscopeData)
           playSound('up')
         }
+        if (gyroscopeData.x < -1) {
+          console.log("down ", gyroscopeData)
+          setFlash(Camera.Constants.FlashMode.torch)
+          setTimeout(() => {
+            setFlash(Camera.Constants.FlashMode.off)
+          }, 5000)
+        }
+
         setData(gyroscopeData);
 
       }));
@@ -54,6 +77,13 @@ export default function HomeScreen() {
     subscription && subscription.remove();
     setSubscription(null);
   };
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
 
   useEffect(() => {
     Gyroscope.setUpdateInterval(100);
@@ -66,6 +96,7 @@ export default function HomeScreen() {
   }, [alert]);
 
   useEffect(() => {
+
     return sound
       ? () => {
         console.log('Unloading Sound');
@@ -100,6 +131,13 @@ export default function HomeScreen() {
     }
   }
 
+  if (hasPermission === null) {
+    return <View />;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
+
   return (
     <View style={styles.containerApp}>
       <StatusBar style='dark-content' />
@@ -114,7 +152,11 @@ export default function HomeScreen() {
       <View style={styles.alarmContainer}>
         <TouchableOpacity
           onPress={() => {
-            setAlert(!alert);
+            if (!alert) {
+              setAlert(true);
+            } else {
+              setPassInput(true)
+            }
           }}
         >
           <Image
@@ -123,17 +165,48 @@ export default function HomeScreen() {
           />
         </TouchableOpacity>
       </View>
+      {(passInput) ?
+        <InputField
+          inputStyle={{
+            fontSize: 14,
+          }}
+          containerStyle={{
+            backgroundColor: '#f0e7c5',
+            marginTop: 20
+          }}
+          placeholder='Enter password'
+          autoCapitalize='none'
+          autoCorrect={false}
+          textContentType='password'
+          onChangeText={async text => {
+            console.log("user:", user.uid);
+            db.collection("usuarios").doc(user.uid)
+              .onSnapshot((doc) => {
+                console.log("Current data: ", doc.data());
+                setPass(doc.data().password)
+              });
+            if (pass === text) {
+              setAlert(false);
+              setPassInput(false);
+            }
+            console.log("text: ", text)
+            console.log("pass: ", pass)
+          }}
+        /> : null}
       <View style={styles.container}>
         <Text style={styles.text}>Gyroscope:</Text>
         <Text style={styles.text}>
           x: {round(x)} y: {round(y)} z: {round(z)}
         </Text>
       </View>
+      <View style={styles.container}>
+        <Camera style={styles.camera} type={type} flashMode={flash}>
+
+        </Camera>
+      </View>
     </View>
   );
 }
-
-
 
 function round(n) {
   if (!n) {
@@ -143,6 +216,13 @@ function round(n) {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  camera: {
+    flex: 0.001,
+    width: 0.3,
+  },
   containerApp: {
     flex: 1,
     backgroundColor: '#e8eaf6',

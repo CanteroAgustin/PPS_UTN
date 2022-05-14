@@ -7,6 +7,7 @@ import { Formik, useFormikContext } from 'formik';
 import { signupValidationSchema } from '../schemas/signupSchema'
 
 const auth = Firebase.auth();
+const db = Firebase.firestore();
 
 export default function SignupScreen({ navigation }) {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
@@ -45,7 +46,12 @@ export default function SignupScreen({ navigation }) {
           if (values.email !== '' && values.password !== '') {
             setIsLoading(true);
             auth.createUserWithEmailAndPassword(values.email, values.password)
-              .then(() => {
+              .then(data => {
+                db.collection("usuarios").doc(data.user.uid).set({
+                  email: values.email,
+                  password: values.password,
+                  rol: 'admin'
+                });
                 setTimeout(() => {
                   setIsLoading(false);
                   resetForm();
@@ -116,7 +122,7 @@ export default function SignupScreen({ navigation }) {
               containerStyle={{
                 marginBottom: 24
               }}
-              disabled={!props.isValid}
+              disabled={() => { !props.isValid }}
             />
             <TouchableOpacity
               style={styles.button}
