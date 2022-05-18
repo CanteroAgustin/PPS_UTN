@@ -157,7 +157,7 @@ export default function LoginScreen({ navigation }) {
               <Button
                 onPress={() => {
                   props.setFieldValue('email', 'invitado@invitado.com');
-                  props.setFieldValue('password', '222222')
+                  props.setFieldValue('password', '123456')
                   setIsMockLogin(true);
                 }}
                 title='Prueba usuario'
@@ -176,7 +176,7 @@ export default function LoginScreen({ navigation }) {
               <Button
                 onPress={() => {
                   props.setFieldValue('email', 'tester@tester.com');
-                  props.setFieldValue('password', '555555')
+                  props.setFieldValue('password', '123456')
                   setIsMockLogin(true);
                 }}
                 title='Prueba desarrollador'

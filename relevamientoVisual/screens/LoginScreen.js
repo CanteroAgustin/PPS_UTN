@@ -16,6 +16,7 @@ export default function LoginScreen({ navigation }) {
   const [loginError, setLoginError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { validateForm } = useFormikContext;
+  const [isMockLogin, setIsMockLogin] = useState(false);
 
   useEffect(() => {
     validateForm;
@@ -96,7 +97,10 @@ export default function LoginScreen({ navigation }) {
               textContentType='password'
               rightIcon={rightIcon}
               handlePasswordVisibility={handlePasswordVisibility}
-              onChangeText={props.handleChange('password')}
+              onChangeText={() => {
+                setIsMockLogin(true);
+                props.handleChange('password');
+              }}
               onBlur={props.handleBlur('password')}
               value={props.values.password}
             />
@@ -116,7 +120,7 @@ export default function LoginScreen({ navigation }) {
               containerStyle={{
                 marginBottom: 10
               }}
-              disabled={!props.isValid}
+              disabled={!props.isValid && !isMockLogin}
             />
             <Button
               onPress={() => {
@@ -134,7 +138,8 @@ export default function LoginScreen({ navigation }) {
             <Button
               onPress={() => {
                 props.setFieldValue('email', 'admin@admin.com');
-                props.setFieldValue('password', '111111')
+                props.setFieldValue('password', '123456')
+                setIsMockLogin(true);
               }}
               title='Mock Admin'
               backgroundColor='gray'
@@ -149,7 +154,8 @@ export default function LoginScreen({ navigation }) {
             <Button
               onPress={() => {
                 props.setFieldValue('email', 'invitado@invitado.com');
-                props.setFieldValue('password', '222222')
+                props.setFieldValue('password', '123456')
+                setIsMockLogin(true);
               }}
               title='Mock Invitado'
               backgroundColor='gray'
@@ -164,7 +170,8 @@ export default function LoginScreen({ navigation }) {
             <Button
               onPress={() => {
                 props.setFieldValue('email', 'usuario@usuario.com');
-                props.setFieldValue('password', '333333')
+                props.setFieldValue('password', '123456')
+                setIsMockLogin(true);
               }}
               title='Mock Usuario'
               backgroundColor='gray'
@@ -179,7 +186,8 @@ export default function LoginScreen({ navigation }) {
             <Button
               onPress={() => {
                 props.setFieldValue('email', 'anonimo@anonimo.com');
-                props.setFieldValue('password', '444444')
+                props.setFieldValue('password', '123456')
+                setIsMockLogin(true);
               }}
               title='Mock Anonimo'
               backgroundColor='gray'
@@ -194,7 +202,8 @@ export default function LoginScreen({ navigation }) {
             <Button
               onPress={() => {
                 props.setFieldValue('email', 'tester@tester.com');
-                props.setFieldValue('password', '555555')
+                props.setFieldValue('password', '123456')
+                setIsMockLogin(true);
               }}
               title='Mock Tester'
               backgroundColor='gray'
