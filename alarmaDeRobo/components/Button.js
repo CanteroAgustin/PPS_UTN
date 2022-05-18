@@ -9,6 +9,7 @@ const Button = ({
   onPress,
   width = '100%',
   containerStyle,
+  textStyle,
   disabled
 }) => {
   return (
@@ -39,7 +40,7 @@ const Button = ({
         ];
       }}
     >
-      <Text style={[styles.text, { color: titleColor, fontSize: titleSize }]}>
+      <Text style={[textStyle, styles.text, { color: titleColor, fontSize: titleSize }]}>
         {title}
       </Text>
     </Pressable >

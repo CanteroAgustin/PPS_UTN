@@ -122,7 +122,7 @@ export default function SignupScreen({ navigation }) {
               containerStyle={{
                 marginBottom: 24
               }}
-              disabled={() => { !props.isValid }}
+              disabled={!props.isValid}
             />
             <TouchableOpacity
               style={styles.button}

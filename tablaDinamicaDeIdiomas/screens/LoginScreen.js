@@ -16,6 +16,7 @@ export default function LoginScreen({ navigation }) {
   const [loginError, setLoginError] = useState('');
   const [isLoading, setIsLoading] = useState('');
   const { validateForm } = useFormikContext;
+  const [isMockLogin, setIsMockLogin] = useState(false);
 
   useEffect(() => {
     validateForm;
@@ -91,7 +92,10 @@ export default function LoginScreen({ navigation }) {
               keyboardType='email-address'
               textContentType='emailAddress'
               autoFocus={true}
-              onChangeText={props.handleChange('email')}
+              onChangeText={() => {
+                setIsMockLogin(true);
+                props.handleChange('email')
+              }}
               onBlur={props.handleBlur('email')}
               value={props.values.email}
             />
@@ -111,7 +115,10 @@ export default function LoginScreen({ navigation }) {
               textContentType='password'
               rightIcon={rightIcon}
               handlePasswordVisibility={handlePasswordVisibility}
-              onChangeText={props.handleChange('password')}
+              onChangeText={() => {
+                setIsMockLogin(true);
+                props.handleChange('password');
+              }}
               onBlur={props.handleBlur('password')}
               value={props.values.password}
             />
@@ -131,8 +138,67 @@ export default function LoginScreen({ navigation }) {
               containerStyle={{
                 marginBottom: 24
               }}
-              disabled={!props.isValid}
+              disabled={!props.isValid && !isMockLogin}
             />
+            <View style={styles.buttonsContainer}>
+              <Button
+                onPress={() => {
+                  props.setFieldValue('email', 'admin@admin.com');
+                  props.setFieldValue('password', '123456');
+                  setIsMockLogin(true);
+                }}
+                title='Prueba Administrador'
+                backgroundColor='#ffca18'
+                titleSize={28}
+                textStyle={{
+                  textAlign: 'center'
+                }}
+                containerStyle={{
+                  borderWidth: 5,
+                  borderColor: 'gray',
+                  borderStyle: 'dashed',
+                  height: 100
+                }}
+              />
+              <Button
+                onPress={() => {
+                  props.setFieldValue('email', 'invitado@invitado.com');
+                  props.setFieldValue('password', '222222')
+                  setIsMockLogin(true);
+                }}
+                title='Prueba usuario'
+                backgroundColor='#ffca18'
+                titleSize={28}
+                textStyle={{
+                  textAlign: 'center'
+                }}
+                containerStyle={{
+                  borderWidth: 5,
+                  borderColor: 'gray',
+                  borderStyle: 'dashed',
+                  height: 100,
+                }}
+              />
+              <Button
+                onPress={() => {
+                  props.setFieldValue('email', 'tester@tester.com');
+                  props.setFieldValue('password', '555555')
+                  setIsMockLogin(true);
+                }}
+                title='Prueba desarrollador'
+                backgroundColor='#ffca18'
+                titleSize={28}
+                textStyle={{
+                  textAlign: 'center'
+                }}
+                containerStyle={{
+                  borderWidth: 5,
+                  borderColor: 'gray',
+                  borderStyle: 'dashed',
+                  height: 100
+                }}
+              />
+            </View>
           </View>
         )
         }

@@ -8,6 +8,7 @@ import { Gyroscope } from 'expo-sensors';
 import { Audio } from 'expo-av';
 import { Camera } from 'expo-camera';
 import { AuthenticatedUserContext } from '../navigation/AuthenticatedUserProvider';
+import { borderColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
 const auth = Firebase.auth();
 const db = Firebase.firestore();
@@ -48,19 +49,19 @@ export default function HomeScreen() {
       Gyroscope.addListener(gyroscopeData => {
         console.log("Alert en listener: ", alert)
 
-        if (gyroscopeData.z < -1) {
+        if (gyroscopeData.z < -2) {
           console.log("derecha: ", gyroscopeData)
           playSound('der')
         }
-        if (gyroscopeData.z > 1) {
+        if (gyroscopeData.z > 2) {
           console.log("izquierda ", gyroscopeData)
           playSound('izq')
         }
-        if (gyroscopeData.x > 1) {
+        if (gyroscopeData.x > 2) {
           console.log("up ", gyroscopeData)
           playSound('up')
         }
-        if (gyroscopeData.x < -1) {
+        if (gyroscopeData.x < -2) {
           console.log("down ", gyroscopeData)
           setFlash(Camera.Constants.FlashMode.torch)
           setTimeout(() => {
@@ -96,7 +97,12 @@ export default function HomeScreen() {
   }, [alert]);
 
   useEffect(() => {
-
+    console.log("user: ", user.uid);
+    db.collection("usuarios").doc(user.uid)
+      .onSnapshot((doc) => {
+        console.log("Current data: ", doc.data());
+        setPass(doc.data().password)
+      });
     return sound
       ? () => {
         console.log('Unloading Sound');
@@ -149,6 +155,9 @@ export default function HomeScreen() {
           onPress={handleSignOut}
         />
       </View>
+      <Text style={styles.titulo}>
+        🚨 Alarma de robo 🚨
+      </Text>
       <View style={styles.alarmContainer}>
         <TouchableOpacity
           onPress={() => {
@@ -166,39 +175,37 @@ export default function HomeScreen() {
         </TouchableOpacity>
       </View>
       {(passInput) ?
-        <InputField
-          inputStyle={{
-            fontSize: 14,
-          }}
-          containerStyle={{
-            backgroundColor: '#f0e7c5',
-            marginTop: 20
-          }}
-          placeholder='Enter password'
-          autoCapitalize='none'
-          autoCorrect={false}
-          textContentType='password'
-          onChangeText={async text => {
-            console.log("user:", user.uid);
-            db.collection("usuarios").doc(user.uid)
-              .onSnapshot((doc) => {
-                console.log("Current data: ", doc.data());
-                setPass(doc.data().password)
-              });
-            if (pass === text) {
-              setAlert(false);
-              setPassInput(false);
-            }
-            console.log("text: ", text)
-            console.log("pass: ", pass)
-          }}
-        /> : null}
-      <View style={styles.container}>
+        <View>
+          <InputField
+            inputStyle={{
+              fontSize: 14,
+            }}
+            containerStyle={{
+              backgroundColor: '#f0e7c5',
+              marginTop: 20
+            }}
+            placeholder='Enter password'
+            autoCapitalize='none'
+            autoCorrect={false}
+            textContentType='password'
+            onChangeText={async text => {
+              if (pass === text) {
+                setAlert(false);
+                setPassInput(false);
+              }
+              console.log("text: ", text)
+              console.log("pass: ", pass)
+            }}
+          />
+          <Text style={styles.avisoCancelamiento}> ⚠ Ingrese la misma contraseña con la que se registro para cancelar la alarma.</Text>
+        </View>
+        : null}
+      {/* <View style={styles.container}>
         <Text style={styles.text}>Gyroscope:</Text>
         <Text style={styles.text}>
           x: {round(x)} y: {round(y)} z: {round(z)}
         </Text>
-      </View>
+      </View> */}
       <View style={styles.container}>
         <Camera style={styles.camera} type={type} flashMode={flash}>
 
@@ -216,6 +223,24 @@ function round(n) {
 }
 
 const styles = StyleSheet.create({
+  avisoCancelamiento: {
+    borderWidth: 2,
+    borderStyle: 'dashed',
+    borderRadius: 1,
+    padding: 5,
+    marginTop: 10,
+    textAlign: 'center',
+    color: '#b9935a',
+    borderColor: '#b9935a',
+    fontSize: 15
+  },
+  titulo: {
+    textAlign: 'center',
+    fontSize: 36,
+    color: '#757ce8',
+    fontWeight: 'bold',
+    paddingBottom: 40
+  },
   container: {
     flex: 1,
   },

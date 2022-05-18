@@ -14,6 +14,7 @@ export default function LoginScreen({ navigation }) {
   const [rightIcon, setRightIcon] = useState('eye');
   const [loginError, setLoginError] = useState('');
   const [isLoading, setIsLoading] = useState('');
+  const [isMockLogin, setIsMockLogin] = useState(false);
   const { validateForm } = useFormikContext;
 
   useEffect(() => {
@@ -75,7 +76,10 @@ export default function LoginScreen({ navigation }) {
               keyboardType='email-address'
               textContentType='emailAddress'
               autoFocus={true}
-              onChangeText={props.handleChange('email')}
+              onChangeText={() => {
+                setIsMockLogin(true);
+                props.handleChange('email')
+              }}
               onBlur={props.handleBlur('email')}
               value={props.values.email}
             />
@@ -95,7 +99,10 @@ export default function LoginScreen({ navigation }) {
               textContentType='password'
               rightIcon={rightIcon}
               handlePasswordVisibility={handlePasswordVisibility}
-              onChangeText={props.handleChange('password')}
+              onChangeText={() => {
+                setIsMockLogin(true);
+                props.handleChange('password');
+              }}
               onBlur={props.handleBlur('password')}
               value={props.values.password}
             />
@@ -115,7 +122,7 @@ export default function LoginScreen({ navigation }) {
               containerStyle={{
                 marginBottom: 24
               }}
-              disabled={!props.isValid}
+              disabled={!props.isValid && !isMockLogin}
             />
             <Button
               onPress={() => {
@@ -127,6 +134,65 @@ export default function LoginScreen({ navigation }) {
               backgroundColor='#ff7961'
               titleSize={20}
             />
+            <View style={styles.buttonsContainer}>
+              <Button
+                onPress={() => {
+                  props.setFieldValue('email', 'admin@admin.com');
+                  props.setFieldValue('password', '123456');
+                  setIsMockLogin(true);
+                }}
+                title='Prueba Administrador'
+                backgroundColor='green'
+                titleSize={14}
+                textStyle={{
+                  textAlign: 'center'
+                }}
+                containerStyle={{
+                  borderWidth: 1,
+                  borderColor: 'gray',
+                  width: '33%',
+                  height: 100
+                }}
+              />
+              <Button
+                onPress={() => {
+                  props.setFieldValue('email', 'invitado@invitado.com');
+                  props.setFieldValue('password', '222222')
+                  setIsMockLogin(true);
+                }}
+                title='Prueba usuario'
+                backgroundColor='green'
+                titleSize={14}
+                textStyle={{
+                  textAlign: 'center'
+                }}
+                containerStyle={{
+                  borderWidth: 1,
+                  borderColor: 'gray',
+                  width: '33%',
+                  height: 100,
+                }}
+              />
+              <Button
+                onPress={() => {
+                  props.setFieldValue('email', 'tester@tester.com');
+                  props.setFieldValue('password', '555555')
+                  setIsMockLogin(true);
+                }}
+                title='Prueba desarrollador'
+                backgroundColor='green'
+                titleSize={14}
+                textStyle={{
+                  textAlign: 'center'
+                }}
+                containerStyle={{
+                  borderWidth: 1,
+                  borderColor: 'gray',
+                  width: '33%',
+                  height: 100
+                }}
+              />
+            </View>
           </View>
         )}
       </Formik>
@@ -135,6 +201,11 @@ export default function LoginScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  buttonsContainer: {
+    marginTop: 20,
+    flexDirection: "row", justifyContent: 'space-evenly',
+    alignItems: 'center'
+  },
   container: {
     flex: 1,
     backgroundColor: '#e8eaf6',
