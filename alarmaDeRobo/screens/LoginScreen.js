@@ -138,7 +138,7 @@ export default function LoginScreen({ navigation }) {
               <Button
                 onPress={() => {
                   props.setFieldValue('email', 'admin@admin.com');
-                  props.setFieldValue('password', '123456');
+                  props.setFieldValue('password', '123456')
                   setIsMockLogin(true);
                 }}
                 title='Prueba Administrador'
