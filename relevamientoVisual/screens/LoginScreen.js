@@ -65,11 +65,12 @@ export default function LoginScreen({ navigation }) {
           <View>
             <InputField
               inputStyle={{
-                fontSize: 14
+                fontSize: 24
               }}
               containerStyle={{
                 backgroundColor: '#fff',
-                marginBottom: 20
+                marginBottom: 20,
+
               }}
               leftIcon='email'
               placeholder='Correo electronico'
@@ -83,11 +84,11 @@ export default function LoginScreen({ navigation }) {
             />
             <InputField
               inputStyle={{
-                fontSize: 14
+                fontSize: 24
               }}
               containerStyle={{
                 backgroundColor: '#fff',
-                marginBottom: 20
+                marginBottom: 20,
               }}
               leftIcon='lock'
               placeholder='Contraseña'
@@ -118,7 +119,8 @@ export default function LoginScreen({ navigation }) {
               tileColor='#fff'
               titleSize={20}
               containerStyle={{
-                marginBottom: 10
+                marginBottom: 10,
+                height: 60
               }}
               disabled={!props.isValid && !isMockLogin}
             />
@@ -133,86 +135,61 @@ export default function LoginScreen({ navigation }) {
               titleSize={20}
               containerStyle={{
                 marginBottom: 10,
+                height: 60
               }}
             />
             <Button
               onPress={() => {
                 props.setFieldValue('email', 'admin@admin.com');
-                props.setFieldValue('password', '123456')
+                props.setFieldValue('password', '123456');
                 setIsMockLogin(true);
               }}
-              title='Mock Admin'
+              title='Prueba administrador'
               backgroundColor='gray'
               titleSize={20}
               containerStyle={{
                 marginBottom: 1,
                 borderRadius: 20,
                 borderWidth: 1,
-                borderColor: 'gray'
+                borderColor: 'gray',
+                borderStyle: 'dashed',
+                height: 100
               }}
             />
             <Button
               onPress={() => {
                 props.setFieldValue('email', 'invitado@invitado.com');
-                props.setFieldValue('password', '123456')
+                props.setFieldValue('password', '123456');
                 setIsMockLogin(true);
               }}
-              title='Mock Invitado'
+              title='Prueba invitado'
               backgroundColor='gray'
               titleSize={20}
               containerStyle={{
                 marginBottom: 1,
-                borderRadius: 50,
+                borderRadius: 20,
                 borderWidth: 1,
-                borderColor: 'gray'
+                borderColor: 'gray',
+                borderStyle: 'dashed',
+                height: 100
               }}
             />
             <Button
               onPress={() => {
                 props.setFieldValue('email', 'tester@tester.com');
-                props.setFieldValue('password', '123456')
+                props.setFieldValue('password', '123456');
                 setIsMockLogin(true);
               }}
-              title='Mock Usuario'
+              title='prueba desarrollador'
               backgroundColor='gray'
               titleSize={20}
               containerStyle={{
                 marginBottom: 1,
                 borderRadius: 20,
                 borderWidth: 1,
-                borderColor: 'gray'
-              }}
-            />
-            <Button
-              onPress={() => {
-                props.setFieldValue('email', 'anonimo@anonimo.com');
-                props.setFieldValue('password', '123456')
-                setIsMockLogin(true);
-              }}
-              title='Mock Anonimo'
-              backgroundColor='gray'
-              titleSize={20}
-              containerStyle={{
-                marginBottom: 1,
-                borderRadius: 20,
-                borderWidth: 1,
-                borderColor: 'gray'
-              }}
-            />
-            <Button
-              onPress={() => {
-                props.setFieldValue('email', 'test@test.com');
-                props.setFieldValue('password', '123456')
-                setIsMockLogin(true);
-              }}
-              title='Mock Tester'
-              backgroundColor='gray'
-              titleSize={20}
-              containerStyle={{
-                marginBottom: 1,
-                borderRadius: 20,
-                borderWidth: 1,
-                borderColor: 'gray'
+                borderColor: 'gray',
+                borderStyle: 'dashed',
+                height: 100
               }}
             />
           </View>
@@ -230,11 +207,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12
   },
   title: {
-    fontSize: 24,
+    fontSize: 50,
     fontWeight: '600',
-    color: '#fff',
+    color: '#ADDEC8',
     alignSelf: 'center',
-    paddingBottom: 24
+    paddingBottom: 24,
+    fontWeight: 'bold'
   },
   errorMsg: {
     color: '#ff0e0e',

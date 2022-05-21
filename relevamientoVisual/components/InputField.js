@@ -17,7 +17,7 @@ const InputField = ({
       {leftIcon ? (
         <MaterialCommunityIcons
           name={leftIcon}
-          size={20}
+          size={30}
           color={iconColor}
           style={styles.leftIcon}
         />
@@ -31,7 +31,7 @@ const InputField = ({
         <TouchableOpacity onPress={handlePasswordVisibility}>
           <MaterialCommunityIcons
             name={rightIcon}
-            size={20}
+            size={30}
             color={iconColor}
             style={styles.rightIcon}
           />
