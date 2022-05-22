@@ -60,7 +60,7 @@ const Camara = ({ route, navigation }) => {
           likes: 0,
           id: user.uid + now
         });
-        navigation.replace('Home');
+        navigation.replace('Listados');
       });
     });
   }

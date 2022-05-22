@@ -3,8 +3,9 @@ import { Animated, StatusBar, View, Image, StyleSheet, Dimensions, TouchableOpac
 import Firebase from '../config/firebase';
 import { AuthenticatedUserContext } from '../navigation/AuthenticatedUserProvider';
 import { AntDesign } from '@expo/vector-icons';
+import { Button } from '../components';
 
-export default function GaleriaCosasLindas() {
+export default function GaleriaCosasLindas({ navigation }) {
 
   const db = Firebase.firestore();
   const [fotosLindas, setFotosLindas] = useState();
@@ -55,6 +56,9 @@ export default function GaleriaCosasLindas() {
         datos.push(doc.data());
       });
       if (datos.length > 0) {
+        datos.sort((a, b) => {
+          return new Date(b.fecha).getTime() - new Date(a.fecha).getTime()
+        })
         setFotosLindas(datos);
       }
     })
@@ -63,14 +67,21 @@ export default function GaleriaCosasLindas() {
   return (
     <View style={styles.container}>
       <StatusBar hidden />
-      {!fotosLindas && <ImageBackground style={{ width, height: 800, marginTop: 50 }} source={require('../assets/nofoto.jpg')} resizeMode="cover" />}
+      {!fotosLindas &&
+        <View>
+          <Text style={styles.textoSinFoto}>
+            Aun no hay fotos para mostrar, podes ser el primero en subir una.
+          </Text>
+          <ImageBackground style={{ width, height: 400, marginTop: 50 }} source={require('../assets/casalinda.png')} resizeMode="cover" />
+        </View>
+      }
       <Animated.FlatList
         data={fotosLindas}
         pagingEnabled
         keyStractor={item => item.id}
         renderItem={({ item }) => {
           return (
-            <View style={{ width, height: height - 90 }}>
+            <View style={{ width, height: height - 290 }}>
               {(item.users && item.users.includes(user.email)) &&
                 <TouchableOpacity style={{ zIndex: 99999, position: 'absolute', top: 20, left: 330 }} onPress={() => { handleDisLike(item.id) }}>
                   <AntDesign name={'heart'} size={40} color="red" />
@@ -81,7 +92,7 @@ export default function GaleriaCosasLindas() {
                 </TouchableOpacity>}
               <Image
                 source={{ uri: item.url }}
-                style={{ flex: 1, resizeMode: 'cover' }}
+                style={{ flex: 1, resizeMode: 'cover', borderWidth: 1, borderColor: 'red', borderRadius: 5, margin: 5 }}
               />
               <View style={styles.textContainer}>
                 <Text style={styles.textStyle}>Autor: {item.user}</Text>
@@ -91,6 +102,61 @@ export default function GaleriaCosasLindas() {
           )
         }}
       />
+      <Button
+        onPress={() => {
+          navigation.navigate('Camara', { tipo: 'linda' });
+        }}
+        title='Tomar foto'
+        backgroundColor='#fff'
+        titleSize={40}
+        titleColor='white'
+        containerStyle={{
+          borderColor: '#000000',
+          borderWidth: 1,
+          borderRadius: 5,
+          marginTop: 2,
+          marginBottom: 2,
+          backgroundColor: '#2979ff',
+          height: 50,
+          width: '97%'
+        }}
+      />
+      {fotosLindas && <Button
+        onPress={() => {
+          navigation.navigate('Charts')
+        }}
+        title='Ver gráfico'
+        backgroundColor='#fff'
+        titleSize={40}
+        titleColor='white'
+        containerStyle={{
+          borderColor: '#000000',
+          borderWidth: 1,
+          borderRadius: 5,
+          marginBottom: 2,
+          backgroundColor: '#2979ff',
+          height: 50,
+          width: '97%'
+        }}
+      />}
+      {fotosLindas && <Button
+        onPress={() => {
+          navigation.navigate('Charts')
+        }}
+        title='Ver mis fotos'
+        backgroundColor='#fff'
+        titleSize={40}
+        titleColor='white'
+        containerStyle={{
+          borderColor: '#000000',
+          borderWidth: 1,
+          borderRadius: 5,
+          marginBottom: 4,
+          backgroundColor: '#2979ff',
+          height: 50,
+          width: '97%'
+        }}
+      />}
     </View>
   );
 }
@@ -98,15 +164,15 @@ export default function GaleriaCosasLindas() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#e8eaf6',
     alignItems: 'center',
     justifyContent: 'center',
   },
   textContainer: {
     flexDirection: 'column',
     position: 'absolute',
-    top: 0,
-    left: 0,
+    top: 5,
+    left: 5,
     margin: 5,
     backgroundColor: 'white',
     opacity: 0.5,
@@ -118,5 +184,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'blue',
     fontWeight: 'bold'
+  },
+  textoSinFoto: {
+    textAlign: 'center',
+    color: '#6fa8dc',
+    fontSize: 30,
+    fontWeight: 'bold',
+    top: 10
   }
 });

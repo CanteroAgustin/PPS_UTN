@@ -16,13 +16,15 @@ export default function HomeScreen({ navigation }) {
         <BotonCosas
           imgSrc={require('../assets/casalinda.png')} disable={false}
           onPress={() => {
-            navigation.navigate('Camara', { tipo: 'linda' });
+            //navigation.navigate('Camara', { tipo: 'linda' });
+            navigation.navigate('Galeria cosas lindas')
           }}
         />
         <BotonCosas
           imgSrc={require('../assets/casafeas.png')} disable={false}
           onPress={() => {
-            navigation.navigate('Camara', { tipo: 'fea' });
+            //navigation.navigate('Camara', { tipo: 'fea' });
+            navigation.navigate('Galeria cosas feas')
           }}
         />
       </View>

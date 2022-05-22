@@ -4,7 +4,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StyleSheet } from 'react-native';
 import HomeScreen from '../screens/HomeScreen';
 import Camara from '../screens/Camara';
-import Galeria from '../screens/Galeria';
+import GaleriaCosasLindas from '../screens/GaleriaCosasLindas';
+import GaleriaCosasFeas from '../screens/GaleriaCosasFeas';
 import Charts from '../screens/Charts';
 import { IconButton } from '../components';
 
@@ -34,7 +35,8 @@ export default function HomeStack() {
     >
       <Stack.Screen name='Listados' component={HomeScreen} />
       <Stack.Screen name='Camara' component={Camara} />
-      <Stack.Screen name='Galeria' component={Galeria} />
+      <Stack.Screen name='Galeria cosas lindas' component={GaleriaCosasLindas} />
+      <Stack.Screen name='Galeria cosas feas' component={GaleriaCosasFeas} />
       <Stack.Screen name='Charts' component={Charts} />
     </Stack.Navigator>
   );
