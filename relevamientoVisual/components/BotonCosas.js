@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet, Pressable, Image, Dimensions } from 'react-native';
-
-const win = Dimensions.get('window');
+import { StyleSheet, Pressable, Image } from 'react-native';
 
 const BotonCosas = ({
   imgSrc,
@@ -39,14 +37,12 @@ const BotonCosas = ({
 };
 
 const styles = StyleSheet.create({
+  base: { alignItems: 'center' },
   img: {
-    width: win.width / 2 - 4,
-    height: win.height / 2,
-    marginLeft: 2,
-    marginRight: 2,
-    borderWidth: 1,
+    height: 351,
+    width: 385,
+    borderWidth: 2,
     borderColor: 'black',
-    borderRadius: 10
   }
 });
 

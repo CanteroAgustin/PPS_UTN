@@ -1,48 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Button, IconButton } from '../components';
+import { IconButton } from '../components';
 import Firebase from '../config/firebase';
 import BotonCosas from '../components/BotonCosas';
 
 const auth = Firebase.auth();
 
 export default function HomeScreen({ navigation }) {
-  const handleSignOut = async () => {
-    try {
-      await auth.signOut();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <View style={styles.container}>
       <StatusBar style='dark-content' />
-      <View style={styles.row}>
-        <IconButton
-          name='logout'
-          size={24}
-          color='#757ce8'
-          onPress={handleSignOut}
-        />
-      </View>
-      <Text style={styles.title}>¿Que te gustaría fotografiar?</Text>
       <View style={styles.imgContainer}>
         <BotonCosas
-          imgSrc={require('../assets/cosalinda.jpg')} disable={false}
+          imgSrc={require('../assets/casalinda.png')} disable={false}
           onPress={() => {
             navigation.navigate('Camara', { tipo: 'linda' });
           }}
         />
         <BotonCosas
-          imgSrc={require('../assets/cosafearesized.jpg')} disable={false}
+          imgSrc={require('../assets/casafeas.png')} disable={false}
           onPress={() => {
             navigation.navigate('Camara', { tipo: 'fea' });
           }}
         />
       </View>
-      <View style={styles.menu}>
+      {/* <View style={styles.menu}>
         <Button
           onPress={() => {
             navigation.navigate('Galeria')
@@ -79,7 +63,7 @@ export default function HomeScreen({ navigation }) {
             height: 100
           }}
         />
-      </View>
+      </View> */}
     </View>
   );
 }
@@ -95,16 +79,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#e8eaf6',
-    paddingTop: 50,
+
   },
   row: {
     padding: 20,
     alignItems: 'flex-end',
     marginBottom: 24
   },
-  imgContainer: {
-    flexDirection: 'row'
-  },
+  // imgContainer: {
+  //   flexDirection: 'row'
+  // },
   menu: {
     marginLeft: 2,
     marginRight: 2
