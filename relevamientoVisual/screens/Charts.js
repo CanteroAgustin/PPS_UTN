@@ -1,29 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
-import CosasFeasChart from '../components/CosasFeasChart';
-import CosasLindasChart from '../components/CosasLindasChart';
+import CosasFeasChart from '../components/CosasLindasChart';
+import CosasLindasChart from '../components/CosasFeasChart';
 import Firebase from '../config/firebase';
 const db = Firebase.firestore();
-const Charts = () => {
+const Charts = ({ route }) => {
+  const { tipo } = route.params;
   const [cosasLindas, setCosasLindas] = useState(undefined);
   const [cosasFeas, setCosasFeas] = useState(undefined);
 
 
   useEffect(() => {
-    db.collection('imageneslinda').onSnapshot((querySnapshot) => {
-      const imagenes = [];
-      querySnapshot.docs.forEach((doc) => {
-        imagenes.push(doc.data());
-      });
-      setCosasLindas(imagenes);
-    })
-    db.collection('imagenesfea').onSnapshot((querySnapshot) => {
-      const imagenes = [];
-      querySnapshot.docs.forEach((doc) => {
-        imagenes.push(doc.data());
-      });
-      setCosasFeas(imagenes);
-    })
+    if (tipo == "linda") {
+      db.collection('imageneslinda').onSnapshot((querySnapshot) => {
+        const imagenes = [];
+        querySnapshot.docs.forEach((doc) => {
+          imagenes.push(doc.data());
+        });
+        setCosasLindas(imagenes);
+      })
+    } else {
+      db.collection('imagenesfea').onSnapshot((querySnapshot) => {
+        const imagenes = [];
+        querySnapshot.docs.forEach((doc) => {
+          imagenes.push(doc.data());
+        });
+        setCosasFeas(imagenes);
+      })
+    }
   }, [])
   return (
     <View style={{ paddingTop: 50 }}>

@@ -4,6 +4,7 @@ import Firebase from '../config/firebase';
 import { AuthenticatedUserContext } from '../navigation/AuthenticatedUserProvider';
 import { AntDesign } from '@expo/vector-icons';
 import { Button } from '../components';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default function GaleriaCosasLindas({ navigation }) {
 
@@ -11,6 +12,7 @@ export default function GaleriaCosasLindas({ navigation }) {
   const [fotosLindas, setFotosLindas] = useState();
   const { width, height } = Dimensions.get('screen');
   const { user, setUser } = useContext(AuthenticatedUserContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLike = (idImg) => {
     db.collection("imageneslinda")
@@ -49,7 +51,7 @@ export default function GaleriaCosasLindas({ navigation }) {
   }
 
   useEffect(() => {
-
+    setIsLoading(true);
     db.collection('imageneslinda').onSnapshot(async (querySnapshot) => {
       const datos = [];
       await querySnapshot.docs.forEach((doc) => {
@@ -60,6 +62,9 @@ export default function GaleriaCosasLindas({ navigation }) {
           return new Date(b.fecha).getTime() - new Date(a.fecha).getTime()
         })
         setFotosLindas(datos);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1)
       }
     })
   }, [])
@@ -67,15 +72,20 @@ export default function GaleriaCosasLindas({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar hidden />
-      {!fotosLindas &&
-        <View>
+      <Spinner
+        visible={isLoading}
+        textContent={'Cargando...'}
+        textStyle={StyleSheet.flatten(styles.spinnerTextStyle)}
+      />
+      {!fotosLindas && !isLoading &&
+        < View >
           <Text style={styles.textoSinFoto}>
             Aun no hay fotos para mostrar, podes ser el primero en subir una.
           </Text>
           <ImageBackground style={{ width, height: 400, marginTop: 50 }} source={require('../assets/casalinda.png')} resizeMode="cover" />
         </View>
       }
-      <Animated.FlatList
+      {!isLoading && <Animated.FlatList
         data={fotosLindas}
         pagingEnabled
         keyStractor={item => item.id}
@@ -101,8 +111,8 @@ export default function GaleriaCosasLindas({ navigation }) {
             </View>
           )
         }}
-      />
-      <Button
+      />}
+      {!isLoading && <Button
         onPress={() => {
           navigation.navigate('Camara', { tipo: 'linda' });
         }}
@@ -120,44 +130,48 @@ export default function GaleriaCosasLindas({ navigation }) {
           height: 50,
           width: '97%'
         }}
-      />
-      {fotosLindas && <Button
-        onPress={() => {
-          navigation.navigate('Charts')
-        }}
-        title='Ver gráfico'
-        backgroundColor='#fff'
-        titleSize={40}
-        titleColor='white'
-        containerStyle={{
-          borderColor: '#000000',
-          borderWidth: 1,
-          borderRadius: 5,
-          marginBottom: 2,
-          backgroundColor: '#2979ff',
-          height: 50,
-          width: '97%'
-        }}
       />}
-      {fotosLindas && <Button
-        onPress={() => {
-          navigation.navigate('Charts')
-        }}
-        title='Ver mis fotos'
-        backgroundColor='#fff'
-        titleSize={40}
-        titleColor='white'
-        containerStyle={{
-          borderColor: '#000000',
-          borderWidth: 1,
-          borderRadius: 5,
-          marginBottom: 4,
-          backgroundColor: '#2979ff',
-          height: 50,
-          width: '97%'
-        }}
-      />}
-    </View>
+      {
+        fotosLindas && !isLoading && <Button
+          onPress={() => {
+            navigation.navigate('Charts', { tipo: 'linda' });
+          }}
+          title='Ver gráfico'
+          backgroundColor='#fff'
+          titleSize={40}
+          titleColor='white'
+          containerStyle={{
+            borderColor: '#000000',
+            borderWidth: 1,
+            borderRadius: 5,
+            marginBottom: 2,
+            backgroundColor: '#2979ff',
+            height: 50,
+            width: '97%'
+          }}
+        />
+      }
+      {
+        fotosLindas && !isLoading && <Button
+          onPress={() => {
+            navigation.navigate('Charts')
+          }}
+          title='Ver mis fotos'
+          backgroundColor='#fff'
+          titleSize={40}
+          titleColor='white'
+          containerStyle={{
+            borderColor: '#000000',
+            borderWidth: 1,
+            borderRadius: 5,
+            marginBottom: 4,
+            backgroundColor: '#2979ff',
+            height: 50,
+            width: '97%'
+          }}
+        />
+      }
+    </View >
   );
 }
 

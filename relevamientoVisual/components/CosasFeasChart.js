@@ -1,44 +1,69 @@
-import React, { useState, useEffect } from 'react';
-import { Image, StyleSheet, Text, View, Modal, TouchableOpacity, Dimensions } from 'react-native';
-import { PieChart } from 'react-native-svg-charts'
-import GraficoVacio from '../components/GraficoVacio';
-
+import React, { useEffect, useState } from 'react';
+import { Dimensions, Text, View, Modal, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { BarChart, Grid } from 'react-native-svg-charts'
+import GraficoVacio from './GraficoVacio';
+import { Defs, LinearGradient, Stop } from "react-native-svg";
 const CosasFeasChart = ({ imagenes }) => {
 
-  const [open, setOpen] = useState(null);
+  const [data, setData] = useState([]);
+  const { height } = Dimensions.get('screen');
   const [foto, setFoto] = useState({});
-  const { width, height } = Dimensions.get('screen');
+  const [open, setOpen] = useState(null);
   const randomColor = () => ('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000000').slice(0, 7);
+
+  useEffect(() => {
+    const svgs = [];
+    const dataTemp = [];
+    const urls = [];
+    if (imagenes.length > 0) {
+      imagenes.forEach(imagen => {
+        dataTemp.push(
+          {
+            value: imagen.likes,
+            svg: {
+              fill: randomColor(),
+              onPress: () => (actualizar(imagen))
+            },
+          }
+        );
+        svgs.push({ fill: 'gray', onPress: () => actualizar(imagen) });
+        urls.push(imagen.url);
+      });
+    }
+    setData(dataTemp);
+  }, [])
 
   const actualizar = (foto) => {
     setOpen(true);
     setFoto(foto);
   }
-  const pieDatas = imagenes
-    .filter((value) => value.likes > 0)
-    .map((value, index) => ({
-      value: value.likes,
-      svg: {
-        onPress: () => actualizar(value),
-        fill: randomColor(),
-      },
 
-      key: value.id,
-    }))
+  const Gradient = () => (
+    <Defs key={'gradient'}>
+      <LinearGradient id={'gradient'} x1={'0'} y={'0%'} x2={'100%'} y2={'0%'}>
+        <Stop offset={'0%'} stopColor={'rgb(134, 65, 244)'} />
+        <Stop offset={'100%'} stopColor={'rgb(66, 194, 244)'} />
+      </LinearGradient>
+    </Defs>
+  )
 
   return (
     <View style={{ height: height / 2.25 }}>
       <Text style={styles.title}>Estas son las cosas feas más votadas!!!</Text>
       {(imagenes.length === 0) && <GraficoVacio />}
-      <View style={styles.container}>
-
-        <PieChart
-          style={{ height: 250, width: 250 }}
-          outerRadius={'70%'}
-          innerRadius={10}
-          data={pieDatas}
-        />
-      </View >
+      <View>
+        <BarChart
+          style={{ height: 200 }}
+          data={data}
+          gridMin={0}
+          svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
+          yAccessor={({ item }) => item.value}
+          contentInset={{ top: 20, bottom: 20 }}
+        >
+          <Grid />
+          <Gradient />
+        </BarChart>
+      </View>
       <Modal
         animationType='slide'
         transparent={false}
@@ -56,7 +81,7 @@ const CosasFeasChart = ({ imagenes }) => {
           </View>
         </View>
       </Modal>
-    </View>
+    </View >
   )
 }
 
@@ -71,27 +96,9 @@ const styles = StyleSheet.create({
     padding: 5,
     paddingBottom: 10
   },
-  container: {
-    alignItems: 'center'
-  },
   photo: {
     width,
     height
-  },
-  itemsContainer: {
-    alignItems: 'center',
-    flexDirection: 'column',
-    alignContent: 'center'
-  },
-  itemContainer: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  textStyle: {
-    padding: 5,
-    fontSize: 16,
-    color: 'blue',
-    fontWeight: 'bold'
   },
   btnCancel: {
     position: 'absolute',
@@ -117,5 +124,11 @@ const styles = StyleSheet.create({
     opacity: 0.6,
     borderRadius: 10,
     alignSelf: 'center',
-  }
+  },
+  textStyle: {
+    padding: 5,
+    fontSize: 16,
+    color: 'blue',
+    fontWeight: 'bold'
+  },
 });
