@@ -8,7 +8,9 @@ import GaleriaCosasLindas from '../screens/GaleriaCosasLindas';
 import GaleriaCosasFeas from '../screens/GaleriaCosasFeas';
 import Charts from '../screens/Charts';
 import { IconButton } from '../components';
+import Firebase from '../config/firebase';
 
+const auth = Firebase.auth();
 const Stack = createStackNavigator();
 const handleSignOut = async () => {
   try {

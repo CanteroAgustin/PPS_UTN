@@ -2,16 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { IconButton } from '../components';
-import Firebase from '../config/firebase';
 import BotonCosas from '../components/BotonCosas';
-
-const auth = Firebase.auth();
 
 export default function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <StatusBar style='dark-content' />
       <View style={styles.imgContainer}>
         <BotonCosas
           imgSrc={require('../assets/casalinda.png')} disable={false}
