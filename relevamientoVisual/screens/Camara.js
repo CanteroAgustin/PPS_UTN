@@ -86,18 +86,6 @@ const Camara = ({ route, navigation }) => {
         textStyle={StyleSheet.flatten(styles.spinnerTextStyle)}
       />
       <Camera style={styles.camera} type={type} ref={camRef} ratio='16:9'>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            setType(
-              type === Camera.Constants.Type.back
-                ? Camera.Constants.Type.front
-                : Camera.Constants.Type.back
-            );
-          }}>
-          <Ionicons name="ios-camera-reverse" size={40} color="black" />
-        </TouchableOpacity>
-
         <TouchableOpacity style={styles.btnPhoto} onPress={takePicture}>
           <Ionicons name="camera" size={40} color="black" />
         </TouchableOpacity>
@@ -107,10 +95,11 @@ const Camara = ({ route, navigation }) => {
             animationType='slide'
             transparent={false}
             visible={open}
+            backgroundColor='#e8eaf6'
           >
             <View style={styles.imgContainer}>
               <View style={styles.header}>
-                <Image style={styles.headerImg} source={require('../assets/emo3.jpg')} />
+                <Image style={styles.headerImg} source={require('../assets/emoji.png')} />
                 <Text style={styles.titulo}>Guau, excelente toma.</Text>
                 <Text style={styles.subtitulo}>¿Que te gustaría hacer?</Text>
               </View>
@@ -139,12 +128,12 @@ const Camara = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
-    bottom: 40
+    bottom: 15
   },
   headerImg: {
     width: 300,
     height: 200,
-    marginTop: 40
+    marginTop: 50
   },
   titulo: {
     fontSize: 35,
@@ -178,43 +167,49 @@ const styles = StyleSheet.create({
   },
   btnPhoto: {
     position: 'absolute',
-    right: 20,
     backgroundColor: 'white',
     width: 80,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'center',
     borderRadius: 30,
     bottom: 20,
     paddingVertical: 5,
   },
   photo: {
-    width: '100%',
-    height: 350
+    width: '95%',
+    height: 350,
+    marginLeft: 10,
+    marginRight: 10,
   },
   imgContainer: {
     justifyContent: 'center',
-    margin: 10
+    backgroundColor: '#e8eaf6',
   },
   btnCancel: {
-    backgroundColor: 'yellow',
+    backgroundColor: 'papayawhip',
     height: 80,
     borderWidth: 1,
-    width: 195.5,
+    width: 182.4,
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomStartRadius: 10
+    borderBottomStartRadius: 10,
+    marginBottom: 30
   },
   btnSave: {
-    backgroundColor: 'yellow',
+    backgroundColor: 'papayawhip',
     height: 80,
     borderWidth: 1,
-    width: 195.5,
+    width: 182.4,
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomEndRadius: 10
+    borderBottomEndRadius: 10,
+    marginBottom: 30
   },
   btnContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginLeft: 10,
+    marginRight: 10,
   },
   btnText: {
     fontSize: 10
