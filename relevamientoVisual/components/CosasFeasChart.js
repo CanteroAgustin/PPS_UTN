@@ -48,7 +48,7 @@ const CosasFeasChart = ({ imagenes }) => {
   )
 
   return (
-    <View style={{ height: height / 2.25 }}>
+    <View style={{ height: '100%', backgroundColor: '#e8eaf6' }}>
       <Text style={styles.title}>Estas son las cosas feas más votadas!!!</Text>
       {(imagenes.length === 0) && <GraficoVacio />}
       <View>
@@ -58,7 +58,6 @@ const CosasFeasChart = ({ imagenes }) => {
           gridMin={0}
           svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
           yAccessor={({ item }) => item.value}
-          contentInset={{ top: 20, bottom: 20 }}
         >
           <Grid />
           <Gradient />
@@ -90,11 +89,12 @@ const { width, height } = Dimensions.get('screen');
 const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
-    fontSize: 28,
+    fontSize: 48,
     color: 'blue',
     fontWeight: 'bold',
-    padding: 5,
-    paddingBottom: 10
+    paddingBottom: 10,
+    paddingTop: 20,
+    paddingBottom: 40
   },
   photo: {
     width,
