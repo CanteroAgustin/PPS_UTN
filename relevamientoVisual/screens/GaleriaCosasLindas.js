@@ -65,6 +65,8 @@ export default function GaleriaCosasLindas({ navigation }) {
         setTimeout(() => {
           setIsLoading(false);
         }, 1)
+      } else {
+        setIsLoading(false);
       }
     })
   }, [])
@@ -151,25 +153,24 @@ export default function GaleriaCosasLindas({ navigation }) {
           }}
         />
       }
-      {
-        fotosLindas && !isLoading && <Button
-          onPress={() => {
-            navigation.navigate('Charts')
-          }}
-          title='Ver mis fotos'
-          backgroundColor='#fff'
-          titleSize={40}
-          titleColor='white'
-          containerStyle={{
-            borderColor: '#000000',
-            borderWidth: 1,
-            borderRadius: 5,
-            marginBottom: 4,
-            backgroundColor: '#2979ff',
-            height: 50,
-            width: '97%'
-          }}
-        />
+      {!isLoading && <Button
+        onPress={() => {
+          navigation.navigate('Mis fotos')
+        }}
+        title='Ver mis fotos'
+        backgroundColor='#fff'
+        titleSize={40}
+        titleColor='white'
+        containerStyle={{
+          borderColor: '#000000',
+          borderWidth: 1,
+          borderRadius: 5,
+          marginBottom: 4,
+          backgroundColor: '#2979ff',
+          height: 50,
+          width: '97%'
+        }}
+      />
       }
     </View >
   );

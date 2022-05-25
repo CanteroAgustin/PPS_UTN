@@ -65,6 +65,8 @@ export default function GaleriaCosasFeas({ navigation }) {
         setTimeout(() => {
           setIsLoading(false);
         }, 1)
+      } else {
+        setIsLoading(false);
       }
     })
   }, [])
@@ -149,9 +151,9 @@ export default function GaleriaCosasFeas({ navigation }) {
           width: '97%'
         }}
       />}
-      {fotosFeas && !isLoading && < Button
+      {!isLoading && < Button
         onPress={() => {
-          navigation.navigate('Graficos')
+          navigation.navigate('Mis fotos')
         }}
         title='Ver mis fotos'
         backgroundColor='#fff'

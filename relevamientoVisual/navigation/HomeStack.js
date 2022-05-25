@@ -6,6 +6,7 @@ import HomeScreen from '../screens/HomeScreen';
 import Camara from '../screens/Camara';
 import GaleriaCosasLindas from '../screens/GaleriaCosasLindas';
 import GaleriaCosasFeas from '../screens/GaleriaCosasFeas';
+import Galeria from '../screens/Galeria';
 import Charts from '../screens/Charts';
 import { IconButton } from '../components';
 import Firebase from '../config/firebase';
@@ -37,6 +38,7 @@ export default function HomeStack() {
     >
       <Stack.Screen name='Listados' component={HomeScreen} />
       <Stack.Screen name='Camara' component={Camara} />
+      <Stack.Screen name='Mis fotos' component={Galeria} />
       <Stack.Screen name='Galeria cosas lindas' component={GaleriaCosasLindas} />
       <Stack.Screen name='Galeria cosas feas' component={GaleriaCosasFeas} />
       <Stack.Screen name='Graficos' component={Charts} />

@@ -60,6 +60,13 @@ const Camara = ({ route, navigation }) => {
           likes: 0,
           id: user.uid + now
         });
+        db.collection('imagenes').add({
+          user: user.email,
+          url,
+          fecha: now,
+          likes: 0,
+          id: user.uid + now
+        });
         navigation.replace('Listados');
       });
     });
