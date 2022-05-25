@@ -17,8 +17,6 @@ export default function Galeria() {
         position: 'absolute',
         marginhorizontal: 35,
         height: 60,
-        // borderTopStartRadius: 10,
-        // borderTopEndRadius: 10,
         borderRadius: 5,
         bottom: 2,
         shadowColor: '#000',

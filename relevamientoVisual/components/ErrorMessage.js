@@ -1,5 +1,3 @@
-// components/ErrorMessage.js
-
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 import * as constants from '../config/constants';

@@ -5,8 +5,9 @@ import { AntDesign } from '@expo/vector-icons';
 const GraficoVacio = () => {
   return (
     <View style={styles.base}>
-      <AntDesign style={{ padding: 20 }} name='piechart' size={50} color='black' />
-      <Text style={{ fontSize: 24 }}>Aun no hay gráficos.</Text>
+      <AntDesign style={{ paddingBottom: 40, paddingTop: 80 }} name='piechart' size={200} color='green' />
+      <Text style={{ fontSize: 38, textAlign: 'center', color: 'blue' }}>Aun no hay gráficos, para mostrar.</Text>
+      <Text style={{ fontSize: 38, textAlign: 'center', color: 'blue' }}>Busca las imagenes que mas te gusten en la galeria y votalas.</Text>
     </View>
   );
 };
@@ -14,7 +15,8 @@ const GraficoVacio = () => {
 const styles = StyleSheet.create({
   base: {
     alignItems: 'center',
-    justifyContent: 'center'
+    height: '100%',
+    backgroundColor: '#e8eaf6'
   }
 });
 

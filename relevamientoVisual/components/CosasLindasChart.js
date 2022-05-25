@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Image, StyleSheet, Text, View, Modal, TouchableOpacity, Dimensions } from 'react-native';
 import { PieChart } from 'react-native-svg-charts'
 import GraficoVacio from './GraficoVacio';
@@ -7,7 +7,6 @@ const CosasLindasChart = ({ imagenes }) => {
 
   const [open, setOpen] = useState(null);
   const [foto, setFoto] = useState({});
-  const { width, height } = Dimensions.get('screen');
   const randomColor = () => ('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000000').slice(0, 7);
 
   const actualizar = (foto) => {
@@ -27,13 +26,13 @@ const CosasLindasChart = ({ imagenes }) => {
     }))
 
   return (
-    <View style={{ height: height / 2.25 }}>
+    <View style={{ height: '100%', backgroundColor: '#e8eaf6' }}>
       <Text style={styles.title}>Estas son las cosas lindas más votadas!!!</Text>
       {(imagenes.length === 0) && <GraficoVacio />}
       <View style={styles.container}>
 
         <PieChart
-          style={{ height: 250, width: 250 }}
+          style={{ height: 350, width: 350 }}
           outerRadius={'70%'}
           innerRadius={10}
           data={pieDatas}
@@ -65,11 +64,12 @@ const { width, height } = Dimensions.get('screen');
 const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
-    fontSize: 28,
+    fontSize: 48,
     color: 'blue',
     fontWeight: 'bold',
-    padding: 5,
-    paddingBottom: 10
+    paddingHorizontal: 10,
+    paddingTop: 20,
+    paddingBottom: 20
   },
   container: {
     alignItems: 'center'

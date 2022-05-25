@@ -134,7 +134,7 @@ export default function GaleriaCosasLindas({ navigation }) {
       {
         fotosLindas && !isLoading && <Button
           onPress={() => {
-            navigation.navigate('Charts', { tipo: 'linda' });
+            navigation.navigate('Graficos', { tipo: 'linda' });
           }}
           title='Ver gráfico'
           backgroundColor='#fff'

@@ -53,7 +53,7 @@ const CosasFeasChart = ({ imagenes }) => {
       {(imagenes.length === 0) && <GraficoVacio />}
       <View>
         <BarChart
-          style={{ height: 200 }}
+          style={{ height: 300 }}
           data={data}
           gridMin={0}
           svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     fontSize: 48,
     color: 'blue',
     fontWeight: 'bold',
-    paddingBottom: 10,
+    paddingHorizontal: 10,
     paddingTop: 20,
     paddingBottom: 40
   },

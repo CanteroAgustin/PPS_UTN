@@ -39,7 +39,7 @@ export default function HomeStack() {
       <Stack.Screen name='Camara' component={Camara} />
       <Stack.Screen name='Galeria cosas lindas' component={GaleriaCosasLindas} />
       <Stack.Screen name='Galeria cosas feas' component={GaleriaCosasFeas} />
-      <Stack.Screen name='Charts' component={Charts} />
+      <Stack.Screen name='Graficos' component={Charts} />
     </Stack.Navigator>
   );
 }

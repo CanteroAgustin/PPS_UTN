@@ -133,7 +133,7 @@ export default function GaleriaCosasFeas({ navigation }) {
       />}
       {fotosFeas && !isLoading && <Button
         onPress={() => {
-          navigation.navigate('Charts', { tipo: 'fea' });
+          navigation.navigate('Graficos', { tipo: 'fea' });
         }}
         title='Ver gráfico'
         backgroundColor='#fff'
@@ -151,7 +151,7 @@ export default function GaleriaCosasFeas({ navigation }) {
       />}
       {fotosFeas && !isLoading && < Button
         onPress={() => {
-          navigation.navigate('Charts')
+          navigation.navigate('Graficos')
         }}
         title='Ver mis fotos'
         backgroundColor='#fff'
