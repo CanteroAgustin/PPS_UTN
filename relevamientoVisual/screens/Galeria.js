@@ -63,7 +63,7 @@ export default function Galeria({ navigation }) {
         keyStractor={item => item.id}
         renderItem={({ item }) => {
           return (
-            <View style={{ width, height: height - 235 }}>
+            <View style={{ width, height: height - 130 }}>
               <Image
                 source={{ uri: item.url }}
                 style={{ flex: 1, resizeMode: 'cover', borderWidth: 1, borderColor: 'red', borderRadius: 5, margin: 5 }}
@@ -75,45 +75,6 @@ export default function Galeria({ navigation }) {
           )
         }}
       />}
-      {!isLoading && <Button
-        onPress={() => {
-          navigation.navigate('Camara', { tipo: 'linda' });
-        }}
-        title='Tomar foto'
-        backgroundColor='#fff'
-        titleSize={40}
-        titleColor='white'
-        containerStyle={{
-          borderColor: '#000000',
-          borderWidth: 1,
-          borderRadius: 5,
-          marginTop: 2,
-          marginBottom: 2,
-          backgroundColor: '#2979ff',
-          height: 50,
-          width: '97%'
-        }}
-      />}
-      {
-        fotos && !isLoading && <Button
-          onPress={() => {
-            navigation.navigate('Graficos', { tipo: 'linda' });
-          }}
-          title='Ver gráfico'
-          backgroundColor='#fff'
-          titleSize={40}
-          titleColor='white'
-          containerStyle={{
-            borderColor: '#000000',
-            borderWidth: 1,
-            borderRadius: 5,
-            marginBottom: 2,
-            backgroundColor: '#2979ff',
-            height: 50,
-            width: '97%'
-          }}
-        />
-      }
     </View >
   );
 }

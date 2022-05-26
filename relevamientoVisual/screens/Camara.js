@@ -9,13 +9,16 @@ import Spinner from 'react-native-loading-spinner-overlay';
 const Camara = ({ route, navigation }) => {
   const { tipo } = route.params;
   const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
-  const camRef = useRef(null);
+  const [temPhotos, setTempPhotos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [foto, setFoto] = useState(null);
   const [open, setOpen] = useState(null);
+  const [type, setType] = useState(Camera.Constants.Type.back);
+  const camRef = useRef(null);
+
   const storage = Firebase.storage();
   const { user } = useContext(AuthenticatedUserContext);
-  const [isLoading, setIsLoading] = useState(false);
+
   const db = Firebase.firestore();
 
   useEffect(() => {
@@ -45,31 +48,48 @@ const Camara = ({ route, navigation }) => {
   }
   const savePicture = async () => {
     const img = await fetch(foto);
-    const now = formatDate(new Date());
-    const path = 'images/' + tipo + '/' + user.email + '-' + now;
+
     const blob = await img.blob();
-    const storageRef = storage.ref();
-    const spaceRef = storageRef.child(path);
+    temPhotos.push(blob);
+    setTempPhotos(temPhotos);
+
+
     setIsLoading(true);
-    spaceRef.put(blob).then(function (snapshot) {
-      snapshot.ref.getDownloadURL().then(url => {
-        db.collection('imagenes' + tipo).add({
-          user: user.email,
-          url,
-          fecha: now,
-          likes: 0,
-          id: user.uid + now
+    temPhotos.forEach((temPhoto, i) => {
+      setTimeout(() => {
+        const now = formatDate(new Date());
+        const path = 'images/' + tipo + '/' + user.email + '-' + now;
+        const storageRef = storage.ref();
+        const spaceRef = storageRef.child(path);
+        spaceRef.put(temPhoto).then(function (snapshot) {
+          snapshot.ref.getDownloadURL().then(url => {
+            db.collection('imagenes' + tipo).add({
+              user: user.email,
+              url,
+              fecha: now,
+              likes: 0,
+              id: user.uid + now
+            });
+            db.collection('imagenes').add({
+              user: user.email,
+              url,
+              fecha: now,
+              likes: 0,
+              id: user.uid + now
+            });
+            navigation.replace('Listados');
+          });
         });
-        db.collection('imagenes').add({
-          user: user.email,
-          url,
-          fecha: now,
-          likes: 0,
-          id: user.uid + now
-        });
-        navigation.replace('Listados');
-      });
+      }, i * 100);
     });
+  }
+
+  const saveAndTakeAnother = async () => {
+    const img = await fetch(foto);
+    const blob = await img.blob();
+    temPhotos.push(blob);
+    setTempPhotos(temPhotos);
+    setOpen(false)
   }
 
   function dateComponentPad(value) {
@@ -113,14 +133,16 @@ const Camara = ({ route, navigation }) => {
               <Image style={styles.photo} source={{ uri: foto }} />
               <View style={styles.btnContainer}>
                 <TouchableOpacity onPress={() => setOpen(false)} style={styles.btnCancel}>
-
                   <MaterialIcons name="autorenew" size={60} color="black" />
                   <Text style={styles.btnText} >Sacar de nuevo</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={savePicture} style={styles.btnSave}>
-
+                <TouchableOpacity onPress={saveAndTakeAnother} style={styles.btnOther}>
                   <MaterialIcons name="backup" size={60} color="black" />
-                  <Text style={styles.btnText}>Guardar</Text>
+                  <Text style={styles.btnText}>Sacar otra</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={savePicture} style={styles.btnSave}>
+                  <MaterialIcons name="backup" size={60} color="black" />
+                  <Text style={styles.btnText}>Guardar y finalizar</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -197,17 +219,26 @@ const styles = StyleSheet.create({
     backgroundColor: 'papayawhip',
     height: 80,
     borderWidth: 1,
-    width: 182.4,
+    width: 121.6,
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomStartRadius: 10,
+    marginBottom: 30
+  },
+  btnOther: {
+    backgroundColor: 'papayawhip',
+    height: 80,
+    borderWidth: 1,
+    width: 121.6,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 30
   },
   btnSave: {
     backgroundColor: 'papayawhip',
     height: 80,
     borderWidth: 1,
-    width: 182.4,
+    width: 121.6,
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomEndRadius: 10,
