@@ -50,7 +50,7 @@ export default function SignupScreen({ navigation }) {
                 db.collection("usuarios").doc(data.user.uid).set({
                   email: values.email,
                   password: values.password,
-                  rol: 'admin'
+                  rol: 'invitado'
                 });
                 setTimeout(() => {
                   setIsLoading(false);

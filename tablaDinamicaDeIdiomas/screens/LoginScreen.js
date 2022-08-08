@@ -6,7 +6,6 @@ import { Button, InputField, ErrorMessage, IconButton } from '../components';
 import Firebase from '../config/firebase';
 import { Formik, useFormikContext } from 'formik';
 import { loginValidationSchema } from '../schemas/loginSchema'
-import { size } from 'styled-system';
 
 const auth = Firebase.auth();
 

@@ -24,6 +24,7 @@
     "react-dom": "16.13.1",
     "react-lifecycles-compat": "^3.0.4",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native-floating-action": "^1.22.0",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-ico-flags": "^3.3.1",
     "react-native-picker-select": "^8.0.4",
