@@ -72,10 +72,10 @@ export default function SignupScreen({ navigation }) {
           <View>
             <InputField
               inputStyle={{
-                fontSize: 14
+                fontSize: 24
               }}
               containerStyle={{
-                backgroundColor: '#fff',
+                backgroundColor: '#DDE0EF',
                 marginBottom: 20
               }}
               leftIcon='email'
@@ -90,10 +90,10 @@ export default function SignupScreen({ navigation }) {
             />
             <InputField
               inputStyle={{
-                fontSize: 14
+                fontSize: 24
               }}
               containerStyle={{
-                backgroundColor: '#fff',
+                backgroundColor: '#DDE0EF',
                 marginBottom: 20
               }}
               leftIcon='lock'
@@ -117,12 +117,13 @@ export default function SignupScreen({ navigation }) {
             }
             <Button
               onPress={props.handleSubmit}
-              backgroundColor='#ff7961'
+              backgroundColor='#6F3005'
               title='Registrarme'
               tileColor='#fff'
               titleSize={20}
               containerStyle={{
-                marginBottom: 24
+                marginBottom: 24,
+                height: 60
               }}
               disabled={!props.isValid}
             />
@@ -146,23 +147,26 @@ export default function SignupScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e8eaf6',
+    backgroundColor: '#65B4D5',
     paddingTop: 50,
     paddingHorizontal: 12
   },
   title: {
-    fontSize: 24,
+    fontSize: 44,
     fontWeight: '600',
-    color: '#fff',
+    color: '#030A65',
     alignSelf: 'center',
-    paddingBottom: 24
+    textAlign: 'center',
+    paddingBottom: 14,
+    fontWeight: 'bold',
+    marginTop: 30
   },
   button: {
     alignItems: "center",
   },
   textButton: {
-    color: "#0000FF",
-    fontSize: 18
+    color: "#C3D96C",
+    fontSize: 28
   },
   errorMsg: {
     color: '#ff0e0e',

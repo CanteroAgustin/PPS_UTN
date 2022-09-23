@@ -82,7 +82,7 @@ export default function Galeria({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e8eaf6',
+    backgroundColor: '#C3D96C',
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -64,10 +64,10 @@ export default function LoginScreen({ navigation }) {
           <View>
             <InputField
               inputStyle={{
-                fontSize: 14
+                fontSize: 14,
               }}
               containerStyle={{
-                backgroundColor: '#f0e7c5',
+                backgroundColor: '#D9B9AF',
                 marginBottom: 20
               }}
               leftIcon='email'
@@ -76,10 +76,7 @@ export default function LoginScreen({ navigation }) {
               keyboardType='email-address'
               textContentType='emailAddress'
               autoFocus={true}
-              onChangeText={() => {
-                setIsMockLogin(true);
-                props.handleChange('email')
-              }}
+              onChangeText={props.handleChange('email')}
               onBlur={props.handleBlur('email')}
               value={props.values.email}
             />
@@ -88,7 +85,7 @@ export default function LoginScreen({ navigation }) {
                 fontSize: 14
               }}
               containerStyle={{
-                backgroundColor: '#f0e7c5',
+                backgroundColor: '#D9B9AF',
                 marginBottom: 20
               }}
               leftIcon='lock'
@@ -99,10 +96,7 @@ export default function LoginScreen({ navigation }) {
               textContentType='password'
               rightIcon={rightIcon}
               handlePasswordVisibility={handlePasswordVisibility}
-              onChangeText={() => {
-                setIsMockLogin(true);
-                props.handleChange('password');
-              }}
+              onChangeText={props.handleChange('password')}
               onBlur={props.handleBlur('password')}
               value={props.values.password}
             />
@@ -115,8 +109,8 @@ export default function LoginScreen({ navigation }) {
             }
             <Button
               onPress={props.handleSubmit}
-              backgroundColor='#757ce8'
-              title='Login'
+              backgroundColor='#4E9FAB'
+              title='Ingresar'
               tileColor='#fff'
               titleSize={20}
               containerStyle={{
@@ -131,38 +125,44 @@ export default function LoginScreen({ navigation }) {
                 setLoginError('');
               }}
               title='Registrarme'
-              backgroundColor='#ff7961'
+              backgroundColor='#FB85AA'
               titleSize={20}
             />
             <View style={styles.buttonsContainer}>
               <Button
                 onPress={() => {
-                  props.setFieldValue('email', 'admin@admin.com');
+                  props.resetForm();
+                  setLoginError('')
+                  props.setFieldValue('email', 'administrador@prueba.com');
                   props.setFieldValue('password', '123456')
                   setIsMockLogin(true);
                 }}
                 title='Prueba Administrador'
-                backgroundColor='green'
+                backgroundColor='#FDB5A8'
+                titleColor='#4E9FAB'
                 titleSize={14}
                 textStyle={{
-                  textAlign: 'center'
+                  textAlign: 'center',
                 }}
                 containerStyle={{
                   borderWidth: 1,
                   borderColor: 'gray',
                   width: '33%',
-                  height: 100
+                  height: 100,
                 }}
               />
               <Button
                 onPress={() => {
-                  props.setFieldValue('email', 'invitado@invitado.com');
+                  props.resetForm();
+                  setLoginError('')
+                  props.setFieldValue('email', 'prueba@prueba.com');
                   props.setFieldValue('password', '123456')
                   setIsMockLogin(true);
                 }}
                 title='Prueba usuario'
-                backgroundColor='green'
+                backgroundColor='#FDB5A8'
                 titleSize={14}
+                titleColor='#4E9FAB'
                 textStyle={{
                   textAlign: 'center'
                 }}
@@ -175,13 +175,16 @@ export default function LoginScreen({ navigation }) {
               />
               <Button
                 onPress={() => {
-                  props.setFieldValue('email', 'tester@tester.com');
+                  props.resetForm();
+                  setLoginError('')
+                  props.setFieldValue('email', 'prueba1@prueba.com');
                   props.setFieldValue('password', '123456')
                   setIsMockLogin(true);
                 }}
                 title='Prueba desarrollador'
-                backgroundColor='green'
+                backgroundColor='#FDB5A8'
                 titleSize={14}
+                titleColor='#4E9FAB'
                 textStyle={{
                   textAlign: 'center'
                 }}
@@ -208,7 +211,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#e8eaf6',
+    backgroundColor: '#FBD9A1',
     paddingTop: 50,
     paddingHorizontal: 12
   },

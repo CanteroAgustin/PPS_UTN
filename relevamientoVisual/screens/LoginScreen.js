@@ -35,7 +35,7 @@ export default function LoginScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar style='dark-content' />
-      <Text style={styles.title}>Ingreso a la app</Text>
+      <Text style={styles.title}>Ingreso a la aplicación</Text>
       <Spinner
         visible={isLoading}
         textContent={'Cargando...'}
@@ -68,7 +68,7 @@ export default function LoginScreen({ navigation }) {
                 fontSize: 24
               }}
               containerStyle={{
-                backgroundColor: '#fff',
+                backgroundColor: '#DDE0EF',
                 marginBottom: 20,
 
               }}
@@ -87,7 +87,7 @@ export default function LoginScreen({ navigation }) {
                 fontSize: 24
               }}
               containerStyle={{
-                backgroundColor: '#fff',
+                backgroundColor: '#DDE0EF',
                 marginBottom: 20,
               }}
               leftIcon='lock'
@@ -114,7 +114,7 @@ export default function LoginScreen({ navigation }) {
             }
             <Button
               onPress={props.handleSubmit}
-              backgroundColor='#757ce8'
+              backgroundColor='#C3D96C'
               title='Ingreso'
               tileColor='#fff'
               titleSize={20}
@@ -131,7 +131,7 @@ export default function LoginScreen({ navigation }) {
                 navigation.navigate('Signup');
               }}
               title='Registrarme'
-              backgroundColor='#ff7961'
+              backgroundColor='#6F3005'
               titleSize={20}
               containerStyle={{
                 marginBottom: 10,
@@ -140,56 +140,62 @@ export default function LoginScreen({ navigation }) {
             />
             <Button
               onPress={() => {
-                props.setFieldValue('email', 'admin@admin.com');
-                props.setFieldValue('password', '123456');
+                props.resetForm();
+                setLoginError('')
+                props.setFieldValue('email', 'administrador@prueba.com');
+                props.setFieldValue('password', '123456')
                 setIsMockLogin(true);
               }}
               title='Prueba administrador'
-              backgroundColor='gray'
+              backgroundColor='#DDE0EF'
               titleSize={20}
+              titleColor='black'
               containerStyle={{
-                marginBottom: 1,
+                marginBottom: 10,
+                marginTop: 10,
                 borderRadius: 20,
                 borderWidth: 1,
-                borderColor: 'gray',
-                borderStyle: 'dashed',
-                height: 100
+                borderColor: '#C3D96C',
+                height: 90
               }}
             />
             <Button
               onPress={() => {
-                props.setFieldValue('email', 'invitado@invitado.com');
+                props.resetForm();
+                setLoginError('')
+                props.setFieldValue('email', 'prueba@prueba.com');
                 props.setFieldValue('password', '123456');
                 setIsMockLogin(true);
               }}
               title='Prueba invitado'
-              backgroundColor='gray'
+              backgroundColor='#DDE0EF'
               titleSize={20}
+              titleColor='black'
               containerStyle={{
-                marginBottom: 1,
+                marginBottom: 10,
                 borderRadius: 20,
                 borderWidth: 1,
-                borderColor: 'gray',
-                borderStyle: 'dashed',
-                height: 100
+                borderColor: '#C3D96C',
+                height: 90
               }}
             />
             <Button
               onPress={() => {
-                props.setFieldValue('email', 'tester@tester.com');
+                props.resetForm();
+                setLoginError('')
+                props.setFieldValue('email', 'prueba1@prueba.com');
                 props.setFieldValue('password', '123456');
                 setIsMockLogin(true);
               }}
               title='prueba desarrollador'
-              backgroundColor='gray'
+              backgroundColor='#DDE0EF'
               titleSize={20}
+              titleColor='black'
               containerStyle={{
-                marginBottom: 1,
                 borderRadius: 20,
                 borderWidth: 1,
-                borderColor: 'gray',
-                borderStyle: 'dashed',
-                height: 100
+                borderColor: '#C3D96C',
+                height: 90
               }}
             />
           </View>
@@ -202,16 +208,17 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e8eaf6',
+    backgroundColor: '#65B4D5',
     paddingTop: 50,
     paddingHorizontal: 12
   },
   title: {
-    fontSize: 50,
+    fontSize: 40,
     fontWeight: '600',
-    color: '#ADDEC8',
+    color: '#030A65',
     alignSelf: 'center',
-    paddingBottom: 24,
+    textAlign: 'center',
+    paddingBottom: 14,
     fontWeight: 'bold'
   },
   errorMsg: {

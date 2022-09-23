@@ -8,8 +8,6 @@ import Firebase from '../config/firebase';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CardGame from '../components/CardGame';
 import { Audio } from 'expo-av';
-import Icon from 'react-native-ico-flags';
-import { padding } from 'styled-system';
 
 const auth = Firebase.auth();
 
@@ -438,12 +436,6 @@ export default function HomeScreen() {
               <CardGame text={language === 'esp' ? 'Verde' : language === 'ing' ? 'Green' : 'Verde'} imgUrl={require('../assets/circuloverde.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("verde", language) }} />
             </View>}
           </View>
-          {/* <View>
-            <FloatButton imgStyle={styles.topicImgStyle} width={'100%'} height={100} containerStyle={styles.btnContainerStyle} backgroundColor='red' imageSrc={require('../assets/numeros.jpg')} onPress={() => setTopic('numeros')} />
-            <FloatButton imgStyle={styles.topicImgStyle} width={'100%'} height={100} containerStyle={styles.btnContainerStyle} backgroundColor='red' imageSrc={require('../assets/colours.jpg')} onPress={() => setTopic('colores')} />
-            <FloatButton imgStyle={styles.topicImgStyle} width={'100%'} height={100} containerStyle={styles.btnContainerStyle} backgroundColor='red' imageSrc={require('../assets/banner-animales2.png')} onPress={() => setTopic('animales')} />
-          </View> */}
-
         </View>
       }
       {
@@ -451,16 +443,59 @@ export default function HomeScreen() {
         <View style={styles.containerL}>
           <StatusBar style='dark-content' />
           <View style={styles.exitButtonL}>
-            <View style={styles.langButtomContainerL}>
-              <TouchableOpacity onPress={() => setLanguage('esp')}>
-                <Icon name="spain" height="50" width="50" marginRight={10} />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => setLanguage('ing')}>
-                <Icon name="united-kingdom" height="50" width="50" marginRight={10} />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => setLanguage('por')}>
-                <Icon name="portugal" height="50" width="50" marginRight={30} />
-              </TouchableOpacity>
+            <View>
+              <View style={styles.touchableOpacityStyle1}>
+                {(activeLanguage == 'esp' || allLanguageActive) && <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={handleEsp}
+                  style={styles.touchableOpacityStyle}>
+                  <Image source={require('../assets/espaniol.png')}
+                    style={styles.floatingButtonStyle}
+                  />
+                </TouchableOpacity>}
+                {(activeLanguage == 'por' || allLanguageActive) && < TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={handlePor}
+                  style={styles.touchableOpacityStyle}>
+                  <Image source={require('../assets/portuges.png')}
+                    style={styles.floatingButtonStyle}
+                  />
+                </TouchableOpacity>}
+                {(activeLanguage == 'eng' || allLanguageActive) && <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={handleEng}
+                  style={styles.touchableOpacityStyle}>
+                  <Image source={require('../assets/ingles.png')}
+                    style={styles.floatingButtonStyle}
+                  />
+                </TouchableOpacity>}
+              </View>
+              <View style={styles.touchableOpacityStyle2}>
+                {(activeTopic == 'animales' || allTopicActive) && <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={handleAnimales}
+                  style={styles.touchableOpacityStyle}>
+                  <Image source={require('../assets/animales-ic.png')}
+                    style={styles.floatingButtonStyle}
+                  />
+                </TouchableOpacity>}
+                {(activeTopic == 'numeros' || allTopicActive) && < TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={handleNumeros}
+                  style={styles.touchableOpacityStyle}>
+                  <Image source={require('../assets/numeros-ic.png')}
+                    style={styles.floatingButtonStyle}
+                  />
+                </TouchableOpacity>}
+                {(activeTopic == 'colores' || allTopicActive) && <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={handleColores}
+                  style={styles.touchableOpacityStyle}>
+                  <Image source={require('../assets/colores-ic.png')}
+                    style={styles.floatingButtonStyle}
+                  />
+                </TouchableOpacity>}
+              </View>
             </View>
             <Text style={{ alignSelf: 'flex-start', marginRight: 20 }}>{language === 'esp' ? 'Idioma: Español' : language === 'ing' ? 'Language: English' : 'Língua: Português'}</Text>
             <TouchableOpacity onPress={handleSignOut}>
@@ -647,7 +682,6 @@ const styles = StyleSheet.create({
   },
   imgStyle: {
     //width: 115,
-    //height: 115
   },
   textStyle: {
     color: '#726539',

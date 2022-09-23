@@ -10,6 +10,7 @@ const LoginScreen = () => {
   const [isLoading, setIsLoading] = useState('');
   const [loginError, setLoginError] = useState('');
   const [action, setAction] = useState('');
+  const [isMockLogin, setIsMockLogin] = useState(false);
 
   const navigation = useNavigation()
   const { validateForm } = useFormikContext;
@@ -127,7 +128,7 @@ const LoginScreen = () => {
                   containerStyle={styles.button}
                   titleSize={20}
                   titleWeight='700'
-                  disabled={!props.isValid}
+                  disabled={!props.isValid && !isMockLogin}
                 />
                 <Button
                   onPress={() => {
@@ -139,7 +140,7 @@ const LoginScreen = () => {
                   titleColor='#0782F9'
                   titleSize={20}
                   titleWeight='700'
-                  disabled={!props.isValid}
+                  disabled={!props.isValid && !isMockLogin}
                 />
               </View>
               {(isLoading) ?
@@ -149,10 +150,12 @@ const LoginScreen = () => {
               <Text style={styles.testUsersTextStyle}>**** USUARIOS DE PRUEBA ****</Text>
               <Button
                 onPress={() => {
-                  props.setFieldValue('email', 'admin@admin.com');
-                  props.setFieldValue('password', '111111')
+                  props.resetForm();
+                  props.setFieldValue('email', 'administrador@prueba.com');
+                  props.setFieldValue('password', '123456')
+                  setIsMockLogin(true);
                 }}
-                title='Admin'
+                title='Administrador'
                 backgroundColor='rgba(150, 250, 0, .3)'
                 titleColor='#000'
                 titleSize={20}
@@ -165,24 +168,10 @@ const LoginScreen = () => {
               />
               <Button
                 onPress={() => {
-                  props.setFieldValue('email', 'invitado@invitado.com');
-                  props.setFieldValue('password', '222222')
-                }}
-                title='Invitado'
-                backgroundColor='rgba(150, 250, 0, .3)'
-                titleColor='#000'
-                titleSize={20}
-                containerStyle={{
-                  marginBottom: 1,
-                  borderRadius: 20,
-                  borderWidth: 1,
-                  borderColor: 'gray',
-                }}
-              />
-              <Button
-                onPress={() => {
-                  props.setFieldValue('email', 'usuario@usuario.com');
-                  props.setFieldValue('password', '333333')
+                  props.resetForm();
+                  props.setFieldValue('email', 'prueba@prueba.com');
+                  props.setFieldValue('password', '123456')
+                  setIsMockLogin(true);
                 }}
                 title='Usuario'
                 backgroundColor='rgba(150, 250, 0, .3)'
@@ -197,8 +186,10 @@ const LoginScreen = () => {
               />
               <Button
                 onPress={() => {
-                  props.setFieldValue('email', 'anonimo@anonimo.com');
-                  props.setFieldValue('password', '444444')
+                  props.resetForm();
+                  props.setFieldValue('email', 'prueba1@prueba.com');
+                  props.setFieldValue('password', '123456')
+                  setIsMockLogin(true);
                 }}
                 title='Anonimo'
                 backgroundColor='rgba(150, 250, 0, .3)'
@@ -213,10 +204,12 @@ const LoginScreen = () => {
               />
               <Button
                 onPress={() => {
-                  props.setFieldValue('email', 'tester@tester.com');
-                  props.setFieldValue('password', '555555')
+                  props.resetForm();
+                  props.setFieldValue('email', 'prueba2@tester.com');
+                  props.setFieldValue('password', '123456')
+                  setIsMockLogin(true);
                 }}
-                title='Tester'
+                title='Otro'
                 backgroundColor='rgba(150, 250, 0, .3)'
                 titleColor='#000'
                 titleSize={20}
@@ -225,6 +218,24 @@ const LoginScreen = () => {
                   borderRadius: 20,
                   borderWidth: 1,
                   borderColor: 'gray'
+                }}
+              />
+              <Button
+                onPress={() => {
+                  props.resetForm();
+                  props.setFieldValue('email', 'prueba3@prueba.com');
+                  props.setFieldValue('password', '123456')
+                  setIsMockLogin(true);
+                }}
+                title='Invitado'
+                backgroundColor='rgba(150, 250, 0, .3)'
+                titleColor='#000'
+                titleSize={20}
+                containerStyle={{
+                  marginBottom: 1,
+                  borderRadius: 20,
+                  borderWidth: 1,
+                  borderColor: 'gray',
                 }}
               />
             </View>

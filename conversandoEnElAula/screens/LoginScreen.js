@@ -4,9 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { ErrorMessage, IconButton, InputField } from '../components';
+import { Button, ErrorMessage, IconButton, InputField } from '../components';
 import Firebase from '../config/firebase';
 import { loginValidationSchema } from '../schemas/loginSchema';
+import { RadioButton } from 'react-native-paper';
 
 const auth = Firebase.auth();
 
@@ -15,7 +16,9 @@ export default function LoginScreen({ navigation }) {
   const [rightIcon, setRightIcon] = useState('eye');
   const [loginError, setLoginError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isMockLogin, setIsMockLogin] = useState(false);
   const { validateForm } = useFormikContext;
+  const [value, setValue] = useState('');
 
   useEffect(() => {
     validateForm;
@@ -69,7 +72,7 @@ export default function LoginScreen({ navigation }) {
                 backgroundColor='#1c8155'
                 size={40}
                 name='arrowright'
-                disabled={!props.isValid}
+                disabled={!props.isValid && !isMockLogin}
               />
             </View>
             <InputField
@@ -128,6 +131,102 @@ export default function LoginScreen({ navigation }) {
             >
               <Text style={styles.textButton}>Registrarme.</Text>
             </TouchableOpacity>
+
+            <View style={styles.buttonsContainer}>
+              <RadioButton.Group onValueChange={value => {
+                setValue(value);
+                props.resetForm();
+                console.log(value);
+                if (value == 'first') {
+                  props.setFieldValue('email', 'administrador@prueba.com');
+                  props.setFieldValue('password', '123456');
+                }
+                if (value == 'second') {
+                  props.setFieldValue('email', 'prueba@prueba.com');
+                  props.setFieldValue('password', '123456');
+                }
+                if (value == 'third') {
+                  props.setFieldValue('email', 'prueba1@prueba.com');
+                  props.setFieldValue('password', '123456');
+                }
+
+
+                setLoginError('')
+                setIsMockLogin(true);
+              }
+              } value={value}>
+                <RadioButton.Item label="Prueba Administrador" value="first" labelStyle={styles.label} />
+                <RadioButton.Item label="Prueba usuario" value="second" labelStyle={styles.label} />
+                <RadioButton.Item label="Prueba desarrollador" value="third" labelStyle={styles.label} />
+              </RadioButton.Group>
+
+              {/* <Button
+                onPress={() => {
+                  props.resetForm();
+                  setLoginError('')
+                  props.setFieldValue('email', 'administrador@prueba.com');
+                  props.setFieldValue('password', '123456')
+                  setIsMockLogin(true);
+                }}
+                title='Prueba Administrador'
+                backgroundColor='FFEE9C'
+                titleSize={24}
+                titleColor='green'
+                textStyle={{
+                  textAlign: 'center'
+                }}
+                containerStyle={{
+                  borderWidth: 3,
+                  borderColor: 'green',
+                  height: 70,
+                  marginTop: 20,
+                  marginBottom: 20
+                }}
+              />
+              <Button
+                onPress={() => {
+                  props.resetForm();
+                  setLoginError('');
+                  props.setFieldValue('email', 'prueba@prueba.com');
+                  props.setFieldValue('password', '123456');
+                  setIsMockLogin(true);
+                }}
+                title='Prueba usuario'
+                backgroundColor='FFEE9C'
+                titleSize={24}
+                titleColor='green'
+                textStyle={{
+                  textAlign: 'center'
+                }}
+                containerStyle={{
+                  borderWidth: 3,
+                  borderColor: 'green',
+                  height: 70,
+                  marginBottom: 20
+                }}
+              />
+              <Button
+                onPress={() => {
+                  props.resetForm();
+                  setLoginError('');
+                  props.setFieldValue('email', 'prueba1@prueba.com');
+                  props.setFieldValue('password', '123456');
+                  setIsMockLogin(true);
+                }}
+                title='Prueba desarrollador'
+                backgroundColor='FFEE9C'
+                titleSize={24}
+                titleColor='green'
+                textStyle={{
+                  textAlign: 'center'
+                }}
+                containerStyle={{
+                  borderWidth: 3,
+                  borderColor: 'green',
+                  height: 70
+                }}
+              /> */}
+            </View>
           </View>
         )}
       </Formik>
@@ -136,6 +235,9 @@ export default function LoginScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  buttonsContainer: {
+    marginTop: 20,
+  },
   container: {
     flex: 1,
     backgroundColor: '#FFEE9C',
@@ -149,11 +251,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   title: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: '600',
-    color: '#fff',
+    color: '#0000FF',
     alignSelf: 'center',
     paddingBottom: 24,
+    paddingEnd: 20,
   },
   errorMsg: {
     color: '#ff0e0e',
@@ -166,8 +269,15 @@ const styles = StyleSheet.create({
   },
   textButton: {
     color: "#0000FF",
-    fontSize: 18
-  }, spinnerTextStyle: {
+    fontSize: 24,
+    paddingTop: 20,
+    paddingBottom: 20
+  },
+  spinnerTextStyle: {
     color: '#1c8155',
+  },
+  label: {
+    color: '#1c8155',
+    fontSize: 24,
   }
 });

@@ -128,7 +128,7 @@ export default function GaleriaCosasLindas({ navigation }) {
           borderRadius: 5,
           marginTop: 2,
           marginBottom: 2,
-          backgroundColor: '#2979ff',
+          backgroundColor: '#65B4D5',
           height: 50,
           width: '97%'
         }}
@@ -147,7 +147,7 @@ export default function GaleriaCosasLindas({ navigation }) {
             borderWidth: 1,
             borderRadius: 5,
             marginBottom: 2,
-            backgroundColor: '#2979ff',
+            backgroundColor: '#65B4D5',
             height: 50,
             width: '97%'
           }}
@@ -166,7 +166,7 @@ export default function GaleriaCosasLindas({ navigation }) {
           borderWidth: 1,
           borderRadius: 5,
           marginBottom: 4,
-          backgroundColor: '#2979ff',
+          backgroundColor: '#65B4D5',
           height: 50,
           width: '97%'
         }}
@@ -179,7 +179,7 @@ export default function GaleriaCosasLindas({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e8eaf6',
+    backgroundColor: '#C3D96C',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   },
   textoSinFoto: {
     textAlign: 'center',
-    color: '#6fa8dc',
+    color: '#65B4D5',
     fontSize: 30,
     fontWeight: 'bold',
     top: 10

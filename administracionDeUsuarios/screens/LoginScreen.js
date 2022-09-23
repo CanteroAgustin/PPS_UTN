@@ -15,6 +15,7 @@ export default function LoginScreen({ navigation }) {
   const [loginError, setLoginError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { validateForm } = useFormikContext;
+  const [isMockLogin, setIsMockLogin] = useState(false);
 
   useEffect(() => {
     validateForm;
@@ -116,7 +117,7 @@ export default function LoginScreen({ navigation }) {
               containerStyle={{
                 marginBottom: 24
               }}
-              disabled={!props.isValid} />
+              disabled={!props.isValid && !isMockLogin} />
             <View style={styles.inline}>
               <Text style={styles.textButton}>No tengo una cuenta, </Text>
               <TouchableOpacity
@@ -129,7 +130,65 @@ export default function LoginScreen({ navigation }) {
                 <Text style={styles.textButtonLink}>Registrarme.</Text>
               </TouchableOpacity>
             </View>
-
+            <View style={styles.buttonsContainer}>
+              <Button
+                onPress={() => {
+                  props.resetForm();
+                  setLoginError('')
+                  props.setFieldValue('email', 'administrador@prueba.com');
+                  props.setFieldValue('password', '123456')
+                  setIsMockLogin(true);
+                }}
+                title='* Prueba Administrador *'
+                backgroundColor='#e8eaf6'
+                titleSize={24}
+                titleColor='#17a2b8'
+                textStyle={{
+                  textAlign: 'center'
+                }}
+                containerStyle={{
+                  height: 90
+                }}
+              />
+              <Button
+                onPress={() => {
+                  props.resetForm();
+                  setLoginError('')
+                  props.setFieldValue('email', 'prueba@prueba.com');
+                  props.setFieldValue('password', '123456')
+                  setIsMockLogin(true);
+                }}
+                title='* Prueba usuario *'
+                backgroundColor='#e8eaf6'
+                titleSize={24}
+                titleColor='#17a2b8'
+                textStyle={{
+                  textAlign: 'center'
+                }}
+                containerStyle={{
+                  height: 90,
+                }}
+              />
+              <Button
+                onPress={() => {
+                  props.resetForm();
+                  setLoginError('')
+                  props.setFieldValue('email', 'prueba1@prueba.com');
+                  props.setFieldValue('password', '123456')
+                  setIsMockLogin(true);
+                }}
+                title='* Prueba desarrollador *'
+                backgroundColor='#e8eaf6'
+                titleSize={24}
+                titleColor='#17a2b8'
+                textStyle={{
+                  textAlign: 'center'
+                }}
+                containerStyle={{
+                  height: 90
+                }}
+              />
+            </View>
           </View>
         )}
       </Formik >
@@ -146,7 +205,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12
   },
   title: {
-    fontSize: 24,
+    fontSize: 48,
     fontWeight: '600',
     color: '#17a2b8',
     alignSelf: 'center',
@@ -184,5 +243,8 @@ const styles = StyleSheet.create({
   spinner: {
     alignItems: 'center',
     padding: 5
+  },
+  buttonsContainer: {
+    marginTop: 20,
   }
 });

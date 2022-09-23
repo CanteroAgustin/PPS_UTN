@@ -143,9 +143,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12
   },
   title: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: '600',
-    color: '#fff',
+    color: '#0000FF',
     alignSelf: 'center',
     paddingBottom: 24
   },

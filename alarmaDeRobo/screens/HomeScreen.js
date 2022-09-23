@@ -243,6 +243,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    backgroundColor: '#D9B9AF'
   },
   camera: {
     flex: 0.001,
@@ -250,7 +251,7 @@ const styles = StyleSheet.create({
   },
   containerApp: {
     flex: 1,
-    backgroundColor: '#e8eaf6',
+    backgroundColor: '#FBD9A1',
     paddingTop: 50,
     paddingHorizontal: 12
   },

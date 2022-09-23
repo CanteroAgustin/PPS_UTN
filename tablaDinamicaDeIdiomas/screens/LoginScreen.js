@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 import { Button, InputField, ErrorMessage, IconButton } from '../components';
 import Firebase from '../config/firebase';
@@ -16,6 +16,8 @@ export default function LoginScreen({ navigation }) {
   const [isLoading, setIsLoading] = useState('');
   const { validateForm } = useFormikContext;
   const [isMockLogin, setIsMockLogin] = useState(false);
+  const [activeButton, setActiveButton] = useState('1');
+  const [allButtonsActive, setAllButtonsActive] = useState(false);
 
   useEffect(() => {
     validateForm;
@@ -30,6 +32,36 @@ export default function LoginScreen({ navigation }) {
       setPasswordVisibility(!passwordVisibility);
     }
   };
+
+  const handleOne = props => {
+    setActiveButton('1');
+    setAllButtonsActive(!allButtonsActive);
+    props.resetForm();
+    setLoginError('');
+    props.setFieldValue('email', 'administrador@prueba.com');
+    props.setFieldValue('password', '123456');
+    setIsMockLogin(true);
+  }
+
+  const handleTwo = props => {
+    setActiveButton('2');
+    setAllButtonsActive(!allButtonsActive);
+    props.resetForm();
+    setLoginError('');
+    props.setFieldValue('email', 'prueba@prueba.com');
+    props.setFieldValue('password', '123456');
+    setIsMockLogin(true);
+  }
+
+  const handleThree = props => {
+    setActiveButton('3');
+    setAllButtonsActive(!allButtonsActive);
+    props.resetForm();
+    setLoginError('');
+    props.setFieldValue('email', 'prueba1@prueba.com');
+    props.setFieldValue('password', '123456');
+    setIsMockLogin(true);
+  }
 
   return (
     <View style={styles.container}>
@@ -139,10 +171,12 @@ export default function LoginScreen({ navigation }) {
               }}
               disabled={!props.isValid && !isMockLogin}
             />
-            <View style={styles.buttonsContainer}>
+            {/* <View style={styles.buttonsContainer}>
               <Button
                 onPress={() => {
-                  props.setFieldValue('email', 'admin@admin.com');
+                  props.resetForm();
+                  setLoginError('')
+                  props.setFieldValue('email', 'administrador@prueba.com');
                   props.setFieldValue('password', '123456');
                   setIsMockLogin(true);
                 }}
@@ -161,7 +195,9 @@ export default function LoginScreen({ navigation }) {
               />
               <Button
                 onPress={() => {
-                  props.setFieldValue('email', 'invitado@invitado.com');
+                  props.resetForm();
+                  setLoginError('')
+                  props.setFieldValue('email', 'prueba@prueba.com');
                   props.setFieldValue('password', '123456')
                   setIsMockLogin(true);
                 }}
@@ -180,7 +216,9 @@ export default function LoginScreen({ navigation }) {
               />
               <Button
                 onPress={() => {
-                  props.setFieldValue('email', 'tester@tester.com');
+                  props.resetForm();
+                  setLoginError('')
+                  props.setFieldValue('email', 'prueba1@prueba.com');
                   props.setFieldValue('password', '123456')
                   setIsMockLogin(true);
                 }}
@@ -197,6 +235,35 @@ export default function LoginScreen({ navigation }) {
                   height: 100
                 }}
               />
+            </View> */}
+            <Text style={styles.textSignup}>
+              - Usuarios de prueba -
+            </Text>
+            <View style={styles.testButtonsContainer}>
+              {(activeButton == '1' || allButtonsActive) && <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => handleOne(props)}
+                style={styles.testButtonsStyle}>
+                <Text style={styles.textSignup}>
+                  Administrador
+                </Text>
+              </TouchableOpacity>}
+              {(activeButton == '2' || allButtonsActive) && < TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => handleTwo(props)}
+                style={styles.testButtonsStyle}>
+                <Text style={styles.textSignup}>
+                  Usuario
+                </Text>
+              </TouchableOpacity>}
+              {(activeButton == '3' || allButtonsActive) && <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={() => handleThree(props)}
+                style={styles.testButtonsStyle}>
+                <Text style={styles.textSignup}>
+                  Desarrollador
+                </Text>
+              </TouchableOpacity>}
             </View>
           </View>
         )
@@ -240,5 +307,19 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 20,
     padding: 10
-  }
+  },
+  textTestUsers: {
+    alignSelf: 'flex-start'
+  },
+  testButtonsContainer: {
+    alignItems: 'flex-start'
+  },
+  testButtonsStyle: {
+    borderColor: '#ffca18',
+    borderEndColor: '#ffca18',
+    borderBottomWidth: 2,
+    backgroundColor: '#F9FAF5',
+    borderRadius: 10,
+    width: '100%'
+  },
 });

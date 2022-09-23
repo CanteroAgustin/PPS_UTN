@@ -70,14 +70,14 @@ export default function SignupScreen({ navigation }) {
           <View>
             <InputField
               inputStyle={{
-                fontSize: 14
+                fontSize: 14,
               }}
               containerStyle={{
-                backgroundColor: '#f0e7c5',
+                backgroundColor: '#D9B9AF',
                 marginBottom: 20
               }}
               leftIcon='email'
-              placeholder='Enter email'
+              placeholder='Correo electronico'
               autoCapitalize='none'
               keyboardType='email-address'
               textContentType='emailAddress'
@@ -91,11 +91,11 @@ export default function SignupScreen({ navigation }) {
                 fontSize: 14,
               }}
               containerStyle={{
-                backgroundColor: '#f0e7c5',
+                backgroundColor: '#D9B9AF',
                 marginBottom: 20
               }}
               leftIcon='lock'
-              placeholder='Enter password'
+              placeholder='Contraseña'
               autoCapitalize='none'
               autoCorrect={false}
               secureTextEntry={passwordVisibility}
@@ -115,8 +115,8 @@ export default function SignupScreen({ navigation }) {
             }
             <Button
               onPress={props.handleSubmit}
-              backgroundColor='#ff7961'
-              title='Signup'
+              backgroundColor='#FB85AA'
+              title='Registrarme'
               tileColor='#fff'
               titleSize={20}
               containerStyle={{
@@ -144,7 +144,7 @@ export default function SignupScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e8eaf6',
+    backgroundColor: '#FBD9A1',
     paddingTop: 50,
     paddingHorizontal: 12
   },
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textButton: {
-    color: "#0000FF",
+    color: "#4E9FAB",
     fontSize: 18
   },
   errorMsg: {
