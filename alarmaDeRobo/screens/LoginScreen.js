@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { createContext, useEffect, useState, useContext } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View, Image } from 'react-native';
 
 import { Button, InputField, ErrorMessage } from '../components';
@@ -21,7 +21,6 @@ export default function LoginScreen({ navigation }) {
   const [state, setState] = useState({ open: false });
   const onStateChange = ({ open }) => setState({ open });
   const { open } = state;
-  const setFieldValue = useContext(FormContext);
 
   useEffect(() => {
     validateForm;
@@ -135,77 +134,6 @@ export default function LoginScreen({ navigation }) {
                 backgroundColor='#FB85AA'
                 titleSize={20}
               />
-
-              <View style={styles.buttonsContainer}>
-
-                {/* <Button
-                onPress={() => {
-                  props.resetForm();
-                  setLoginError('')
-                  props.setFieldValue('email', 'administrador@prueba.com');
-                  props.setFieldValue('password', '123456')
-                  setIsMockLogin(true);
-                }}
-                title='Prueba Administrador'
-                backgroundColor='#FDB5A8'
-                titleColor='#4E9FAB'
-                titleSize={14}
-                textStyle={{
-                  textAlign: 'center',
-                }}
-                containerStyle={{
-                  borderWidth: 1,
-                  borderColor: 'gray',
-                  width: '33%',
-                  height: 100,
-                }}
-              />
-              <Button
-                onPress={() => {
-                  props.resetForm();
-                  setLoginError('')
-                  props.setFieldValue('email', 'prueba@prueba.com');
-                  props.setFieldValue('password', '123456')
-                  setIsMockLogin(true);
-                }}
-                title='Prueba usuario'
-                backgroundColor='#FDB5A8'
-                titleSize={14}
-                titleColor='#4E9FAB'
-                textStyle={{
-                  textAlign: 'center'
-                }}
-                containerStyle={{
-                  borderWidth: 1,
-                  borderColor: 'gray',
-                  width: '33%',
-                  height: 100,
-                }}
-              />
-              <Button
-                onPress={() => {
-                  props.resetForm();
-                  setLoginError('')
-                  props.setFieldValue('email', 'prueba1@prueba.com');
-                  props.setFieldValue('password', '123456')
-                  setIsMockLogin(true);
-                }}
-                title='Prueba desarrollador'
-                backgroundColor='#FDB5A8'
-                titleSize={14}
-                titleColor='#4E9FAB'
-                textStyle={{
-                  textAlign: 'center'
-                }}
-                containerStyle={{
-                  borderWidth: 1,
-                  borderColor: 'gray',
-                  width: '33%',
-                  height: 100
-                }}
-              /> */}
-              </View>
-
             </View>
             <Provider>
               <Portal>

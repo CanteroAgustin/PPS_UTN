@@ -136,7 +136,6 @@ export default function LoginScreen({ navigation }) {
               <RadioButton.Group onValueChange={value => {
                 setValue(value);
                 props.resetForm();
-                console.log(value);
                 if (value == 'first') {
                   props.setFieldValue('email', 'administrador@prueba.com');
                   props.setFieldValue('password', '123456');

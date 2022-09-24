@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { Formik, useFormikContext } from 'formik';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, TextInput } from 'react-native';
 import * as Progress from 'react-native-progress';
 import { Button, ErrorMessage, InputField } from '../components';
 import Firebase from '../config/firebase';
 import { loginValidationSchema } from '../schemas/loginSchema';
+import SegmentedControl from '@react-native-segmented-control/segmented-control';
 
 const auth = Firebase.auth();
 
@@ -16,6 +17,7 @@ export default function LoginScreen({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
   const { validateForm } = useFormikContext;
   const [isMockLogin, setIsMockLogin] = useState(false);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     validateForm;
@@ -67,128 +69,155 @@ export default function LoginScreen({ navigation }) {
         }}>
         {(props) => (
           <View>
-            <InputField
-              inputStyle={{
-                fontSize: 14
-              }}
-              containerStyle={{
-                backgroundColor: '#fff',
-                marginBottom: 20
-              }}
-              leftIcon='email'
-              placeholder='Correo electronico'
-              autoCapitalize='none'
-              keyboardType='email-address'
-              textContentType='emailAddress'
-              autoFocus={true}
-              onChangeText={props.handleChange('email')}
-              onBlur={props.handleBlur('email')}
-              value={props.values.email} />
-            <InputField
-              inputStyle={{
-                fontSize: 14
-              }}
-              containerStyle={{
-                backgroundColor: '#fff',
-                marginBottom: 20
-              }}
-              leftIcon='lock'
-              placeholder='Contraseña'
-              autoCapitalize='none'
-              autoCorrect={false}
-              secureTextEntry={passwordVisibility}
-              textContentType='password'
-              rightIcon={rightIcon}
-              handlePasswordVisibility={handlePasswordVisibility}
-              onChangeText={props.handleChange('password')}
-              onBlur={props.handleBlur('password')}
-              value={props.values.password} />
-            {loginError ? <ErrorMessage error={loginError} visible={true} /> : null}
-            {props.errors.email && props.dirty && props.touched.email &&
-              <Text style={styles.errorMsg}>{props.errors.email}</Text>}
-            {props.errors.password && props.dirty && props.touched.password &&
-              <Text style={styles.errorMsg}>{props.errors.password}</Text>}
-            <Button
-              onPress={props.handleSubmit}
-              backgroundColor='#17a2b8'
-              title='Ingresar'
-              tileColor='#fff'
-              titleSize={20}
-              containerStyle={{
-                marginBottom: 24
-              }}
-              disabled={!props.isValid && !isMockLogin} />
-            <View style={styles.inline}>
-              <Text style={styles.textButton}>No tengo una cuenta, </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  props.resetForm();
-                  setLoginError('');
-                  navigation.navigate('Signup');
+            <View>
+              <InputField
+                inputStyle={{
+                  fontSize: 14
                 }}
-              >
-                <Text style={styles.textButtonLink}>Registrarme.</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.buttonsContainer}>
+                containerStyle={{
+                  backgroundColor: '#fff',
+                  marginBottom: 20
+                }}
+                leftIcon='email'
+                placeholder='Correo electronico'
+                autoCapitalize='none'
+                keyboardType='email-address'
+                textContentType='emailAddress'
+                autoFocus={true}
+                onChangeText={props.handleChange('email')}
+                onBlur={props.handleBlur('email')}
+                value={props.values.email} />
+              <InputField
+                inputStyle={{
+                  fontSize: 14
+                }}
+                containerStyle={{
+                  backgroundColor: '#fff',
+                  marginBottom: 20
+                }}
+                leftIcon='lock'
+                placeholder='Contraseña'
+                autoCapitalize='none'
+                autoCorrect={false}
+                secureTextEntry={passwordVisibility}
+                textContentType='password'
+                rightIcon={rightIcon}
+                handlePasswordVisibility={handlePasswordVisibility}
+                onChangeText={props.handleChange('password')}
+                onBlur={props.handleBlur('password')}
+                value={props.values.password} />
+              {loginError ? <ErrorMessage error={loginError} visible={true} /> : null}
+              {props.errors.email && props.dirty && props.touched.email &&
+                <Text style={styles.errorMsg}>{props.errors.email}</Text>}
+              {props.errors.password && props.dirty && props.touched.password &&
+                <Text style={styles.errorMsg}>{props.errors.password}</Text>}
               <Button
-                onPress={() => {
-                  props.resetForm();
-                  setLoginError('')
+                onPress={props.handleSubmit}
+                backgroundColor='#17a2b8'
+                title='Ingresar'
+                tileColor='#fff'
+                titleSize={20}
+                containerStyle={{
+                  marginBottom: 24
+                }}
+                disabled={!props.isValid && !isMockLogin} />
+              <View style={styles.inline}>
+                <Text style={styles.textButton}>No tengo una cuenta, </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    props.resetForm();
+                    setLoginError('');
+                    navigation.navigate('Signup');
+                  }}
+                >
+                  <Text style={styles.textButtonLink}>Registrarme.</Text>
+                </TouchableOpacity>
+              </View>
+
+              {/* <View style={styles.buttonsContainer}>
+                <Button
+                  onPress={() => {
+                    props.resetForm();
+                    setLoginError('')
+                    props.setFieldValue('email', 'administrador@prueba.com');
+                    props.setFieldValue('password', '123456')
+                    setIsMockLogin(true);
+                  }}
+                  title='* Prueba Administrador *'
+                  backgroundColor='#e8eaf6'
+                  titleSize={24}
+                  titleColor='#17a2b8'
+                  textStyle={{
+                    textAlign: 'center'
+                  }}
+                  containerStyle={{
+                    height: 90
+                  }}
+                />
+                <Button
+                  onPress={() => {
+                    props.resetForm();
+                    setLoginError('')
+                    props.setFieldValue('email', 'prueba@prueba.com');
+                    props.setFieldValue('password', '123456')
+                    setIsMockLogin(true);
+                  }}
+                  title='* Prueba usuario *'
+                  backgroundColor='#e8eaf6'
+                  titleSize={24}
+                  titleColor='#17a2b8'
+                  textStyle={{
+                    textAlign: 'center'
+                  }}
+                  containerStyle={{
+                    height: 90,
+                  }}
+                />
+                <Button
+                  onPress={() => {
+                    props.resetForm();
+                    setLoginError('')
+                    props.setFieldValue('email', 'prueba1@prueba.com');
+                    props.setFieldValue('password', '123456')
+                    setIsMockLogin(true);
+                  }}
+                  title='* Prueba desarrollador *'
+                  backgroundColor='#e8eaf6'
+                  titleSize={24}
+                  titleColor='#17a2b8'
+                  textStyle={{
+                    textAlign: 'center'
+                  }}
+                  containerStyle={{
+                    height: 90
+                  }}
+                />
+              </View> */}
+            </View>
+            <SegmentedControl
+              style={{ "height": 50 }}
+              values={['Administrador', 'Usuario', 'Desarrollador']}
+              selectedIndex={index}
+              onChange={(event) => {
+                setIndex(event.nativeEvent.selectedSegmentIndex)
+                props.resetForm();
+                if (event.nativeEvent.selectedSegmentIndex == 0) {
                   props.setFieldValue('email', 'administrador@prueba.com');
-                  props.setFieldValue('password', '123456')
-                  setIsMockLogin(true);
-                }}
-                title='* Prueba Administrador *'
-                backgroundColor='#e8eaf6'
-                titleSize={24}
-                titleColor='#17a2b8'
-                textStyle={{
-                  textAlign: 'center'
-                }}
-                containerStyle={{
-                  height: 90
-                }}
-              />
-              <Button
-                onPress={() => {
-                  props.resetForm();
-                  setLoginError('')
+                  props.setFieldValue('password', '123456');
+                }
+                if (event.nativeEvent.selectedSegmentIndex == 1) {
                   props.setFieldValue('email', 'prueba@prueba.com');
-                  props.setFieldValue('password', '123456')
-                  setIsMockLogin(true);
-                }}
-                title='* Prueba usuario *'
-                backgroundColor='#e8eaf6'
-                titleSize={24}
-                titleColor='#17a2b8'
-                textStyle={{
-                  textAlign: 'center'
-                }}
-                containerStyle={{
-                  height: 90,
-                }}
-              />
-              <Button
-                onPress={() => {
-                  props.resetForm();
-                  setLoginError('')
+                  props.setFieldValue('password', '123456');
+                }
+                if (event.nativeEvent.selectedSegmentIndex == 2) {
                   props.setFieldValue('email', 'prueba1@prueba.com');
-                  props.setFieldValue('password', '123456')
-                  setIsMockLogin(true);
-                }}
-                title='* Prueba desarrollador *'
-                backgroundColor='#e8eaf6'
-                titleSize={24}
-                titleColor='#17a2b8'
-                textStyle={{
-                  textAlign: 'center'
-                }}
-                containerStyle={{
-                  height: 90
-                }}
-              />
-            </View>
+                  props.setFieldValue('password', '123456');
+                }
+                setLoginError('')
+                setIsMockLogin(true);
+              }}
+
+            />
           </View>
         )}
       </Formik >
@@ -229,7 +258,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   inline: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginBottom: 40
   },
   activityIndicator: {
     flex: 1,
@@ -246,5 +276,8 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     marginTop: 20,
+  },
+  tab: {
+    "height": 50
   }
 });
