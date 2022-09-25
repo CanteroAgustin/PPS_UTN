@@ -37,6 +37,7 @@ const Camara = ({ route, navigation }) => {
   if (hasPermission === false) {
     return <Text>Acceso denegado</Text>;
   }
+
   const takePicture = async () => {
     if (camRef) {
       setIsLoading(true);
@@ -46,50 +47,51 @@ const Camara = ({ route, navigation }) => {
       setOpen(true);
     }
   }
-  const savePicture = async () => {
-    const img = await fetch(foto);
 
+  const savePicture = async data => {
+    const img = await fetch(foto);
     const blob = await img.blob();
     temPhotos.push(blob);
     setTempPhotos(temPhotos);
+    console.log(data)
+    console.log(foto)
 
-
-    setIsLoading(true);
-    temPhotos.forEach((temPhoto, i) => {
-      setTimeout(() => {
-        const now = formatDate(new Date());
-        const path = 'images/' + tipo + '/' + user.email + '-' + now;
-        const storageRef = storage.ref();
-        const spaceRef = storageRef.child(path);
-        spaceRef.put(temPhoto).then(function (snapshot) {
-          snapshot.ref.getDownloadURL().then(url => {
-            db.collection('imagenes' + tipo).add({
-              user: user.email,
-              url,
-              fecha: now,
-              likes: 0,
-              id: user.uid + now
+    if (data == 'many') {
+      setOpen(false);
+    } else if (data == 'one') {
+      setIsLoading(true);
+      temPhotos.forEach((temPhoto, i) => {
+        console.log("foto" + i)
+        setTimeout(() => {
+          let randomNumber = Math.floor(Math.random() * 10000) + 1;
+          const now = formatDate(new Date());
+          console.log("now: ", now)
+          const path = 'images/' + tipo + '/' + user.email + '-' + now + '-' + randomNumber;
+          console.log("path: ", path)
+          const storageRef = storage.ref();
+          const spaceRef = storageRef.child(path);
+          spaceRef.put(temPhoto).then(function (snapshot) {
+            snapshot.ref.getDownloadURL().then(url => {
+              db.collection('imagenes' + tipo).add({
+                user: user.email,
+                url,
+                fecha: now,
+                likes: 0,
+                id: user.uid + now
+              });
+              db.collection('imagenes').add({
+                user: user.email,
+                url,
+                fecha: now,
+                likes: 0,
+                id: user.uid + now
+              });
+              navigation.replace('Listados');
             });
-            db.collection('imagenes').add({
-              user: user.email,
-              url,
-              fecha: now,
-              likes: 0,
-              id: user.uid + now
-            });
-            navigation.replace('Listados');
           });
-        });
-      }, i * 100);
-    });
-  }
-
-  const saveAndTakeAnother = async () => {
-    const img = await fetch(foto);
-    const blob = await img.blob();
-    temPhotos.push(blob);
-    setTempPhotos(temPhotos);
-    setOpen(false)
+        }, i * 100);
+      });
+    }
   }
 
   function dateComponentPad(value) {
@@ -136,11 +138,11 @@ const Camara = ({ route, navigation }) => {
                   <MaterialIcons name="autorenew" size={60} color="black" />
                   <Text style={styles.btnText} >Sacar de nuevo</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={saveAndTakeAnother} style={styles.btnOther}>
+                <TouchableOpacity onPress={() => { savePicture('many') }} style={styles.btnOther}>
                   <MaterialIcons name="backup" size={60} color="black" />
                   <Text style={styles.btnText}>Sacar otra</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={savePicture} style={styles.btnSave}>
+                <TouchableOpacity onPress={() => { savePicture('one') }} style={styles.btnSave}>
                   <MaterialIcons name="backup" size={60} color="black" />
                   <Text style={styles.btnText}>Guardar y finalizar</Text>
                 </TouchableOpacity>
