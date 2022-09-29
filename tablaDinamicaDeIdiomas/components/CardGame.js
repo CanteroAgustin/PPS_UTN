@@ -12,15 +12,16 @@ const CardGame = ({
   borderTopRightRadius,
   borderBottomRightRadius,
   onPress,
+  containerStyle,
 }) => {
   return (
-    <View style={[cardStyle, { borderTopLeftRadius, borderBottomLeftRadius, borderBottomRightRadius, borderTopRightRadius }]}>
-      <TouchableOpacity onPress={onPress}>
+    <View style={containerStyle}>
+      <TouchableOpacity style={[cardStyle, { borderTopLeftRadius, borderBottomLeftRadius, borderBottomRightRadius, borderTopRightRadius }]} onPress={onPress}>
         <Image source={imgUrl} style={imgStyle} />
         <Text style={textStyle}>{text}</Text>
       </TouchableOpacity>
+    </View>
 
-    </View >
   );
 };
 

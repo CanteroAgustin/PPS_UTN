@@ -419,14 +419,14 @@ export default function HomeScreen() {
               <CardGame text={language === 'esp' ? 'Dos' : language === 'ing' ? 'Two' : 'Dois'} imgUrl={require('../assets/dos.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("dos", language) }} />
               <CardGame text={language === 'esp' ? 'Tres' : language === 'ing' ? 'Three' : 'Três'} imgUrl={require('../assets/tres.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("tres", language) }} />
               <CardGame text={language === 'esp' ? 'Cuatro' : language === 'ing' ? 'Four' : 'Quatro'} imgUrl={require('../assets/cuatro.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("cuatro", language) }} />
-              <CardGame text={language === 'esp' ? 'Cuatro' : language === 'ing' ? 'Four' : 'Quatro'} imgUrl={require('../assets/cuatro.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("cuatro", language) }} />
+              <CardGame text={language === 'esp' ? 'Cinco' : language === 'ing' ? 'Cinco' : 'Cinco'} imgUrl={require('../assets/cinco.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("cuatro", language) }} />
             </View>}
             {topic === 'animales' && <View>
               <CardGame text={language === 'esp' ? 'Leon' : language === 'ing' ? 'Lion' : 'Leão'} imgUrl={require('../assets/leon.png')} imgStyle={styles.imgStyle} cardStyle={styles.cardStyle} textStyle={styles.textStyle} onPress={() => { playSound("leon", language) }} />
               <CardGame text={language === 'esp' ? 'Gorila' : language === 'ing' ? 'Gorilla' : 'Gorila'} imgUrl={require('../assets/gorila.png')} imgStyle={styles.imgStyle} cardStyle={styles.cardStyle} textStyle={styles.textStyle} onPress={() => { playSound("gorila", language) }} />
               <CardGame text={language === 'esp' ? 'Cebra' : language === 'ing' ? 'Zebra' : 'Zebra'} imgUrl={require('../assets/cebra.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("cebra", language) }} />
               <CardGame text={language === 'esp' ? 'Elefante' : language === 'ing' ? 'Elephant' : 'Elefante'} imgUrl={require('../assets/elefante.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("elefante", language) }} />
-              <CardGame text={language === 'esp' ? 'Elefante' : language === 'ing' ? 'Elephant' : 'Elefante'} imgUrl={require('../assets/elefante.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("elefante", language) }} />
+              <CardGame text={language === 'esp' ? 'Tigre' : language === 'ing' ? 'Tiger' : 'Tigre'} imgUrl={require('../assets/tigre.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("elefante", language) }} />
             </View>}
             {topic === 'colores' && <View>
               <CardGame text={language === 'esp' ? 'Amarillo' : language === 'ing' ? 'Yellow' : 'Amarelo'} imgUrl={require('../assets/circuloamarillo.png')} imgStyle={styles.imgStyle} cardStyle={styles.cardStyle} textStyle={styles.textStyle} onPress={() => { playSound("amarillo", language) }} />
@@ -442,8 +442,8 @@ export default function HomeScreen() {
         orientation === 'landscape' &&
         <View style={styles.containerL}>
           <StatusBar style='dark-content' />
-          <View style={styles.exitButtonL}>
-            <View>
+          <View style={styles.exitButton}>
+            <View style={styles.touchableOpacityStyle}>
               <View style={styles.touchableOpacityStyle1}>
                 {(activeLanguage == 'esp' || allLanguageActive) && <TouchableOpacity
                   activeOpacity={0.7}
@@ -497,49 +497,35 @@ export default function HomeScreen() {
                 </TouchableOpacity>}
               </View>
             </View>
-            <Text style={{ alignSelf: 'flex-start', marginRight: 20 }}>{language === 'esp' ? 'Idioma: Español' : language === 'ing' ? 'Language: English' : 'Língua: Português'}</Text>
-            <TouchableOpacity onPress={handleSignOut}>
-              <MaterialCommunityIcons name="door-closed-lock" size={28} color='#757ce8' />
-            </TouchableOpacity>
+            <View style={styles.doorStyle}>
+              <TouchableOpacity onPress={handleSignOut}>
+                <MaterialCommunityIcons name="door-closed-lock" size={38} color='#757ce8' />
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.content}>
-            <View>
-              <FloatButton imgStyle={styles.topicImgStyleL} width={'100%'} height={50} containerStyle={styles.btnContainerStyle1} backgroundColor='red' imageSrc={require('../assets/numeros.jpg')} onPress={() => setTopic('numeros')} />
-              <FloatButton imgStyle={styles.topicImgStyleL} width={'100%'} height={50} containerStyle={styles.btnContainerStyle2} backgroundColor='red' imageSrc={require('../assets/colours.jpg')} onPress={() => setTopic('colores')} />
-              <FloatButton imgStyle={styles.topicImgStyleL} width={'100%'} height={50} containerStyle={styles.btnContainerStyle2} backgroundColor='red' imageSrc={require('../assets/banner-animales2.png')} onPress={() => setTopic('animales')} />
-            </View>
-            <View style={styles.cardContainerL}>
-              {topic === 'numeros' && <View style={{ flexDirection: 'column' }}>
-                <View style={{ flexDirection: 'row' }}>
-                  <CardGame borderTopLeftRadius={15} text={language === 'esp' ? 'uno' : language === 'ing' ? 'one' : 'um'} imgUrl={require('../assets/uno.png')} imgStyle={styles.imgStyle} cardStyle={styles.cardStyle} textStyle={styles.textStyle} onPress={() => { playSound("uno", language) }} />
-                  <CardGame borderTopRightRadius={15} text={language === 'esp' ? 'dos' : language === 'ing' ? 'two' : 'dois'} imgUrl={require('../assets/dos.png')} imgStyle={styles.imgStyle} cardStyle={styles.cardStyle} textStyle={styles.textStyle} onPress={() => { playSound("dos", language) }} />
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                  <CardGame borderBottomLeftRadius={15} text={language === 'esp' ? 'tres' : language === 'ing' ? 'three' : 'três'} imgUrl={require('../assets/tres.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("tres", language) }} />
-                  <CardGame borderBottomRightRadius={15} text={language === 'esp' ? 'cuatro' : language === 'ing' ? 'four' : 'quatro'} imgUrl={require('../assets/cuatro.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("cuatro", language) }} />
-                </View>
-              </View>}
-              {topic === 'animales' && <View style={{ flexDirection: 'column' }}>
-                <View style={{ flexDirection: 'row' }}>
-                  <CardGame borderTopLeftRadius={15} text={language === 'esp' ? 'Leon' : language === 'ing' ? 'Lion' : 'Leão'} imgUrl={require('../assets/leon.png')} imgStyle={styles.imgStyle} cardStyle={styles.cardStyle} textStyle={styles.textStyle} onPress={() => { playSound("leon", language) }} />
-                  <CardGame borderTopRightRadius={15} text={language === 'esp' ? 'Gorila' : language === 'ing' ? 'Gorilla' : 'Gorila'} imgUrl={require('../assets/gorila.png')} imgStyle={styles.imgStyle} cardStyle={styles.cardStyle} textStyle={styles.textStyle} onPress={() => { playSound("gorila", language) }} />
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                  <CardGame borderBottomLeftRadius={15} text={language === 'esp' ? 'Cebra' : language === 'ing' ? 'Zebra' : 'Zebra'} imgUrl={require('../assets/cebra.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("cebra", language) }} />
-                  <CardGame borderBottomRightRadius={15} text={language === 'esp' ? 'Elefante' : language === 'ing' ? 'Elephant' : 'Elefante'} imgUrl={require('../assets/elefante.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("elefante", language) }} />
-                </View>
-              </View>}
-              {topic === 'colores' && <View style={{ flexDirection: 'column' }}>
-                <View style={{ flexDirection: 'row' }}>
-                  <CardGame borderTopLeftRadius={15} text={language === 'esp' ? 'Amarillo' : language === 'ing' ? 'Yellow' : 'Amarelo'} imgUrl={require('../assets/circuloamarillo.png')} imgStyle={styles.imgStyle} cardStyle={styles.cardStyle} textStyle={styles.textStyle} onPress={() => { playSound("amarillo", language) }} />
-                  <CardGame borderTopRightRadius={15} text={language === 'esp' ? 'Rojo' : language === 'ing' ? 'Red' : 'Vermelho'} imgUrl={require('../assets/circulorojo.png')} imgStyle={styles.imgStyle} cardStyle={styles.cardStyle} textStyle={styles.textStyle} onPress={() => { playSound("rojo", language) }} />
-                </View>
-                <View style={{ flexDirection: 'row' }}>
-                  <CardGame borderBottomLeftRadius={15} text={language === 'esp' ? 'Azul' : language === 'ing' ? 'Blue' : 'Azul'} imgUrl={require('../assets/circuloazul.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("azul", language) }} />
-                  <CardGame borderBottomRightRadius={15} text={language === 'esp' ? 'Verde' : language === 'ing' ? 'Green' : 'Verde'} imgUrl={require('../assets/circuloverde.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("verde", language) }} />
-                </View>
-              </View>}
-            </View>
+          <View style={styles.cardContainerL}>
+            {topic === 'numeros' && <View style={styles.row}>
+              <CardGame text={language === 'esp' ? 'Uno' : language === 'ing' ? 'One' : 'Um'} imgUrl={require('../assets/uno.png')} imgStyle={styles.imgStyleL} cardStyle={styles.cardStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("uno", language) }} />
+              <CardGame text={language === 'esp' ? 'Dos' : language === 'ing' ? 'Two' : 'Dois'} imgUrl={require('../assets/dos.png')} imgStyle={styles.imgStyleL} cardStyle={styles.cardStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("dos", language) }} />
+              <CardGame text={language === 'esp' ? 'Tres' : language === 'ing' ? 'Three' : 'Três'} imgUrl={require('../assets/tres.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("tres", language) }} />
+              <CardGame text={language === 'esp' ? 'Cuatro' : language === 'ing' ? 'Four' : 'Quatro'} imgUrl={require('../assets/cuatro.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("cuatro", language) }} />
+              <CardGame text={language === 'esp' ? 'Cinco' : language === 'ing' ? 'Five' : 'Cinco'} imgUrl={require('../assets/cinco.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("cuatro", language) }} />
+            </View>}
+            {topic === 'animales' && <View style={styles.row}>
+              <CardGame text={language === 'esp' ? 'Leon' : language === 'ing' ? 'Lion' : 'Leão'} imgUrl={require('../assets/leon.png')} imgStyle={styles.imgStyleL} cardStyle={styles.cardStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("leon", language) }} />
+              <CardGame text={language === 'esp' ? 'Gorila' : language === 'ing' ? 'Gorilla' : 'Gorila'} imgUrl={require('../assets/gorila.png')} imgStyle={styles.imgStyleL} cardStyle={styles.cardStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("gorila", language) }} />
+              <CardGame text={language === 'esp' ? 'Cebra' : language === 'ing' ? 'Zebra' : 'Zebra'} imgUrl={require('../assets/cebra.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("cebra", language) }} />
+              <CardGame text={language === 'esp' ? 'Elefante' : language === 'ing' ? 'Elephant' : 'Elefante'} imgUrl={require('../assets/elefante.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("elefante", language) }} />
+              <CardGame text={language === 'esp' ? 'Tigre' : language === 'ing' ? 'Tiger' : 'Tigre'} imgUrl={require('../assets/tigre.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("elefante", language) }} />
+            </View>}
+            {topic === 'colores' && <View style={styles.row}>
+              <CardGame text={language === 'esp' ? 'Amarillo' : language === 'ing' ? 'Yellow' : 'Amarelo'} imgUrl={require('../assets/circuloamarillo.png')} imgStyle={styles.imgStyleL} cardStyle={styles.cardStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("amarillo", language) }} />
+              <CardGame text={language === 'esp' ? 'Rojo' : language === 'ing' ? 'Red' : 'Vermelho'} imgUrl={require('../assets/circulorojo.png')} imgStyle={styles.imgStyleL} cardStyle={styles.cardStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("rojo", language) }} />
+              <CardGame text={language === 'esp' ? 'Azul' : language === 'ing' ? 'Blue' : 'Azul'} imgUrl={require('../assets/circuloazul.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("azul", language) }} />
+              <CardGame text={language === 'esp' ? 'Verde' : language === 'ing' ? 'Green' : 'Verde'} imgUrl={require('../assets/circuloverde.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("verde", language) }} />
+              <CardGame text={language === 'esp' ? 'Verde' : language === 'ing' ? 'Green' : 'Verde'} imgUrl={require('../assets/circuloverde.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("verde", language) }} />
+            </View>}
+
           </View>
         </View>
       }
@@ -561,7 +547,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12
   },
   content: {
-    flexDirection: 'row',
   },
   exitButton: {
     flexDirection: 'row',
@@ -640,9 +625,8 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   cardContainerL: {
-    width: '45%',
-    height: '99%',
-    alignSelf: 'center',
+    width: '100%',
+    height: '100%',
   },
   langButtomContainer: {
     flexDirection: 'row',
@@ -672,18 +656,44 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   cardStyle: {
+    flexDirection: "row",
+    flexWrap: "wrap",
     height: 135,
     borderColor: 'grey',
     borderWidth: 2,
     backgroundColor: '#fbffd7',
     alignItems: 'center',
     borderRadius: 5,
-    margin: 0.5
+    margin: 0.5,
+    alignContent: 'center',
   },
   imgStyle: {
+    marginLeft: 50
     //width: 115,
   },
   textStyle: {
+    marginLeft: 50,
+    color: '#726539',
+    fontSize: 24,
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+  cardStyleL: {
+    height: 295,
+    width: 146,
+    borderColor: 'grey',
+    borderWidth: 2,
+    backgroundColor: '#fbffd7',
+    alignItems: 'center',
+    borderRadius: 5,
+    margin: 0.5,
+  },
+  imgStyleL: {
+    marginTop: 70,
+    marginBottom: 30
+    //width: 115,
+  },
+  textStyleL: {
     color: '#726539',
     fontSize: 24,
     textAlign: 'center',
@@ -702,5 +712,8 @@ const styles = StyleSheet.create({
   floatingButtonStyle: {
     width: 50,
     height: 50,
+  },
+  row: {
+    flexDirection: 'row'
   }
 });

@@ -63,10 +63,10 @@ const Camara = ({ route, navigation }) => {
       temPhotos.forEach((temPhoto, i) => {
         console.log("foto" + i)
         setTimeout(() => {
-          let randomNumber = Math.floor(Math.random() * 10000) + 1;
+          // let randomNumber = Math.floor(Math.random() * 10000) + 1;
           const now = formatDate(new Date());
           console.log("now: ", now)
-          const path = 'images/' + tipo + '/' + user.email + '-' + now + '-' + randomNumber;
+          const path = 'images/' + tipo + '/' + user.email + '-' + now;
           console.log("path: ", path)
           const storageRef = storage.ref();
           const spaceRef = storageRef.child(path);
@@ -89,7 +89,7 @@ const Camara = ({ route, navigation }) => {
               navigation.replace('Listados');
             });
           });
-        }, i * 100);
+        }, i * 1000);
       });
     }
   }
