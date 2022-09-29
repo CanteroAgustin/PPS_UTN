@@ -429,11 +429,11 @@ export default function HomeScreen() {
               <CardGame text={language === 'esp' ? 'Tigre' : language === 'ing' ? 'Tiger' : 'Tigre'} imgUrl={require('../assets/tigre.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("elefante", language) }} />
             </View>}
             {topic === 'colores' && <View>
-              <CardGame text={language === 'esp' ? 'Amarillo' : language === 'ing' ? 'Yellow' : 'Amarelo'} imgUrl={require('../assets/circuloamarillo.png')} imgStyle={styles.imgStyle} cardStyle={styles.cardStyle} textStyle={styles.textStyle} onPress={() => { playSound("amarillo", language) }} />
-              <CardGame text={language === 'esp' ? 'Rojo' : language === 'ing' ? 'Red' : 'Vermelho'} imgUrl={require('../assets/circulorojo.png')} imgStyle={styles.imgStyle} cardStyle={styles.cardStyle} textStyle={styles.textStyle} onPress={() => { playSound("rojo", language) }} />
-              <CardGame text={language === 'esp' ? 'Azul' : language === 'ing' ? 'Blue' : 'Azul'} imgUrl={require('../assets/circuloazul.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("azul", language) }} />
-              <CardGame text={language === 'esp' ? 'Verde' : language === 'ing' ? 'Green' : 'Verde'} imgUrl={require('../assets/circuloverde.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("verde", language) }} />
-              <CardGame text={language === 'esp' ? 'Verde' : language === 'ing' ? 'Green' : 'Verde'} imgUrl={require('../assets/circuloverde.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("verde", language) }} />
+              <CardGame text={language === 'esp' ? 'Amarillo' : language === 'ing' ? 'Yellow' : 'Amarelo'} imgUrl={require('../assets/amarillo.png')} imgStyle={styles.imgStyle} cardStyle={styles.cardStyle} textStyle={styles.textStyle} onPress={() => { playSound("amarillo", language) }} />
+              <CardGame text={language === 'esp' ? 'Rojo' : language === 'ing' ? 'Red' : 'Vermelho'} imgUrl={require('../assets/rojo.png')} imgStyle={styles.imgStyle} cardStyle={styles.cardStyle} textStyle={styles.textStyle} onPress={() => { playSound("rojo", language) }} />
+              <CardGame text={language === 'esp' ? 'Azul' : language === 'ing' ? 'Blue' : 'Azul'} imgUrl={require('../assets/azul.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("azul", language) }} />
+              <CardGame text={language === 'esp' ? 'Verde' : language === 'ing' ? 'Green' : 'Verde'} imgUrl={require('../assets/verde.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("verde", language) }} />
+              <CardGame text={language === 'esp' ? 'Violeta' : language === 'ing' ? 'Purple' : 'Roxo'} imgUrl={require('../assets/violeta.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("verde", language) }} />
             </View>}
           </View>
         </View>
@@ -519,11 +519,11 @@ export default function HomeScreen() {
               <CardGame text={language === 'esp' ? 'Tigre' : language === 'ing' ? 'Tiger' : 'Tigre'} imgUrl={require('../assets/tigre.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("elefante", language) }} />
             </View>}
             {topic === 'colores' && <View style={styles.row}>
-              <CardGame text={language === 'esp' ? 'Amarillo' : language === 'ing' ? 'Yellow' : 'Amarelo'} imgUrl={require('../assets/circuloamarillo.png')} imgStyle={styles.imgStyleL} cardStyle={styles.cardStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("amarillo", language) }} />
-              <CardGame text={language === 'esp' ? 'Rojo' : language === 'ing' ? 'Red' : 'Vermelho'} imgUrl={require('../assets/circulorojo.png')} imgStyle={styles.imgStyleL} cardStyle={styles.cardStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("rojo", language) }} />
-              <CardGame text={language === 'esp' ? 'Azul' : language === 'ing' ? 'Blue' : 'Azul'} imgUrl={require('../assets/circuloazul.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("azul", language) }} />
-              <CardGame text={language === 'esp' ? 'Verde' : language === 'ing' ? 'Green' : 'Verde'} imgUrl={require('../assets/circuloverde.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("verde", language) }} />
-              <CardGame text={language === 'esp' ? 'Verde' : language === 'ing' ? 'Green' : 'Verde'} imgUrl={require('../assets/circuloverde.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("verde", language) }} />
+              <CardGame text={language === 'esp' ? 'Amarillo' : language === 'ing' ? 'Yellow' : 'Amarelo'} imgUrl={require('../assets/amarillo.png')} imgStyle={styles.imgStyleL} cardStyle={styles.cardStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("amarillo", language) }} />
+              <CardGame text={language === 'esp' ? 'Rojo' : language === 'ing' ? 'Red' : 'Vermelho'} imgUrl={require('../assets/rojo.png')} imgStyle={styles.imgStyleL} cardStyle={styles.cardStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("rojo", language) }} />
+              <CardGame text={language === 'esp' ? 'Azul' : language === 'ing' ? 'Blue' : 'Azul'} imgUrl={require('../assets/azul.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("azul", language) }} />
+              <CardGame text={language === 'esp' ? 'Verde' : language === 'ing' ? 'Green' : 'Verde'} imgUrl={require('../assets/verde.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("verde", language) }} />
+              <CardGame text={language === 'esp' ? 'Violeta' : language === 'ing' ? 'Purple' : 'Roxo'} imgUrl={require('../assets/violeta.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("verde", language) }} />
             </View>}
 
           </View>
