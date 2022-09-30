@@ -52,84 +52,105 @@ export default function HomeScreen() {
       case "esp":
         if (audio == 'uno') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/esp/Uno.wav')
+            require('../assets/audios/esp/uno.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'dos') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/esp/Dos.wav')
+            require('../assets/audios/esp/dos.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'tres') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/esp/Tres.wav')
+            require('../assets/audios/esp/tres.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'cuatro') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/esp/Cuatro.wav')
+            require('../assets/audios/esp/cuatro.m4a')
+          );
+          setSound(sound);
+          await sound.playAsync();
+        }
+        if (audio == 'cinco') {
+          const { sound } = await Audio.Sound.createAsync(
+            require('../assets/audios/esp/cinco.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'leon') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/esp/Leon.wav')
+            require('../assets/audios/esp/leon.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'elefante') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/esp/Elefante.wav')
+            require('../assets/audios/esp/elefante.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'cebra') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/esp/Cebra.wav')
+            require('../assets/audios/esp/cebra.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'gorila') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/esp/Gorila.wav')
+            require('../assets/audios/esp/gorila.m4a')
+          );
+          setSound(sound);
+          await sound.playAsync();
+        }
+        if (audio == 'tigre') {
+          const { sound } = await Audio.Sound.createAsync(
+            require('../assets/audios/esp/tigre.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'rojo') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/esp/Rojo.wav')
+            require('../assets/audios/esp/rojo.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'amarillo') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/esp/Amarillo.wav')
+            require('../assets/audios/esp/amarillo.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'azul') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/esp/Azul.wav')
+            require('../assets/audios/esp/azul.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'verde') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/esp/Verde.wav')
+            require('../assets/audios/esp/verde.m4a')
+          );
+          setSound(sound);
+          await sound.playAsync();
+        }
+        if (audio == 'violeta') {
+          const { sound } = await Audio.Sound.createAsync(
+            require('../assets/audios/esp/violeta.m4a')
           );
           setSound(sound);
           await sound.playAsync();
@@ -138,84 +159,105 @@ export default function HomeScreen() {
       case "ing":
         if (audio == 'uno') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/ing/Uno.wav')
+            require('../assets/audios/ing/uno.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'dos') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/ing/Dos.wav')
+            require('../assets/audios/ing/dos.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'tres') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/ing/Tres.wav')
+            require('../assets/audios/ing/tres.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'cuatro') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/ing/Cuatro.wav')
+            require('../assets/audios/ing/cuatro.m4a')
+          );
+          setSound(sound);
+          await sound.playAsync();
+        }
+        if (audio == 'cinco') {
+          const { sound } = await Audio.Sound.createAsync(
+            require('../assets/audios/ing/cinco.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'leon') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/ing/Leon.wav')
+            require('../assets/audios/ing/leon.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'elefante') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/ing/Elefante.wav')
+            require('../assets/audios/ing/elefante.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'cebra') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/ing/Cebra.wav')
+            require('../assets/audios/ing/cebra.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'gorila') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/ing/Gorila.wav')
+            require('../assets/audios/ing/gorila.m4a')
+          );
+          setSound(sound);
+          await sound.playAsync();
+        }
+        if (audio == 'tigre') {
+          const { sound } = await Audio.Sound.createAsync(
+            require('../assets/audios/ing/tigre.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'rojo') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/ing/Rojo.wav')
+            require('../assets/audios/ing/rojo.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'amarillo') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/ing/Amarillo.wav')
+            require('../assets/audios/ing/amarillo.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'azul') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/ing/Azul.wav')
+            require('../assets/audios/ing/azul.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'verde') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/ing/Verde.wav')
+            require('../assets/audios/ing/verde.m4a')
+          );
+          setSound(sound);
+          await sound.playAsync();
+        }
+        if (audio == 'violeta') {
+          const { sound } = await Audio.Sound.createAsync(
+            require('../assets/audios/ing/violeta.m4a')
           );
           setSound(sound);
           await sound.playAsync();
@@ -224,84 +266,105 @@ export default function HomeScreen() {
       case "por":
         if (audio == 'uno') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/por/Uno.wav')
+            require('../assets/audios/por/uno.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'dos') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/por/Dos.wav')
+            require('../assets/audios/por/dos.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'tres') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/por/Tres.wav')
+            require('../assets/audios/por/tres.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'cuatro') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/por/Cuatro.wav')
+            require('../assets/audios/por/cuatro.m4a')
+          );
+          setSound(sound);
+          await sound.playAsync();
+        }
+        if (audio == 'cinco') {
+          const { sound } = await Audio.Sound.createAsync(
+            require('../assets/audios/por/cinco.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'leon') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/por/Leon.wav')
+            require('../assets/audios/por/leon.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'elefante') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/por/Elefante.wav')
+            require('../assets/audios/por/elefante.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'cebra') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/por/Cebra.wav')
+            require('../assets/audios/por/cebra.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'gorila') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/por/Gorila.wav')
+            require('../assets/audios/por/gorila.m4a')
+          );
+          setSound(sound);
+          await sound.playAsync();
+        }
+        if (audio == 'tigre') {
+          const { sound } = await Audio.Sound.createAsync(
+            require('../assets/audios/por/tigre.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'rojo') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/por/Rojo.wav')
+            require('../assets/audios/por/rojo.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'amarillo') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/por/Amarillo.wav')
+            require('../assets/audios/por/amarillo.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'azul') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/por/Azul.wav')
+            require('../assets/audios/por/azul.m4a')
           );
           setSound(sound);
           await sound.playAsync();
         }
         if (audio == 'verde') {
           const { sound } = await Audio.Sound.createAsync(
-            require('../assets/audios/por/Verde.wav')
+            require('../assets/audios/por/verde.m4a')
+          );
+          setSound(sound);
+          await sound.playAsync();
+        }
+        if (audio == 'violeta') {
+          const { sound } = await Audio.Sound.createAsync(
+            require('../assets/audios/por/violeta.m4a')
           );
           setSound(sound);
           await sound.playAsync();
@@ -419,21 +482,21 @@ export default function HomeScreen() {
               <CardGame text={language === 'esp' ? 'Dos' : language === 'ing' ? 'Two' : 'Dois'} imgUrl={require('../assets/dos.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("dos", language) }} />
               <CardGame text={language === 'esp' ? 'Tres' : language === 'ing' ? 'Three' : 'Três'} imgUrl={require('../assets/tres.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("tres", language) }} />
               <CardGame text={language === 'esp' ? 'Cuatro' : language === 'ing' ? 'Four' : 'Quatro'} imgUrl={require('../assets/cuatro.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("cuatro", language) }} />
-              <CardGame text={language === 'esp' ? 'Cinco' : language === 'ing' ? 'Cinco' : 'Cinco'} imgUrl={require('../assets/cinco.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("cuatro", language) }} />
+              <CardGame text={language === 'esp' ? 'Cinco' : language === 'ing' ? 'Cinco' : 'Cinco'} imgUrl={require('../assets/cinco.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("cinco", language) }} />
             </View>}
             {topic === 'animales' && <View>
               <CardGame text={language === 'esp' ? 'Leon' : language === 'ing' ? 'Lion' : 'Leão'} imgUrl={require('../assets/leon.png')} imgStyle={styles.imgStyle} cardStyle={styles.cardStyle} textStyle={styles.textStyle} onPress={() => { playSound("leon", language) }} />
               <CardGame text={language === 'esp' ? 'Gorila' : language === 'ing' ? 'Gorilla' : 'Gorila'} imgUrl={require('../assets/gorila.png')} imgStyle={styles.imgStyle} cardStyle={styles.cardStyle} textStyle={styles.textStyle} onPress={() => { playSound("gorila", language) }} />
               <CardGame text={language === 'esp' ? 'Cebra' : language === 'ing' ? 'Zebra' : 'Zebra'} imgUrl={require('../assets/cebra.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("cebra", language) }} />
               <CardGame text={language === 'esp' ? 'Elefante' : language === 'ing' ? 'Elephant' : 'Elefante'} imgUrl={require('../assets/elefante.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("elefante", language) }} />
-              <CardGame text={language === 'esp' ? 'Tigre' : language === 'ing' ? 'Tiger' : 'Tigre'} imgUrl={require('../assets/tigre.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("elefante", language) }} />
+              <CardGame text={language === 'esp' ? 'Tigre' : language === 'ing' ? 'Tiger' : 'Tigre'} imgUrl={require('../assets/tigre.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("tigre", language) }} />
             </View>}
             {topic === 'colores' && <View>
               <CardGame text={language === 'esp' ? 'Amarillo' : language === 'ing' ? 'Yellow' : 'Amarelo'} imgUrl={require('../assets/amarillo.png')} imgStyle={styles.imgStyle} cardStyle={styles.cardStyle} textStyle={styles.textStyle} onPress={() => { playSound("amarillo", language) }} />
               <CardGame text={language === 'esp' ? 'Rojo' : language === 'ing' ? 'Red' : 'Vermelho'} imgUrl={require('../assets/rojo.png')} imgStyle={styles.imgStyle} cardStyle={styles.cardStyle} textStyle={styles.textStyle} onPress={() => { playSound("rojo", language) }} />
               <CardGame text={language === 'esp' ? 'Azul' : language === 'ing' ? 'Blue' : 'Azul'} imgUrl={require('../assets/azul.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("azul", language) }} />
               <CardGame text={language === 'esp' ? 'Verde' : language === 'ing' ? 'Green' : 'Verde'} imgUrl={require('../assets/verde.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("verde", language) }} />
-              <CardGame text={language === 'esp' ? 'Violeta' : language === 'ing' ? 'Purple' : 'Roxo'} imgUrl={require('../assets/violeta.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("verde", language) }} />
+              <CardGame text={language === 'esp' ? 'Violeta' : language === 'ing' ? 'Purple' : 'Roxo'} imgUrl={require('../assets/violeta.png')} cardStyle={styles.cardStyle} imgStyle={styles.imgStyle} textStyle={styles.textStyle} onPress={() => { playSound("violeta", language) }} />
             </View>}
           </View>
         </View>
@@ -509,21 +572,21 @@ export default function HomeScreen() {
               <CardGame text={language === 'esp' ? 'Dos' : language === 'ing' ? 'Two' : 'Dois'} imgUrl={require('../assets/dos.png')} imgStyle={styles.imgStyleL} cardStyle={styles.cardStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("dos", language) }} />
               <CardGame text={language === 'esp' ? 'Tres' : language === 'ing' ? 'Three' : 'Três'} imgUrl={require('../assets/tres.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("tres", language) }} />
               <CardGame text={language === 'esp' ? 'Cuatro' : language === 'ing' ? 'Four' : 'Quatro'} imgUrl={require('../assets/cuatro.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("cuatro", language) }} />
-              <CardGame text={language === 'esp' ? 'Cinco' : language === 'ing' ? 'Five' : 'Cinco'} imgUrl={require('../assets/cinco.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("cuatro", language) }} />
+              <CardGame text={language === 'esp' ? 'Cinco' : language === 'ing' ? 'Five' : 'Cinco'} imgUrl={require('../assets/cinco.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("cinco", language) }} />
             </View>}
             {topic === 'animales' && <View style={styles.row}>
               <CardGame text={language === 'esp' ? 'Leon' : language === 'ing' ? 'Lion' : 'Leão'} imgUrl={require('../assets/leon.png')} imgStyle={styles.imgStyleL} cardStyle={styles.cardStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("leon", language) }} />
               <CardGame text={language === 'esp' ? 'Gorila' : language === 'ing' ? 'Gorilla' : 'Gorila'} imgUrl={require('../assets/gorila.png')} imgStyle={styles.imgStyleL} cardStyle={styles.cardStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("gorila", language) }} />
               <CardGame text={language === 'esp' ? 'Cebra' : language === 'ing' ? 'Zebra' : 'Zebra'} imgUrl={require('../assets/cebra.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("cebra", language) }} />
               <CardGame text={language === 'esp' ? 'Elefante' : language === 'ing' ? 'Elephant' : 'Elefante'} imgUrl={require('../assets/elefante.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("elefante", language) }} />
-              <CardGame text={language === 'esp' ? 'Tigre' : language === 'ing' ? 'Tiger' : 'Tigre'} imgUrl={require('../assets/tigre.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("elefante", language) }} />
+              <CardGame text={language === 'esp' ? 'Tigre' : language === 'ing' ? 'Tiger' : 'Tigre'} imgUrl={require('../assets/tigre.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("tigre", language) }} />
             </View>}
             {topic === 'colores' && <View style={styles.row}>
               <CardGame text={language === 'esp' ? 'Amarillo' : language === 'ing' ? 'Yellow' : 'Amarelo'} imgUrl={require('../assets/amarillo.png')} imgStyle={styles.imgStyleL} cardStyle={styles.cardStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("amarillo", language) }} />
               <CardGame text={language === 'esp' ? 'Rojo' : language === 'ing' ? 'Red' : 'Vermelho'} imgUrl={require('../assets/rojo.png')} imgStyle={styles.imgStyleL} cardStyle={styles.cardStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("rojo", language) }} />
               <CardGame text={language === 'esp' ? 'Azul' : language === 'ing' ? 'Blue' : 'Azul'} imgUrl={require('../assets/azul.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("azul", language) }} />
               <CardGame text={language === 'esp' ? 'Verde' : language === 'ing' ? 'Green' : 'Verde'} imgUrl={require('../assets/verde.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("verde", language) }} />
-              <CardGame text={language === 'esp' ? 'Violeta' : language === 'ing' ? 'Purple' : 'Roxo'} imgUrl={require('../assets/violeta.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("verde", language) }} />
+              <CardGame text={language === 'esp' ? 'Violeta' : language === 'ing' ? 'Purple' : 'Roxo'} imgUrl={require('../assets/violeta.png')} cardStyle={styles.cardStyleL} imgStyle={styles.imgStyleL} textStyle={styles.textStyleL} onPress={() => { playSound("violeta", language) }} />
             </View>}
 
           </View>
