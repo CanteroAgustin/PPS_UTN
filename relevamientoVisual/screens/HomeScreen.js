@@ -12,12 +12,14 @@ export default function HomeScreen({ navigation }) {
           onPress={() => {
             navigation.navigate('Galeria cosas lindas')
           }}
+          texto={'Cosas lindas'}
         />
         <BotonCosas
           imgSrc={require('../assets/casafeas.png')} disable={false}
           onPress={() => {
             navigation.navigate('Galeria cosas feas')
           }}
+          texto={'Cosas feas'}
         />
       </View>
     </View>
