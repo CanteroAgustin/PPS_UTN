@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState, useContext } from 'react';
-import { StyleSheet, View, TouchableOpacity, Image, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Image, Text, Vibration } from 'react-native';
 
 import { IconButton, InputField } from '../components';
 import Firebase from '../config/firebase';
@@ -8,7 +8,7 @@ import { Gyroscope } from 'expo-sensors';
 import { Audio } from 'expo-av';
 import { Camera } from 'expo-camera';
 import { AuthenticatedUserContext } from '../navigation/AuthenticatedUserProvider';
-import { borderColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
+import { Card } from 'react-native-paper';
 
 const auth = Firebase.auth();
 const db = Firebase.firestore();
@@ -18,8 +18,7 @@ export default function HomeScreen() {
   const { user } = useContext(AuthenticatedUserContext);
   const [hasPermission, setHasPermission] = useState(null);
   const [pass, setPass] = useState("");
-  const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
-  const [type, setType] = useState(Camera.Constants.Type.back);
+  const [flash, setFlash] = useState(false);
   const [alert, setAlert] = useState(false);
   const [passInput, setPassInput] = useState(false);
   let sirenImg = alert ? require('../assets/1.gif') : require('../assets/sirenOff.png');
@@ -47,26 +46,23 @@ export default function HomeScreen() {
   const _subscribe = () => {
     setSubscription(
       Gyroscope.addListener(gyroscopeData => {
-        console.log("Alert en listener: ", alert)
-
-        if (gyroscopeData.z < -2) {
-          console.log("derecha: ", gyroscopeData)
+        if (gyroscopeData.y > 5) {
           playSound('der')
         }
-        if (gyroscopeData.z > 2) {
-          console.log("izquierda ", gyroscopeData)
+        if (gyroscopeData.y < -5) {
           playSound('izq')
         }
-        if (gyroscopeData.x > 2) {
-          console.log("up ", gyroscopeData)
-          playSound('up')
+        if (gyroscopeData.x > 4) {
+          setFlash(true);
+          playSound('up');
+          setTimeout(function () {
+            setFlash(false)
+          }, 5000);
+
         }
         if (gyroscopeData.x < -2) {
-          console.log("down ", gyroscopeData)
-          setFlash(Camera.Constants.FlashMode.torch)
-          setTimeout(() => {
-            setFlash(Camera.Constants.FlashMode.off)
-          }, 5000)
+          Vibration.vibrate(5000)
+          playSound('down')
         }
 
         setData(gyroscopeData);
@@ -97,15 +93,12 @@ export default function HomeScreen() {
   }, [alert]);
 
   useEffect(() => {
-    console.log("user: ", user.uid);
     db.collection("usuarios").doc(user.uid)
       .onSnapshot((doc) => {
-        console.log("Current data: ", doc.data());
         setPass(doc.data().password)
       });
     return sound
       ? () => {
-        console.log('Unloading Sound');
         sound.unloadAsync();
       }
       : undefined;
@@ -135,6 +128,27 @@ export default function HomeScreen() {
       setSound(sound);
       await sound.playAsync();
     }
+    if (audio == 'down') {
+      const { sound } = await Audio.Sound.createAsync(
+        require('../assets/audios/down.m4a')
+      );
+      setSound(sound);
+      await sound.playAsync();
+    }
+    if (audio == 'mal1') {
+      const { sound } = await Audio.Sound.createAsync(
+        require('../assets/audios/mal1.m4a')
+      );
+      setSound(sound);
+      await sound.playAsync();
+    }
+    if (audio == 'mal2') {
+      const { sound } = await Audio.Sound.createAsync(
+        require('../assets/audios/mal2.m4a')
+      );
+      setSound(sound);
+      await sound.playAsync();
+    }
   }
 
   if (hasPermission === null) {
@@ -158,57 +172,71 @@ export default function HomeScreen() {
       <Text style={styles.titulo}>
         🚨 Alarma de robo 🚨
       </Text>
-      <View style={styles.alarmContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            if (!alert) {
-              setAlert(true);
-            } else {
-              setPassInput(true)
-            }
-          }}
-        >
-          <Image
-            style={alert ? styles.alarma : styles.alarmaOff}
-            source={sirenImg}
-          />
-        </TouchableOpacity>
-      </View>
-      {(passInput) ?
-        <View>
-          <InputField
-            inputStyle={{
-              fontSize: 14,
-            }}
-            containerStyle={{
-              backgroundColor: '#f0e7c5',
-              marginTop: 20
-            }}
-            placeholder='Enter password'
-            autoCapitalize='none'
-            autoCorrect={false}
-            textContentType='password'
-            onChangeText={async text => {
-              if (pass === text) {
-                setAlert(false);
-                setPassInput(false);
-              }
-              console.log("text: ", text)
-              console.log("pass: ", pass)
-            }}
-          />
-          <Text style={styles.avisoCancelamiento}> ⚠ Ingrese la misma contraseña con la que se registro para cancelar la alarma.</Text>
-        </View>
+      <TouchableOpacity onPress={() => {
+        if (!alert) {
+          setAlert(true);
+        } else {
+          setPassInput(true)
+        }
+      }}>
+        <Card style={alert ? styles.card : styles.cardOff}>
+          <Card.Title />
+          <View style={styles.alarmContainer}>
+            <Image
+              style={alert ? styles.alarma : styles.alarmaOff}
+              source={sirenImg}
+            />
+          </View>
+          {(passInput) ?
+            <View>
+              <InputField
+                inputStyle={{
+                  fontSize: 14,
+                }}
+                containerStyle={{
+                  backgroundColor: '#f0e7c5',
+                  marginTop: 20
+                }}
+                placeholder='Ingrese la contraseña'
+                autoCapitalize='none'
+                autoCorrect={false}
+                textContentType='password'
+                onChangeText={async text => {
+                  if (pass === text) {
+                    setAlert(false);
+                    setPassInput(false);
+                  } else if (text.length === 6) {
+                    setFlash(true)
+                    setTimeout(() => {
+                      setFlash(false)
+                    }, 5000)
+                    Vibration.vibrate(5000)
+                    playSound('mal1');
+                    setTimeout(() => {
+                      playSound('mal2');
+                    }, 4000)
+                  };
+                }}
+              />
+              <Text style={styles.avisoCancelamiento}> ⚠ Ingrese la misma contraseña con la que se registro para cancelar la alarma.</Text>
+            </View>
+            : null}
+          <Card.Actions>
+          </Card.Actions>
+        </Card>
+      </TouchableOpacity>
+      {!passInput ?
+        <Text style={styles.avisoCancelamiento}> ⚠ Toque una vez el dibujo de la sirena para encender la alarma y otra vez para apagarla.</Text>
         : null}
-      {/* <View style={styles.container}>
-        <Text style={styles.text}>Gyroscope:</Text>
-        <Text style={styles.text}>
-          x: {round(x)} y: {round(y)} z: {round(z)}
-        </Text>
-      </View> */}
       <View style={styles.container}>
-        <Camera style={styles.camera} type={type} flashMode={flash}>
-
+        <Camera
+          style={{ width: 1, height: 1, marginBottom: 500, marginLeft: 90 }}
+          flashMode={flash ? Camera.Constants.FlashMode.torch : Camera.Constants.FlashMode.off}
+        >
+          <View>
+            <TouchableOpacity onPress={() => this.setState({ flashMode: !this.state.flashMode })}>
+            </TouchableOpacity>
+          </View>
         </Camera>
       </View>
     </View>
@@ -230,8 +258,8 @@ const styles = StyleSheet.create({
     padding: 5,
     marginTop: 10,
     textAlign: 'center',
-    color: '#b9935a',
-    borderColor: '#b9935a',
+    color: '#86A1A8',
+    borderColor: '#86A1A8',
     fontSize: 15
   },
   titulo: {
@@ -290,12 +318,12 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   alarma: {
-    height: 205,
-    width: 162
+    height: 285,
+    width: 242
   },
   alarmaOff: {
-    height: 178,
-    width: 132
+    height: 258,
+    width: 190
   },
   alarmContainer: {
     alignItems: 'center',
@@ -325,4 +353,14 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderColor: '#ccc',
   },
+  card: {
+    height: 400,
+    borderRadius: 20,
+    backgroundColor: '#BBEDBE',
+  },
+  cardOff: {
+    height: 400,
+    borderRadius: 20,
+    backgroundColor: '#F1B9AC',
+  }
 });
