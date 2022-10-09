@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { Button, ErrorMessage, IconButton, InputField } from '../components';
+import { ErrorMessage, IconButton, InputField } from '../components';
 import Firebase from '../config/firebase';
 import { loginValidationSchema } from '../schemas/loginSchema';
 import { RadioButton } from 'react-native-paper';
@@ -177,9 +177,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12
   },
   titleContainer: {
-    flex: 1,
+    flex: 0,
     flexDirection: 'row',
-    padding: 50,
+    padding: 20,
     justifyContent: 'space-between'
   },
   title: {

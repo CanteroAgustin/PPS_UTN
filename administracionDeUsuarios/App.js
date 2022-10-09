@@ -2,6 +2,11 @@ import { StyleSheet } from 'react-native';
 import Routes from './navigation';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { decode, encode } from 'base-64'
+
+if (!global.btoa) { global.btoa = encode }
+
+if (!global.atob) { global.atob = decode }
 
 SplashScreen.preventAutoHideAsync()
   .catch(console.warn);

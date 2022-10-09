@@ -28,7 +28,7 @@ const IconButton = ({ color, size, onPress, name, disabled, backgroundColor = 't
 
 const styles = StyleSheet.create({
   base: {
-    alignSelf: 'center',
+    alignSelf: 'flex-end',
     borderRadius: 100,
     marginBottom: 24,
     width: 60,

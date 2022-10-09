@@ -1,13 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { Formik, useFormikContext } from 'formik';
 import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ErrorMessage, IconButton, InputField } from '../components';
 import Firebase from '../config/firebase';
 import { signupValidationSchema } from '../schemas/signupSchema';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 const auth = Firebase.auth();
+const db = Firebase.firestore();
 
 export default function SignupScreen({ navigation }) {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
@@ -46,17 +47,20 @@ export default function SignupScreen({ navigation }) {
             setIsLoading(true);
             auth.createUserWithEmailAndPassword(values.email, values.password)
               .then(() => {
+                db.collection('usuarios').add({
+                  email: values.email,
+                  password: values.password,
+                  rol: 'admin'
+                });
                 setTimeout(() => {
                   setIsLoading(false);
                   resetForm();
                 }, 3000)
               })
               .catch(error => {
-                setTimeout(() => {
-                  resetForm();
-                  setIsLoading(false);
-                  setSignupError(error);
-                }, 3000)
+                resetForm();
+                setIsLoading(false);
+                setSignupError(error);
               });
           }
         }}>
@@ -163,11 +167,12 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   titleContainer: {
-    flex: 1,
+    flex: 0,
     flexDirection: 'row',
-    padding: 50,
+    padding: 20,
     justifyContent: 'space-between'
-  }, spinnerTextStyle: {
+  },
+  spinnerTextStyle: {
     color: '#1c8155',
   }
 });
