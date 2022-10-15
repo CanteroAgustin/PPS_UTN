@@ -24,8 +24,6 @@ export const signupValidationSchema = yup.object().shape({
     .string()
     .min(6, ({ min }) => `❗❗❗ La contraseña debe tener al menos ${min} caracteres`)
     .required('❗❗❗ La contraseña es requerida'),
-  passwordConfirmation: yup
-    .string()
-    .min(6, ({ min }) => `❗❗❗ La contraseña debe tener al menos ${min} caracteres`)
-    .required('❗❗❗ La contraseña es requerida')
+  passwordConfirmation: yup.string()
+    .oneOf([yup.ref('password'), null], 'La contraseña debe coincidir')
 })

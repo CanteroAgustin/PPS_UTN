@@ -63,7 +63,7 @@ export default function SignupScreen({ navigation }) {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [3, 3],
+      aspect: [1, 1],
       quality: 1,
     })
 
@@ -146,7 +146,7 @@ export default function SignupScreen({ navigation }) {
                         lastName: values.lastName,
                         dni: values.dni,
                         createdAt: now,
-                        rol: 'user',
+                        rol: 'usuario',
                         photoUrl: url,
                         id: data.user.uid
                       });
