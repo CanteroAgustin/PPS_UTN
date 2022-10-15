@@ -6,19 +6,27 @@ import Firebase from '../config/firebase';
 import { AuthenticatedUserContext } from './AuthenticatedUserProvider';
 import AuthStack from './AuthStack';
 import HomeStack from './HomeStack';
-import SplashScreen from '../screens/SplashScreen';
 
 const auth = Firebase.auth();
+const db = Firebase.firestore();
 
 export default function RootNavigator() {
   const { user, setUser } = useContext(AuthenticatedUserContext);
   const [isLoading, setIsLoading] = useState(true);
 
+  const setCompleteUser = (loggedUser) => {
+    db.collection("users").doc(loggedUser.uid)
+      .onSnapshot((doc) => {
+        setUser({ ...doc.data() })
+      });
+  }
+
   useEffect(() => {
     // onAuthStateChanged returns an unsubscriber
     const unsubscribeAuth = auth.onAuthStateChanged(async authenticatedUser => {
       try {
-        await (authenticatedUser ? setUser(authenticatedUser) : setUser(null));
+        await (authenticatedUser ? setCompleteUser(authenticatedUser) : setUser(null));
+
         setIsLoading(false);
       } catch (error) {
         console.log(error);

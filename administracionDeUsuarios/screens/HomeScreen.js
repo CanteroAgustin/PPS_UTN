@@ -1,84 +1,104 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useContext } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
-import { IconButton } from '../components';
+import React, { useContext, useState, useEffect, useLayoutEffect } from 'react';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
 import Firebase from '../config/firebase';
 import { AuthenticatedUserContext } from '../navigation/AuthenticatedUserProvider';
+import { DataTable } from 'react-native-paper';
 
-const auth = Firebase.auth();
-
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   const { user } = useContext(AuthenticatedUserContext);
-  const handleSignOut = async () => {
-    try {
-      await auth.signOut();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [users, setUsers] = useState([]);
+  const db = Firebase.firestore();
+
+  useLayoutEffect(() => {
+    const unsubscribe = db.collection('users').orderBy('createdAt', 'desc').onSnapshot(snapshot => setUsers(
+      snapshot.docs.map(doc => ({
+        _id: doc.data()._id,
+        createdAt: doc.data().createdAt,
+        name: doc.data().name,
+        lastName: doc.data().lastName,
+        dni: doc.data().dni,
+        photoUrl: doc.data().photoUrl
+      }))
+    ))
+    return unsubscribe;
+  }, [])
+
   return (
-    <View style={styles.container}>
-      <StatusBar style='dark-content' />
-      <View style={styles.row}>
-        <IconButton
-          name='logout'
-          size={24}
-          color='#757ce8'
-          onPress={handleSignOut}
-        />
-      </View>
-      <Text style={styles.title}>Bienvenido {user.email}!</Text>
-      <Text style={styles.title}>Este es el primer ejercicio para la materia Practica profesional supervisada</Text>
-      <View style={styles.textContainer}>
-        <Text style={styles.subTitle}>Este ejercicio se lo realice utilizando react native, expo y firebase.</Text>
-        <Text style={styles.subTitle}>Con este ejercicio se practico: extructura de projecto react, ruteo en react native, componentes basicos de react native, coneccion con firebase, configuracion de variables de entorno, estilos basicos, compilacion, entorno de desarrollo y generacion de apk.</Text>
-      </View>
-      <Text style={styles.text}>Tu UID es: {user.uid} </Text>
-      <Text style={styles.textBottom}>*(Si queres deslogearte, presiona el icono arriba a la derecha.)</Text>
+
+    <View style={styles.scrollView}>
+      <ScrollView horizontal contentContainerStyle={styles.scrollViewContainer}>
+
+        <DataTable>
+          <DataTable.Header>
+            <DataTable.Title style={styles.cellPhotoStyle}></DataTable.Title>
+            <DataTable.Title style={styles.cellFlex2Style}>Nombre</DataTable.Title>
+            <DataTable.Title style={styles.cellFlex2Style}>Apellido</DataTable.Title>
+            <DataTable.Title style={styles.cellFlex2Style}>DNI</DataTable.Title>
+            <DataTable.Title style={styles.cellFlex2Style}>F. Creacion</DataTable.Title>
+          </DataTable.Header>
+
+          {users.map((user) => {
+            return (
+              <DataTable.Row key={JSON.stringify(user)} style={styles.rowStyle}>
+                <DataTable.Cell style={styles.cellPhotoStyle} textStyle={styles.dataTableTextStyle}>
+                  {user.photoUrl ? <Image style={styles.photo} source={{ uri: user.photoUrl }} /> : null}
+                </DataTable.Cell>
+                <DataTable.Cell style={styles.cellFlex2Style}>{user.name}</DataTable.Cell>
+                <DataTable.Cell style={styles.cellFlex2Style}>{user.lastName}</DataTable.Cell>
+                <DataTable.Cell style={styles.cellFlex2Style}>{user.dni}</DataTable.Cell>
+                <DataTable.Cell style={styles.cellFlex2Style}>{user.createdAt.toLocaleString()}</DataTable.Cell>
+              </DataTable.Row>
+            );
+          })}
+        </DataTable>
+      </ScrollView>
+      {(user.rol === 'admin') ?
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Nuevo usuario');
+          }}
+          style={styles.btnNewUser} >
+          <Text style={styles.btnNewUserTextStyle}>Nuevo usuario</Text>
+        </TouchableOpacity>
+        : null
+      }
     </View>
+
+
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#e8eaf6',
-    paddingTop: 50,
-    paddingHorizontal: 12
+  btnNewUserTextStyle: {
+    backgroundColor: '#17a2b8',
+    borderRadius: 5,
+    height: 50,
+    margin: 20,
+    textAlign: 'center',
+    fontSize: 34,
+    color: 'white'
   },
-  row: {
-    padding: 20,
-    alignItems: 'flex-end',
-    marginBottom: 24
+  btnNewUser: {
   },
-  title: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: '#000',
-    paddingBottom: 20
+  cellFlex2Style: {
+    flex: 4,
+    width: 150
   },
-  subTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#000',
+  cellPhotoStyle: {
+    width: 60,
+    height: 60
   },
-  text: {
-    fontSize: 16,
-    fontWeight: 'normal',
-    color: '#000'
+  scrollView: {
   },
-  textBottom: {
-    marginTop: 250,
-    fontSize: 12,
-    fontWeight: 'normal',
-    color: 'gray',
-    marginBottom: 0
+  scrollViewContainer: {
   },
-  textContainer: {
-    borderWidth: 1,
-    borderStyle: 'dashed',
-    padding: 5,
-    marginBottom: 20
+  photo: {
+    width: 50,
+    height: 50,
+  },
+  rowStyle: {
+    height: 75
+  },
+  dataTableTextStyle: {
   }
 });

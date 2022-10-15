@@ -6,8 +6,6 @@ import Firebase from '../config/firebase';
 import { AuthenticatedUserContext } from '../navigation/AuthenticatedUserProvider';
 import es from 'dayjs/locale/es'
 
-const auth = Firebase.auth();
-
 export default function ChatA() {
   const { user } = useContext(AuthenticatedUserContext);
   const [messages, setMessages] = useState([]);
@@ -34,7 +32,6 @@ export default function ChatA() {
       text,
       user
     } = messages[0]
-    console.log('guardando: ' + "id: " + _id + "createdAt: " + createdAt + "text: " + text + "user: " + user)
     db.collection('chatsa').add({
       _id,
       createdAt,
@@ -48,7 +45,7 @@ export default function ChatA() {
       <StatusBar style='dark-content' />
       <GiftedChat
         locale={es}
-        timeFormat='LLL'
+        timeFormat='LLL LTS'
         placeholder='Escriba un mensaje'
         maxInputLength={21}
         textInputStyle={styles.textInputStyle}

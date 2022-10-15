@@ -17,7 +17,7 @@ export default function App() {
   useEffect(() => {
     setTimeout(async () => {
       await SplashScreen.hideAsync();
-    }, 2000);
+    }, 900);
   }, [])
   return Routes();
 }

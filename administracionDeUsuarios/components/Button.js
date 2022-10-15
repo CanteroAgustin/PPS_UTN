@@ -1,15 +1,21 @@
 import React from 'react';
-import { StyleSheet, Pressable, Text } from 'react-native';
+import { StyleSheet, Pressable, Text, Image } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Button = ({
   title,
+  iconColor = '#000',
   backgroundColor = '#000',
   titleColor = '#fff',
   titleSize = 14,
   onPress,
   width = '100%',
   containerStyle,
-  disabled
+  disabled,
+  image,
+  leftIcon,
+  textStyle,
+  imageStyle,
 }) => {
   return (
     <Pressable
@@ -39,17 +45,23 @@ const Button = ({
         ];
       }}
     >
-      <Text style={[styles.text, { color: titleColor, fontSize: titleSize }]}>
+      {leftIcon ? (
+        <MaterialCommunityIcons
+          name={leftIcon}
+          size={20}
+          color={iconColor}
+          style={styles.leftIcon}
+        />
+      ) : null}
+      <Text style={[textStyle, { color: titleColor, fontSize: titleSize }]}>
         {title}
       </Text>
+      {image && <Image value={image} source={{ uri: image }} style={imageStyle} />}
     </Pressable >
   );
 };
 
 const styles = StyleSheet.create({
-  text: {
-    fontWeight: '600'
-  },
   base: {
     alignItems: 'center',
     justifyContent: 'center',

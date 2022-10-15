@@ -50,6 +50,7 @@ export default function ChatB() {
         timeFormat='LLL'
         placeholder='Escriba un mensaje'
         maxInputLength={21}
+        textInputStyle={styles.textInputStyle}
         messages={messages}
         showAvatarForEveryMessage={true}
         onSend={messages => onSend(messages)}

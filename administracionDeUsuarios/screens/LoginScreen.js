@@ -10,7 +10,7 @@ import SegmentedControl from '@react-native-segmented-control/segmented-control'
 
 const auth = Firebase.auth();
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen() {
   const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [rightIcon, setRightIcon] = useState('eye');
   const [loginError, setLoginError] = useState('');
@@ -37,17 +37,8 @@ export default function LoginScreen({ navigation }) {
     <View style={styles.container}>
       <StatusBar style='dark-content' />
       <Text style={styles.title}>Ingreso</Text>
-      {/* {(isLoading) ?
-        <ActivityIndicator size='large' color="#bc2b78" style={styles.activityIndicator} /> : null} */}
       {(isLoading) ?
         <Progress.Pie size={60} indeterminate={true} style={styles.spinner} color='#17a2b8' /> : null}
-      {/* <Spinner
-        size='large'
-        visible={isLoading}
-        textContent={'Loading...'}
-        textStyle={styles.spinnerTextStyle}
-        animation='slide'
-      /> */}
       <Formik
         validationSchema={loginValidationSchema}
         initialValues={{ email: '', password: '' }}
@@ -121,78 +112,6 @@ export default function LoginScreen({ navigation }) {
                   marginBottom: 24
                 }}
                 disabled={!props.isValid && !isMockLogin} />
-              <View style={styles.inline}>
-                <Text style={styles.textButton}>No tengo una cuenta, </Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    props.resetForm();
-                    setLoginError('');
-                    navigation.navigate('Signup');
-                  }}
-                >
-                  <Text style={styles.textButtonLink}>Registrarme.</Text>
-                </TouchableOpacity>
-              </View>
-
-              {/* <View style={styles.buttonsContainer}>
-                <Button
-                  onPress={() => {
-                    props.resetForm();
-                    setLoginError('')
-                    props.setFieldValue('email', 'administrador@prueba.com');
-                    props.setFieldValue('password', '123456')
-                    setIsMockLogin(true);
-                  }}
-                  title='* Prueba Administrador *'
-                  backgroundColor='#e8eaf6'
-                  titleSize={24}
-                  titleColor='#17a2b8'
-                  textStyle={{
-                    textAlign: 'center'
-                  }}
-                  containerStyle={{
-                    height: 90
-                  }}
-                />
-                <Button
-                  onPress={() => {
-                    props.resetForm();
-                    setLoginError('')
-                    props.setFieldValue('email', 'prueba@prueba.com');
-                    props.setFieldValue('password', '123456')
-                    setIsMockLogin(true);
-                  }}
-                  title='* Prueba usuario *'
-                  backgroundColor='#e8eaf6'
-                  titleSize={24}
-                  titleColor='#17a2b8'
-                  textStyle={{
-                    textAlign: 'center'
-                  }}
-                  containerStyle={{
-                    height: 90,
-                  }}
-                />
-                <Button
-                  onPress={() => {
-                    props.resetForm();
-                    setLoginError('')
-                    props.setFieldValue('email', 'prueba1@prueba.com');
-                    props.setFieldValue('password', '123456')
-                    setIsMockLogin(true);
-                  }}
-                  title='* Prueba desarrollador *'
-                  backgroundColor='#e8eaf6'
-                  titleSize={24}
-                  titleColor='#17a2b8'
-                  textStyle={{
-                    textAlign: 'center'
-                  }}
-                  containerStyle={{
-                    height: 90
-                  }}
-                />
-              </View> */}
             </View>
             <SegmentedControl
               style={{ "height": 50 }}
